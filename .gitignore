@@ -18,9 +18,12 @@
 
 # Libraries
 *.lib
-*.a
 *.la
 *.lo
+
+# Text files
+*.xml
+*.iml
 
 # Shared objects (inc. Windows DLLs)
 *.dll
