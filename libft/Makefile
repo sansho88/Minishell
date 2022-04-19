@@ -6,7 +6,8 @@
 #   By: tgriffit <tgriffit@student.42lyon.fr>      +#+  +:+       +#+        #
 #                                                +#+#+#+#+#+   +#+           #
 #   Created: 2021/11/10 17:13:35 by tgriffit          #+#    #+#             #
-#   Updated: 202#   Updated: 2021/11/23 18:52:38 by tgriffit         ###   ########.fr       #                                                              #
+#   Updated: 202#    Updated: 2022/04/19 18:01:28 by tgriffit         ###   ########.fr        #
+                                                           #
 # ************************************************************************** #
 
 NAME = libft.a
