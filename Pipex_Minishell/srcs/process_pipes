@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_pipes.c                                    :+:      :+:    :+:   */
+/*   process_pipes                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 10:24:24 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/20 13:40:14 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/04/20 17:30:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ void	end_process(int	*tube, t_args	*p)
 
 void	pipe_conditions(int *tube, int	*temp_tube, t_args *p, int nb)
 {
-	/*if (nb == 1)
+	if (nb == 1)
 	{
 			//start_process(tube, temp_tube, p);
-	}*/
+	}
 	if (nb == p->argc - 2)
 		end_process (tube, p);
 	else
 		progress_process (tube, temp_tube);
 }
 
-int	process_pipe(t_args *p, int nb, int *tube, int	*temp_tube)
+int	mod_process_pipe(t_args *p, int nb, int *tube, int	*temp_tube)
 {
 	char	**args;
 	int i;

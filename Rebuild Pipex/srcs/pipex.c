@@ -6,11 +6,39 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:30:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/20 14:41:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/04/20 17:48:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../incs/pipex.h"
+
+char	**path(char	**env)
+{
+	int		i;
+	int		j;
+	char	**result;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	while (env[i])
+	{
+		if (ft_memcmp(env[i], "PATH=", 5) == 0)
+		{
+			result = ft_split(&env[i][5], ':');
+			while (result[j])
+			{
+				temp = result[j];
+				result[j] = ft_strjoin(result[j], "/");
+				free(temp);
+				j++;
+			}
+			return (result);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 int	main(int argc, char *argv[], char *env[])
 {

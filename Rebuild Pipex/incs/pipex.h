@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:06:18 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/20 11:55:21 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/04/20 17:28:36 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_arguments
 	int		argc;
 	pid_t	*pid;
 	int		j;
+	int		acutal_arg;
 }				t_args;
 
 char	**ft_split(char const *s, char c);
@@ -43,7 +44,7 @@ int		child_generator(int *tube, int	*temp_tube, int i, t_args *p);
 int		care_child(t_args *p, int nb, int *tube, int	*temp_tube);
 char	*ft_strdup(const char *src);
 void	execute(t_args *p, char **args, int nb);
-int		process_pipe(t_args *p, int nb, int *tube, int	*temp_tube);
+int		process_pipe(t_args *d, int *tube, int *temp_tube);
 void	fork_process(t_args *p);
 int		ft_dup2(int a, int b);
 
