@@ -55,3 +55,6 @@ Mkfile.old
 dkms.conf
 
 cmake-build-debug/
+
+# TRUE FILES BUT TEST ONES
+nigga-tests.c
