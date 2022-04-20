@@ -1,7 +1,7 @@
 NAME	:=	pipex
 
 CC	:= gcc
-CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	:=	-Wall -Wextra
 
 DIR_SRCS	:=	srcs
 DIR_OBJS	:=	.objs

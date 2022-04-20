@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/20 12:50:06 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/04/20 13:35:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	execute(t_args *p, char **args, int nb)
 	char	*tmp;
 	int		j;
 
+	dprintf(1, "test");
 	j = 0;
 	/*
 		Vérifie tout les path + fonction et check si c'est executable, si oui, execute, "sinon invalid path"
@@ -133,10 +134,5 @@ int	ft_dup2(int a, int b)
 	int	fd;
 
 	fd = dup2(a, b);
-	if (fd == -1)
-	{
-		perror("error");
-		exit(EXIT_FAILURE);
-	}
 	return (fd);
 }
