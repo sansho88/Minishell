@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/04/19 18:05:26 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:49:41 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <readline/history.h>
 
 // FUNCTIONS
+
+void	rl_clear_history(void);
 
 // COLORS
 # define BBLU	"\033[1;34m"

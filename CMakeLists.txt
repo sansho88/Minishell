@@ -6,4 +6,4 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(Minishell
-        nigga-tests.c minishell.h)
+        minishell.h)
