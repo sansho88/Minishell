@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/20 18:07:50 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/04/21 09:19:35 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,10 @@ int	ft_dup2(int a, int b)
 	int	fd;
 
 	fd = dup2(a, b);
+	if (fd == -1)
+	{
+		perror("dup error");
+		exit(EXIT_FAILURE);
+	}
 	return (fd);
 }
