@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/21 10:35:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/04/21 11:04:54 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	make_fork(int *tube, int *temp_tube, t_args *d)
 	int i;
 
 	i = 0;
-
+	if (pipe(temp_tube) == -1)
+		perror("pipe is riped\n");
 	d->pid[d->j] = fork();
 	if (d->pid[d->j] == -1)
 	{
@@ -61,8 +62,8 @@ void	fork_process(t_args *d)
 	int	status;
 	int	i;
 
-	pipe(tube);
-	pipe(temp_tube);
+	//pipe(tube);
+	//pipe(temp_tube);
 	d->acutal_arg = 1;
 	d->j = 0;
 	while (d->acutal_arg <= d->argc - 1)
@@ -74,9 +75,9 @@ void	fork_process(t_args *d)
 	i = 0;
 	close(tube[0]);
 	close(tube[1]);
-	while (i < d->argc - 2)
+	/*while (i < d->argc - 3)
 	{
 		waitpid(d->pid[i], &status, 0);
 		i++;
-	}
+	}*/
 }
