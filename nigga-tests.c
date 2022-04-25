@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/04/21 17:01:07 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/04/25 14:26:30 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,30 @@ void	execute(t_args *p, char **args, int nb)
 	}
 }*/
 
+bool	are_quotes_closed(const char *cmdline)
+{
+	size_t	nb_single_quotes;
+	size_t	nb_double_quotes;
+	size_t	i;
+
+	nb_single_quotes = 0;
+	nb_double_quotes = 0;
+	i = 0;
+	while (cmdline[i])
+	{
+		if (cmdline[i] == '"' && nb_single_quotes % 2 == 0)
+			nb_double_quotes++;
+		else if (cmdline[i] == '\'' && nb_double_quotes % 2 == 0)
+			nb_single_quotes++;
+		i++;
+	}
+	if (nb_double_quotes % 2 == 1)
+		ft_putendl_fd("Double-Quotes not closed", 2);
+	if (nb_single_quotes % 2 == 1)
+		ft_putendl_fd("Single-Quotes not closed", 2);
+	return (nb_single_quotes % 2 == 0 && nb_double_quotes % 2 == 0);
+}
+
 bool	check_chenillle_char(char *cmdline, char testchar)
 {
 	char	*charpos;
@@ -114,9 +138,27 @@ bool	is_chars_partouze(char *cmdline)
 
 bool	is_cmdline_ok(char *cmdline)
 {
-	if (is_chars_partouze(cmdline))
+	if (!are_quotes_closed(cmdline))
 		return (false);
+	if (is_chars_partouze(cmdline))
+	{
+		printf("Chars partouze\n");
+		return (false);
+	}
 	return (true);
+}
+
+void	merge_cmd_with_args(char **cmd, size_t nb_args)
+{
+	size_t	i_arg;
+
+	i_arg = 0;
+	while (i_arg < nb_args)
+	{
+		if (ft_strchr(cmd[i_arg], '\"'))
+			ft_strjoin(cmd[i_arg - 1], cmd[i_arg]);
+		i_arg++;
+	}
 }
 
 /**
@@ -130,10 +172,11 @@ char	**parse_command_line(char *cmd, int *nb_args)
 	char	**cmd_split;
 
 	if (ft_strchr(cmd, '|'))
-	cmd_split = ft_split_len(cmd, ' ', nb_args);
+		cmd_split = ft_split_len(cmd, '|', nb_args);
+	else
+		cmd_split = ft_split_len(cmd, ' ', nb_args);
 	if (is_cmdline_ok(cmd))
-		return (NULL); //TODO: to implement
-	//free(cmd);
+		return (cmd_split);
 	while (*nb_args > 0)
 		free(cmd_split[*(--nb_args)]);
 	return (NULL);

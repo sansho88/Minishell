@@ -18,7 +18,7 @@
  *  therefore if c is `\0', the functions locate the terminating `\0'.
  *
  * @return a pointer to the located character, or NULL if the character does not
- * appear in the string.
+ * appear in the string. *NO MALLOC*
  */
 char	*ft_strchr(const char *s, int c)
 {
@@ -33,5 +33,5 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)s + i);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
