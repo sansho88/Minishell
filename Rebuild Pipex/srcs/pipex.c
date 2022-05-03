@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:30:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/21 09:56:20 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/04/26 11:36:42 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,23 @@ char	**path(char	**env)
 	return (NULL);
 }
 
+int	ft_strcmp(const char	*first, const char	*second)
+{
+	size_t	i;
+
+	i = 0;
+	while (first[i] && (unsigned char)first[i] == \
+	(unsigned char)second[i])
+		i++;
+	return ((unsigned char)first[i] - (unsigned char)second[i]);
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_args	data;
 	int i;
-
+	
+	
 	i = 0;
 	data.argv = argv;
 	data.env = env;

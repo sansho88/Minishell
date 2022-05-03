@@ -12,6 +12,7 @@ LST_SRCS	:=	fork_process.c \
 				pipex_utils.c \
 				pipex.c \
 				pipe_process.c \
+				utils.c \
 
 
 LST_OBJS	:=	$(LST_SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:06:18 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/20 20:49:08 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/03 16:24:24 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <sys/types.h>
 # include <string.h>
 # include <fcntl.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_arguments
 {
@@ -46,5 +49,6 @@ void	execute(t_args *p, char **args, int nb);
 int		process_pipe(t_args *d, int *tube, int *temp_tube);
 void	fork_process(t_args *p);
 int		ft_dup2(int a, int b);
+int	ft_strcmp(const char	*first, const char	*second);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/21 11:04:54 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/03 18:57:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	make_fork(int *tube, int *temp_tube, t_args *d)
 		close(tube[0]);
 		close(tube[1]);
 	}
+	
 	tube[0] = temp_tube[0];
 	tube[1] = temp_tube[1];
 }
