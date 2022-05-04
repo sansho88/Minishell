@@ -22,10 +22,11 @@
 
 //Defines
 # define NOT_REDIR 0
-# define REDIR_TO_OUT 1
-# define CONCAT_TO_OUT 2
-# define REDIR_TO_IN 3
-# define CONCAT_TO_IN 4
+# define PIPE 1
+# define REDIR_TO_OUT 2
+# define CONCAT_TO_OUT 3
+# define REDIR_TO_IN 4
+# define CONCAT_TO_IN 5
 
 //Structs
 typedef struct s_argmode{
