@@ -58,3 +58,4 @@ cmake-build-debug/
 
 # TRUE FILES BUT TEST ONES
 nigga-tests.c
+/cmake-build-debug/
