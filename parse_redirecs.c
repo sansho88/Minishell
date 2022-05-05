@@ -45,7 +45,9 @@ int	ft_check_redir(const char *cmdline)
 {
 	if (!cmdline)
 		return (NOT_REDIR);
-	if (*cmdline == '>' && *(cmdline + 1) && *(cmdline + 1) != '>')
+	if (*cmdline == '|' && *(cmdline + 1))
+		return (PIPE);
+	else if (*cmdline == '>' && *(cmdline + 1) && *(cmdline + 1) != '>')
 		return (REDIR_TO_OUT);
 	else if (*cmdline == '>' && *(cmdline + 1) && *(cmdline + 1) == '>')
 		return (CONCAT_TO_OUT);
@@ -93,9 +95,10 @@ t_argmode	*split_arg_redirect(char *cmdline, int *argc)
 		if (ft_check_redir(cmdline + i) != 0)
 		{
 			res[*argc] = ft_fill_argmode_array(cmdline, i);
-			*argc++;
+			(*argc)++;
 		}
-		else if (!ft_strchr(cmdline + i, '>') && !ft_strchr(cmdline + i, '<'))
+		else if (!ft_strchr(cmdline + i, '>') && !ft_strchr(cmdline + i, '<')
+			&& !ft_strchr(cmdline + i, '|'))
 		{
 			res[*argc].arg = cmdline + i;
 			res[*argc].mode = 0;
