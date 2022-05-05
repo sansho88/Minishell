@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/05 14:26:24 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:13:25 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ t_argmode	*split_arg_redirect(char *cmdline, int *argc)
 		if (ft_check_redir(cmdline + i) != 0)
 		{
 			res[*argc] = ft_fill_argmode_array(cmdline, i);
+			//dprintf(1, "res[%d] = %s\n", *argc, res[*argc].arg); //TODO: Fix: arg is empty when redir detected
 			(*argc)++;
 		}
 		else if (!ft_strchr(cmdline + i, '>') && !ft_strchr(cmdline + i, '<')
@@ -102,7 +103,10 @@ t_argmode	*split_arg_redirect(char *cmdline, int *argc)
 		{
 			res[*argc].arg = cmdline + i;
 			res[*argc].mode = 0;
+			(*argc)++;
+			return (res);
 		}
+		
 		i++;
 	}
 	return (res);

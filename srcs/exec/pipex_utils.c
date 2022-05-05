@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/04 17:12:27 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/05 17:06:04 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/pipex.h"
+#include "../../incs/minishell.h"
 
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
@@ -79,7 +79,7 @@ int	ft_memcmp(const void	*po1, const void	*po2, size_t	size)
 	return (0);
 }
 
-size_t	ft_strlen(const char	*str)
+size_t	mod_ft_strlen(const char	*str)
 {
 	int	i;
 
@@ -101,9 +101,11 @@ void	execute(t_args *p, char **args, int nb)
 		Vérifie tout les path + fonction et check si c'est executable, si oui, execute, "sinon invalid path"
 		ex : bin/ls
 	*/
+
 	while (p->path[j])
 	{
 		tmp = ft_strjoin(p->path[j], args[0]);
+		//dprintf(1, "valeur de path[%d] : %s\n", j, p->path[j]);
 		if (access(tmp, F_OK | X_OK) == 0)
 			break ;
 		j++;

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:23:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/03 17:24:19 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/05 15:35:53 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/pipex.h"
+#include "../../incs/minishell.h"
 
 /*int	ft_strcmp(const char	*first, const char	*second)
 {

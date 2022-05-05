@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:30:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/04 19:33:57 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:49:42 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/pipex.h"
+//#include "../../incs/pipex.h"
+#include "../../incs/minishell.h"
 
 char	**path(char	**env)
 {
@@ -51,24 +52,26 @@ int	ft_strcmp(const char	*first, const char	*second)
 	return ((unsigned char)first[i] - (unsigned char)second[i]);
 }
 
-int	main(int argc, char *argv[], char *env[])
+int	exec_home(t_argmode *argv, int argc, char	*env[])
 {
 	t_args	data;
-	
-	data.argv = argv;
-	//dprintf(2, "valeur de argc : %d\n", argc);
-	/*while (i < argc)
+	/*int i;
+
+	i = 0;
+	//data.argv = argv;
+	while (i < argc)
 	{
-		dprintf(2, "valeur de argv : %s\n", data.argv[i]);
+		dprintf(1,"Valeur de argc[%d]%s\n ", i, argv[i].arg);
 		i++;
 	}*/
-	data.env = env;
+	data.env = env; /* I need env variable */
 	data.argc = argc;
 	data.path = path(env);
 	data.pid = malloc(sizeof(int) * argc - 3);
 	if (!data.path)
 		exit(EXIT_FAILURE);
 	fork_process(&data, argv);
+
 	free(data.pid);
 	return (0);
 }

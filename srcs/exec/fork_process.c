@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/04 19:11:24 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/05 16:58:53 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/pipex.h"
+#include "../../incs/minishell.h"
 
 
 /*void	close_wait(t_args *d, int *tube)
@@ -30,7 +30,7 @@
 /*
 	making Forks then doing processpipe in the son process and check tubes in father process
 */
-void	make_fork(int *tube, int *temp_tube, t_args *d, char	*argv[])
+void	make_fork(int *tube, int *temp_tube, t_args *d, t_argmode *argv)
 {
 	int i;
 
@@ -58,7 +58,7 @@ void	make_fork(int *tube, int *temp_tube, t_args *d, char	*argv[])
 }
 
 
-void	fork_process(t_args *d, char	*argv[])
+void	fork_process(t_args *d, t_argmode *argv)
 {
 	int	tube[2];
 	int	temp_tube[2];
@@ -67,17 +67,10 @@ void	fork_process(t_args *d, char	*argv[])
 
 	//pipe(tube);
 	//pipe(temp_tube);
-	d->acutal_arg = 1;
+	d->acutal_arg = 0;
 	d->j = 0;
-	while (d->acutal_arg <= d->argc - 1)
+	while (d->acutal_arg < d->argc)
 	{
-		if (ft_strcmp(argv[d->acutal_arg], ">") == 0)
-		{
-			d->acutal_arg++;
-			d->mod = 1;
-		}
-		else 
-			d->mod = 0;
 		make_fork(tube, temp_tube, d, argv);
 		d->j++;
 		d->acutal_arg++;
@@ -85,7 +78,7 @@ void	fork_process(t_args *d, char	*argv[])
 	i = 0;
 	close(tube[0]);
 	close(tube[1]);
-	while (i < d->argc - 3)
+	while (i < d->argc)
 	{
 		waitpid(d->pid[i], &status, 0);
 		i++;

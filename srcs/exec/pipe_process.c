@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 17:04:07 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/04 19:00:59 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/05 17:10:08 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/pipex.h"
+#include "../../incs/minishell.h"
 /*
 Processus de pipe normal
 */
@@ -48,7 +48,7 @@ void	end_process(int	*tube, int	*temp_tube)
 Les redirections 
 */
 
-void redirection_front(int *tube, int *temp_tube, t_args *d, char	*argv[])
+/*void redirection_front(int *tube, int *temp_tube, t_args *d, t_argmode *argv)
 {
 	int	file;
 
@@ -68,7 +68,7 @@ void redirection_front(int *tube, int *temp_tube, t_args *d, char	*argv[])
 
 }
 
-void	redirection_front_last(int *tube, int *temp_tube, t_args *d, char	*argv[])
+void	redirection_front_last(int *tube, int *temp_tube, t_args *d, t_argmode *argv)
 {
 	int file;
 
@@ -82,21 +82,21 @@ void	redirection_front_last(int *tube, int *temp_tube, t_args *d, char	*argv[])
 	ft_dup2(tube[0], STDIN_FILENO);
 	ft_dup2(file, STDOUT_FILENO);
 	close(file);
-	/*
+
 	close(tube[1]);
 	ft_dup2(tube[0], STDIN_FILENO);
 	close(temp_tube[0]);
 	close(tube[0]);
 	close (temp_tube[1]);
-	*/
+	
 
-}
+} */
 
-void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, char	*argv[])
+void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 {
 	//dprintf(1, "Valeur de actual_arg : %d || Valeur de argc : %d\n", d->acutal_arg, d->argc);
 	//dprintf(2, "valeur de argv : %s\n", d->argv[5]);
-	if (d->acutal_arg == 1)
+	if (d->acutal_arg == 0)
 	{
 		start_process(tube, temp_tube, d);
 	}
@@ -104,45 +104,47 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, char	*argv[])
 	Me donner le nombre d'argument total que je puisse définir le dernier argument
 	Pour le end_process
 	*/
-	else if ( d->mod == 1 && d->acutal_arg == d->argc - 1)
-	{
-		dprintf(2,"entrée last_redirection\n");
-		dprintf(2, "valeur de argv : %s\n", argv[d->acutal_arg]);
+	//else if ( d->mod == 1 && d->acutal_arg == d->argc - 1)
+	//{
+		//dprintf(2,"entrée last_redirection\n");
+		//dprintf(2, "valeur de argv : %s\n", argv[d->acutal_arg]);
 	//	d->acutal_arg++;
-		redirection_front_last(tube, temp_tube, d, argv);
-	}
-	else if (d->mod == 1)
+		//redirection_front_last(tube, temp_tube, d, argv);
+	//}
+	/*else if (d->mod == 1)
 	{
 		dprintf(2,"entrée redirection\n");
 		d->acutal_arg++;
 		redirection_front(tube, temp_tube, d, argv);
-	}
+	}*/
 
-	else if (d->acutal_arg == d->argc - 1)
+	else if (d->acutal_arg == d->argc)
 		end_process (tube, temp_tube);
 	else
 		progress_process (tube, temp_tube);
 }
 
-int	process_pipe(t_args *d, int *tube, int *temp_tube, char	*argv[])
+int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
 {
 	char	**args;
 	int		i;
+	int		argc;
 
 	/* 
 	Dans le cas où il n'y a pas de particularités dans la demande (Pas de pipe, de redirections ..)
 	Il faut créer des conditions fonction de ce qu'on me renvoit (redirections)
 	*/
+	//dprintf(1, "valeur de argv[%d].arg : %s\n \n", d->acutal_arg , argv[d->acutal_arg].arg);
 	pipe_conditions(tube, temp_tube, d, argv);
-	args = ft_split(argv[d->acutal_arg], ' ');
+	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	i = 0;
-	while (args[i])
+	while (i < argc)
 	{
 		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d\n", i, args[i], d->acutal_arg);
 		i++;
 	}
-	if (access(args[0], F_OK | X_OK) == 0)
-		execve(args[0], args, d->env);
+	/*if (access(args[0], F_OK | X_OK) == 0)
+		execve(args[0], args, d->env);*/
 	execute(d, args, d->acutal_arg);
 	exit(EXIT_FAILURE);
 }

@@ -6,11 +6,11 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 15:57:54 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/20 17:48:02 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/05 15:36:06 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/pipex.h"
+#include "../../incs/minishell.h"
 
 size_t	ft_split_count(char const *s, char c)
 {
