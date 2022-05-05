@@ -6,14 +6,14 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/03 18:57:39 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/04 19:11:24 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/pipex.h"
 
 
-void	close_wait(t_args *d, int *tube)
+/*void	close_wait(t_args *d, int *tube)
 {
 	int	i;
 	int	status;
@@ -26,9 +26,11 @@ void	close_wait(t_args *d, int *tube)
 		waitpid(d->pid[i], &status, 0);
 		i++;
 	}
-}
-
-void	make_fork(int *tube, int *temp_tube, t_args *d)
+}*/
+/*
+	making Forks then doing processpipe in the son process and check tubes in father process
+*/
+void	make_fork(int *tube, int *temp_tube, t_args *d, char	*argv[])
 {
 	int i;
 
@@ -43,7 +45,7 @@ void	make_fork(int *tube, int *temp_tube, t_args *d)
 	}
 	else if (d->pid[d->j] == 0)
 	{	
-		process_pipe(d, tube, temp_tube);
+		process_pipe(d, tube, temp_tube, argv);
 	}
 	if (d->acutal_arg > 1)
 	{
@@ -56,7 +58,7 @@ void	make_fork(int *tube, int *temp_tube, t_args *d)
 }
 
 
-void	fork_process(t_args *d)
+void	fork_process(t_args *d, char	*argv[])
 {
 	int	tube[2];
 	int	temp_tube[2];
@@ -69,16 +71,23 @@ void	fork_process(t_args *d)
 	d->j = 0;
 	while (d->acutal_arg <= d->argc - 1)
 	{
-		make_fork(tube, temp_tube, d);
+		if (ft_strcmp(argv[d->acutal_arg], ">") == 0)
+		{
+			d->acutal_arg++;
+			d->mod = 1;
+		}
+		else 
+			d->mod = 0;
+		make_fork(tube, temp_tube, d, argv);
 		d->j++;
 		d->acutal_arg++;
 	}
 	i = 0;
 	close(tube[0]);
 	close(tube[1]);
-	/*while (i < d->argc - 3)
+	while (i < d->argc - 3)
 	{
 		waitpid(d->pid[i], &status, 0);
 		i++;
-	}*/
+	}
 }

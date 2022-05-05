@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/21 09:19:35 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/04 17:12:27 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,9 @@ void	execute(t_args *p, char **args, int nb)
 		execve(args[0], args, p->env);
 	}
 }
-
+/*
+Making my own dup2 to get error message 
+*/
 int	ft_dup2(int a, int b)
 {
 	int	fd;

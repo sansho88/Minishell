@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:30:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/04/26 11:36:42 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/04 19:33:57 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,21 @@ int	ft_strcmp(const char	*first, const char	*second)
 int	main(int argc, char *argv[], char *env[])
 {
 	t_args	data;
-	int i;
 	
-	
-	i = 0;
 	data.argv = argv;
+	//dprintf(2, "valeur de argc : %d\n", argc);
+	/*while (i < argc)
+	{
+		dprintf(2, "valeur de argv : %s\n", data.argv[i]);
+		i++;
+	}*/
 	data.env = env;
 	data.argc = argc;
 	data.path = path(env);
 	data.pid = malloc(sizeof(int) * argc - 3);
 	if (!data.path)
 		exit(EXIT_FAILURE);
-	fork_process(&data);
+	fork_process(&data, argv);
 	free(data.pid);
 	return (0);
 }
