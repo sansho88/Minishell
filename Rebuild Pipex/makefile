@@ -7,12 +7,12 @@ DIR_SRCS	:=	srcs
 DIR_OBJS	:=	.objs
 DIR_INCS	:=	incs
 
-LST_SRCS	:=	fork_process.c \
-				ft_split.c \
-				pipex_utils.c \
-				pipex.c \
-				pipe_process.c \
-				utils.c \
+LST_SRCS	:=	exec/fork_process.c \
+				exec/ft_split.c \
+				exec/pipex_utils.c \
+				exec/pipex.c \
+				exec/pipe_process.c \
+				exec/utils.c \
 
 
 LST_OBJS	:=	$(LST_SRCS:.c=.o)
