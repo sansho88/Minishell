@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/05 16:58:53 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/06 20:06:20 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	make_fork(int *tube, int *temp_tube, t_args *d, t_argmode *argv)
 	{	
 		process_pipe(d, tube, temp_tube, argv);
 	}
-	if (d->acutal_arg > 1)
+	/*if (d->acutal_arg > 0)
 	{
 		close(tube[0]);
 		close(tube[1]);
-	}
+	}*/
 	
 	tube[0] = temp_tube[0];
 	tube[1] = temp_tube[1];
