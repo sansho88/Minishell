@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/05 16:58:53 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/06 18:45:33 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	fork_process(t_args *d, t_argmode *argv)
 	i = 0;
 	close(tube[0]);
 	close(tube[1]);
+	dprintf(1, "valeur de argc : %d\n", d->argc);
 	while (i < d->argc)
 	{
 		waitpid(d->pid[i], &status, 0);
