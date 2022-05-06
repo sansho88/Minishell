@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 17:04:07 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/06 20:08:17 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/06 20:12:34 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,9 @@ int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
 		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d\n", i, args[i], d->acutal_arg);
 		i++;
 	}
-	/*if (access(args[0], F_OK | X_OK) == 0)
-		execve(args[0], args, d->env);*/
+	if (access(args[0], F_OK | X_OK) == 0)
+		execve(args[0], args, d->env);
+	dprintf(1, "enter execute \n");
 	execute(d, args, d->acutal_arg);
 	exit(EXIT_FAILURE);
 }
