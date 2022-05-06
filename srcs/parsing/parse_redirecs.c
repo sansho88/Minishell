@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/05 16:13:25 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/06 18:07:44 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,17 @@ int	ft_check_redir(const char *cmdline)
 		return (NOT_REDIR);
 }
 
-t_argmode	ft_fill_argmode_array(char *cmdline, size_t i)
+t_argmode	ft_fill_argmode_array(char *cmdline, size_t i, int argc)
 {
 	char		**tmp_split;
 	int			tmp_splitlen;
 	t_argmode	argmode_array;
 
 	tmp_split = ft_split_len(cmdline, *(cmdline + i), &tmp_splitlen);
-	argmode_array.arg = tmp_split[0];
+	argmode_array.arg = ft_strtrim(tmp_split[argc], " ");
 	argmode_array.mode = ft_check_redir(cmdline + i);
-	while (tmp_splitlen >= 0)
+	//dprintf(1, "[%s]argmode_array.arg = %s_|_ argmode_array.mode = %d\n",__func__, argmode_array.arg, argmode_array.mode);
+	while (tmp_splitlen > 0)
 		free(tmp_split[tmp_splitlen--]);
 	free(tmp_split);
 	return (argmode_array);
@@ -94,8 +95,8 @@ t_argmode	*split_arg_redirect(char *cmdline, int *argc)
 	{
 		if (ft_check_redir(cmdline + i) != 0)
 		{
-			res[*argc] = ft_fill_argmode_array(cmdline, i);
-			//dprintf(1, "res[%d] = %s\n", *argc, res[*argc].arg); //TODO: Fix: arg is empty when redir detected
+			res[*argc] = ft_fill_argmode_array(cmdline, i, *argc);
+			//dprintf(1, "res[%d] = %s\n", *argc, res[*argc].arg);
 			(*argc)++;
 		}
 		else if (!ft_strchr(cmdline + i, '>') && !ft_strchr(cmdline + i, '<')
@@ -106,7 +107,6 @@ t_argmode	*split_arg_redirect(char *cmdline, int *argc)
 			(*argc)++;
 			return (res);
 		}
-		
 		i++;
 	}
 	return (res);
