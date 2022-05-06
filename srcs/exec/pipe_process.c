@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 17:04:07 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/05 17:10:08 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/06 18:57:57 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ Processus de pipe normal
 */
 void	start_process(int *tube, int	*temp_tube, t_args *d)
 {
-
-	if (d->argc > 2)
+	if (d->argc > 0)
 	{
 		close(tube[0]);
 		close(temp_tube[0]);
@@ -98,6 +97,7 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 	//dprintf(2, "valeur de argv : %s\n", d->argv[5]);
 	if (d->acutal_arg == 0)
 	{
+		dprintf(2, "enter start process\n\n");
 		start_process(tube, temp_tube, d);
 	}
 	/*
@@ -118,10 +118,15 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 		redirection_front(tube, temp_tube, d, argv);
 	}*/
 
-	else if (d->acutal_arg == d->argc)
+	else if (d->acutal_arg == d->argc - 1)
+	{
+		dprintf(2, "enter endprocess\n\n");
 		end_process (tube, temp_tube);
+	}
 	else
+	{
 		progress_process (tube, temp_tube);
+	}
 }
 
 int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
@@ -143,8 +148,9 @@ int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
 		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d\n", i, args[i], d->acutal_arg);
 		i++;
 	}
-	/*if (access(args[0], F_OK | X_OK) == 0)
-		execve(args[0], args, d->env);*/
+	if (access(args[0], F_OK | X_OK) == 0)
+		execve(args[0], args, d->env);
+	dprintf(1, "enter execute \n");
 	execute(d, args, d->acutal_arg);
 	exit(EXIT_FAILURE);
 }
