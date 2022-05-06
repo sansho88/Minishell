@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 17:04:07 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/06 20:12:34 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/06 20:47:52 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	start_process(int *tube, int	*temp_tube, t_args *d)
 
 	if (d->argc > 1)
 	{
+		//dprintf(2, "enter start process\n");
 		close(tube[0]);
 		close(temp_tube[0]);
 		ft_dup2(temp_tube[1], STDOUT_FILENO);
@@ -119,7 +120,7 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 		redirection_front(tube, temp_tube, d, argv);
 	}*/
 
-	else if (d->acutal_arg == d->argc - 1)
+	else if (d->acutal_arg == d->argc - 2)
 	{
 		dprintf(2, "End process\n");
 		end_process (tube, temp_tube);
@@ -145,7 +146,7 @@ int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
 	pipe_conditions(tube, temp_tube, d, argv);
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	i = 0;
-	while (i < argc)
+	while (args[i])
 	{
 		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d\n", i, args[i], d->acutal_arg);
 		i++;
