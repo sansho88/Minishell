@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/06 18:17:38 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/06 18:59:35 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ int	main(int argc, char *argv[], char	*env[])
 		add_history(commandline);
 		rl_redisplay();
 		//cmd_parsed = parse_command_line(commandline, &nb_args);
-		if (is_cmdline_ok(commandline))
+		if (commandline && *commandline && is_cmdline_ok(commandline))
 		{
 			args = split_arg_redirect(commandline, &nb_args);
 			debug_t_argmode(args, nb_args);
@@ -219,6 +219,8 @@ int	main(int argc, char *argv[], char	*env[])
 			//free(cmd_parsed);
 			//printf("args[0] = %s | nb args entered = %d\n", args[0].arg, nb_args);
 		}
+		else
+			commandline = ft_strdup("");
 	}
 	//free(commandline);
 	//rl_clear_history();
