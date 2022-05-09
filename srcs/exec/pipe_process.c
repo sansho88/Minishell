@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 17:04:07 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 14:40:09 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 15:18:27 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ Les redirections
 void	redirection_front_last(int *tube, int *temp_tube, t_args *d, t_argmode *argv)
 {
 	int file;
-	int t;
 
 	file = open(argv[d->acutal_arg].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (file == -1)
@@ -80,14 +79,8 @@ void	redirection_front_last(int *tube, int *temp_tube, t_args *d, t_argmode *arg
 		perror("bad outfile");
 		exit(EXIT_FAILURE);
 	}
-	t = open("CMakeLists.txt", O_WRONLY, 0666);
-	if (t == -1)
-	{
-		perror("bad outfile");
-		exit(EXIT_FAILURE);
-	}
 	ft_dup2(tube[0], STDIN_FILENO);
-	ft_dup2(file, STDOUT_FILENO);
+	ft_dup2(file, 1);
 	close(tube[1]);
 	close(tube[0]);
 	close(file);
@@ -106,7 +99,7 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 	Me donner le nombre d'argument total que je puisse définir le dernier argument
 	Pour le end_process
 	*/
-	else if ( argv->mode == 2 && d->acutal_arg == d->argc - 1)
+	else if ( argv[d->acutal_arg - 1].mode == 2 && d->acutal_arg == d->argc - 1)
 	{
 		dprintf(2,"entrée last_redirection\n");
 		redirection_front_last(tube, temp_tube, d, argv);
@@ -145,12 +138,12 @@ int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
 	pipe_conditions(tube, temp_tube, d, argv);
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	i = 0;
-	while (args[i])
+	/*while (args[i])
 	{
 		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d", i, args[i], d->acutal_arg);
-		dprintf(2, " || valeur du mode : %d\n", argv->mode);
+		dprintf(2, " || valeur du mode : %d\n", argv[d->acutal_arg].mode);
 		i++;
-	}
+	}*/
 	if (access(args[0], F_OK | X_OK) == 0)
 	{
 		execve(args[0], args, d->env);

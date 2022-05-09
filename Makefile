@@ -3,7 +3,7 @@ LIBFT_PATH := ./libft/
 LIBFT := $(LIBFT_PATH)libft.a
 READLINE_LIB := -lreadline -L $(shell brew --prefix readline)/lib
 READLINE_INC := -I $(shell brew --prefix readline)/include
-FLAGS := -Wall -Werror -Wextra -fsanitize=address -g3
+FLAGS := -Wall -Werror -Wextra #-fsanitize=address -g3
 
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 14:27:48 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 15:31:36 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,9 @@ void	execute(t_args *p, char **args, int nb)
 	int		j;
 
 	j = 0;
+	int check;
+
+	check = 0;
 	/*
 		Vérifie tout les path + fonction et check si c'est executable, si oui, execute, "sinon invalid path"
 		ex : bin/ls
@@ -107,7 +110,10 @@ void	execute(t_args *p, char **args, int nb)
 		tmp = ft_strjoin(p->path[j], args[0]);
 		//dprintf(1, "valeur de path[%d] : %s\n", j, p->path[j]);
 		if (access(tmp, F_OK | X_OK) == 0)
+		{
+			check = 1;
 			break ;
+		}
 		j++;
 	}
 	if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
@@ -119,7 +125,11 @@ void	execute(t_args *p, char **args, int nb)
 	{
 		dprintf(2, "valeur de tmp : %s\n", tmp);
 		args[0] = tmp;
-		execve(args[0], args, p->env);
+		if (nb != p->argc - 1)
+		{
+			dprintf(2, "ALAVAUD\n");
+			execve(args[0], args, p->env);
+		}
 	}
 	exit(EXIT_SUCCESS);
 }
