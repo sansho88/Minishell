@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 12:52:35 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 14:27:48 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	execute(t_args *p, char **args, int nb)
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 	}
+	exit(EXIT_SUCCESS);
 }
 /*
 Making my own dup2 to get error message 

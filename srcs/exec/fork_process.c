@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 11:23:33 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 14:16:50 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	fork_process(t_args *d, t_argmode *argv)
 	d->j = 0;
 	while (d->acutal_arg < d->argc)
 	{
-		dprintf(2, "valeur de actual arg : %d\n", d->acutal_arg);
+		
+		dprintf(2, "valeur de actual arg : %d (%s) mode: %d\n", d->acutal_arg, argv[d->acutal_arg].arg, argv[d->acutal_arg].mode);
 		make_fork(tube, temp_tube, d, argv);
 		d->j++;
 		d->acutal_arg++;

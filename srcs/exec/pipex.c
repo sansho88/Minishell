@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:30:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 11:39:57 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 13:53:25 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	exec_home(t_argmode *argv, int argc, char	*env[])
 	data.env = env; /* I need env variable */
 	data.argc = argc;
 	data.path = path(env);
-	data.pid = malloc(sizeof(int) * argc - 3);
+	data.pid = malloc(sizeof(int) * argc - 3); // TODO parentheses ?
 	if (!data.path)
 		exit(EXIT_FAILURE);
 	fork_process(&data, argv);

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 17:04:07 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 12:37:12 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 14:40:09 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ Les redirections
 void	redirection_front_last(int *tube, int *temp_tube, t_args *d, t_argmode *argv)
 {
 	int file;
+	int t;
 
 	file = open(argv[d->acutal_arg].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (file == -1)
@@ -79,9 +80,15 @@ void	redirection_front_last(int *tube, int *temp_tube, t_args *d, t_argmode *arg
 		perror("bad outfile");
 		exit(EXIT_FAILURE);
 	}
-	close(tube[1]);
+	t = open("CMakeLists.txt", O_WRONLY, 0666);
+	if (t == -1)
+	{
+		perror("bad outfile");
+		exit(EXIT_FAILURE);
+	}
 	ft_dup2(tube[0], STDIN_FILENO);
-	//ft_dup2(file, STDOUT_FILENO);
+	ft_dup2(file, STDOUT_FILENO);
+	close(tube[1]);
 	close(tube[0]);
 	close(file);
 } 
@@ -102,8 +109,6 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 	else if ( argv->mode == 2 && d->acutal_arg == d->argc - 1)
 	{
 		dprintf(2,"entrée last_redirection\n");
-		//dprintf(2, "valeur de argv : %s\n", argv[d->acutal_arg]);
-		//d->acutal_arg++;
 		redirection_front_last(tube, temp_tube, d, argv);
 	}
 	/*else if (d->mod == 1)
@@ -147,11 +152,9 @@ int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
 		i++;
 	}
 	if (access(args[0], F_OK | X_OK) == 0)
-		{
-			dprintf(1, "enter execute \n");
-			execve(args[0], args, d->env);
-		}
-	dprintf(1, "enter execute \n");
+	{
+		execve(args[0], args, d->env);
+	}
 	execute(d, args, d->acutal_arg);
 	exit(EXIT_FAILURE);
 }
