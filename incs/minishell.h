@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/09 16:32:00 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 19:48:48 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,17 @@ void	progress_process(int *tube, int	*temp_tube);
 int		child_generator(int *tube, int	*temp_tube, int i, t_args *p);
 int		care_child(t_args *p, int nb, int *tube, int	*temp_tube);
 char	*ft_strdup(const char *src);
-void	execute(t_args *p, char **args, int nb);
 int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv);
 void    fork_process(t_args *d, t_argmode *argsmod);
 int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
 int		exec_home(t_argmode *argv, int argc, char	*env[]);
+
+//REBUILD
+char	**path(char	**env);
+void	execute(t_args *p, char **args, int nb);
+void	sorting_hub(t_args *d, t_argmode *argv);
+void	sorting_mod(t_args *d, t_argmode *argv);
 
 // COLORS
 # define BBLU	"\033[1;34m"
