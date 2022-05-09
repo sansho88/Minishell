@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:39:58 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/06 20:57:17 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 11:23:33 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	fork_process(t_args *d, t_argmode *argv)
 	//pipe(temp_tube);
 	d->acutal_arg = 0;
 	d->j = 0;
-	while (d->acutal_arg < d->argc - 1)
+	while (d->acutal_arg < d->argc)
 	{
 		dprintf(2, "valeur de actual arg : %d\n", d->acutal_arg);
 		make_fork(tube, temp_tube, d, argv);
@@ -80,9 +80,12 @@ void	fork_process(t_args *d, t_argmode *argv)
 	close(tube[1]);
 	//dprintf(1, "valeur de argc : %d\n", d->argc);
 	i = 0;
-	/*while (i < d->argc)
+	/*
+		cycling when i remove it 
+	*/
+	while (i < d->argc)
 	{
 		waitpid(d->pid[i], &status, 0);
 		i++;
-	}*/
+	}
 }

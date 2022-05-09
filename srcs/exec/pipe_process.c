@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 17:04:07 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/06 20:47:52 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 11:36:30 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 		redirection_front(tube, temp_tube, d, argv);
 	}*/
 
-	else if (d->acutal_arg == d->argc - 2)
+	else if (d->acutal_arg == d->argc - 1)
 	{
 		dprintf(2, "End process\n");
 		end_process (tube, temp_tube);
@@ -143,17 +143,18 @@ int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
 	Il faut créer des conditions fonction de ce qu'on me renvoit (redirections)
 	*/
 	//dprintf(1, "valeur de argv[%d].arg : %s\n \n", d->acutal_arg , argv[d->acutal_arg].arg);
+	//dprintf (1, "valeur de d->argc : %d, valeur de actual arg : %d\n", d->argc, d->acutal_arg);
 	pipe_conditions(tube, temp_tube, d, argv);
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	i = 0;
-	while (args[i])
+	/*while (args[i])
 	{
 		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d\n", i, args[i], d->acutal_arg);
 		i++;
-	}
+	}*/
 	if (access(args[0], F_OK | X_OK) == 0)
 		execve(args[0], args, d->env);
-	dprintf(1, "enter execute \n");
+	//dprintf(1, "enter execute \n");
 	execute(d, args, d->acutal_arg);
 	exit(EXIT_FAILURE);
 }
