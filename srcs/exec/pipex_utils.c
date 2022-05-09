@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/05 17:06:04 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 12:52:35 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	execute(t_args *p, char **args, int nb)
 	}
 	else if (tmp)
 	{
+		dprintf(2, "valeur de tmp : %s\n", tmp);
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 	}
