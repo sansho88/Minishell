@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/05 16:26:25 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 16:32:00 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, char const *s2);
 //size_t	ft_strlen(const char	*str);
 int		ft_memcmp(const void	*po1, const void	*po2, size_t	size);
-void	start_process(int *tube, int	*temp_tube, t_args *p);
+void	start_process(int *tube, int	*temp_tube, t_args *d, t_argmode *argv);
 void	progress_process(int *tube, int	*temp_tube);
 int		child_generator(int *tube, int	*temp_tube, int i, t_args *p);
 int		care_child(t_args *p, int nb, int *tube, int	*temp_tube);

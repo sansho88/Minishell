@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 15:31:36 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 17:46:14 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,9 @@ void	execute(t_args *p, char **args, int nb)
 	{
 		dprintf(2, "valeur de tmp : %s\n", tmp);
 		args[0] = tmp;
-		if (nb != p->argc - 1)
-		{
-			dprintf(2, "ALAVAUD\n");
-			execve(args[0], args, p->env);
-		}
+		execve(args[0], args, p->env);
+
 	}
-	exit(EXIT_SUCCESS);
 }
 /*
 Making my own dup2 to get error message 
@@ -144,7 +140,7 @@ int	ft_dup2(int a, int b)
 	if (fd == -1)
 	{
 		perror("dup error");
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); /*TODO Il faut pas EXIT */
 	}
 	return (fd);
 }

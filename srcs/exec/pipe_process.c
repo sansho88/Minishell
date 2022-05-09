@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 17:04:07 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 15:18:27 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 18:06:54 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 /*
 Processus de pipe normal
 */
-void	start_process(int *tube, int	*temp_tube, t_args *d)
+void	start_process(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 {
-
 	if (d->argc > 1)
 	{
+		
 		//dprintf(2, "enter start process\n");
 		close(tube[0]);
 		close(temp_tube[0]);
@@ -29,6 +29,7 @@ void	start_process(int *tube, int	*temp_tube, t_args *d)
 
 void	progress_process(int *tube, int	*temp_tube)
 {
+	
 	ft_dup2(tube[0], STDIN_FILENO);
 	ft_dup2(temp_tube[1], STDOUT_FILENO);
 	close(tube[0]);
@@ -37,7 +38,7 @@ void	progress_process(int *tube, int	*temp_tube)
 	close(temp_tube[1]);
 }
 
-void	end_process(int	*tube, int	*temp_tube)
+void	end_process(int	*tube, int	*temp_tube, t_argmode *argv)
 {
 	close(tube[1]);
 	ft_dup2(tube[0], STDIN_FILENO);
@@ -73,7 +74,7 @@ void	redirection_front_last(int *tube, int *temp_tube, t_args *d, t_argmode *arg
 {
 	int file;
 
-	file = open(argv[d->acutal_arg].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+	file = open(argv[d->acutal_arg].arg, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (file == -1)
 	{
 		perror("bad outfile");
@@ -93,7 +94,10 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 	if (d->acutal_arg == 0)
 	{
 		dprintf(2, "Start Process \n");
-		start_process(tube, temp_tube, d);
+		start_process(tube, temp_tube, d, argv);
+		int fd = open("test", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		dup2(fd, 1);
+		close(fd);
 	}
 	/*
 	Me donner le nombre d'argument total que je puisse définir le dernier argument
@@ -114,7 +118,7 @@ void	pipe_conditions(int *tube, int	*temp_tube, t_args *d, t_argmode *argv)
 	else if (d->acutal_arg == d->argc - 1)
 	{
 		dprintf(2, "End process\n");
-		end_process (tube, temp_tube);
+		end_process (tube, temp_tube, argv);
 	}
 	else
 	{
@@ -136,6 +140,7 @@ int	process_pipe(t_args *d, int *tube, int *temp_tube, t_argmode *argv)
 	//dprintf(1, "valeur de argv[%d].arg : %s\n \n", d->acutal_arg , argv[d->acutal_arg].arg);
 	//dprintf (1, "valeur de d->argc : %d, valeur de actual arg : %d\n", d->argc, d->acutal_arg);
 	pipe_conditions(tube, temp_tube, d, argv);
+	
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	i = 0;
 	/*while (args[i])
