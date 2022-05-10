@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_hub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 19:41:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/10 00:16:24 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ void	one_arg(t_args *d, t_argmode *argv)
 
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
+	d->j = 0;
 	if (d->argc < 2)
 		one_arg(d, argv);
 	while (d->acutal_arg < d->argc)
 	{
-		sorting_mod(d, argv);
+		fork_process(d, argv);
 		d->j++;
 		d->acutal_arg++;
 	}
