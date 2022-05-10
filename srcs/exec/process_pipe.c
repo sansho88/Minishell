@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/10 00:48:09 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/10 11:39:09 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,14 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 		}
 	}
 }
+void	one_arg(t_args *d, t_argmode *argv)
+{
+	char	**args;
+	int		argc;
+
+	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
+	execute(d, args, d->acutal_arg);
+}
 
 void    process_pipe(t_args *d, t_argmode *argv)
 {
@@ -111,6 +119,9 @@ void    process_pipe(t_args *d, t_argmode *argv)
 	*/
 	//dprintf(1, "valeur de argv[%d].arg : %s\n \n", d->acutal_arg , argv[d->acutal_arg].arg);
 	//dprintf (1, "valeur de d->argc : %d, valeur de actual arg : %d\n", d->argc, d->acutal_arg);
+	
+	if (d->argc < 2)
+		one_arg(d, argv);
 	pipe_conditions(d, argv);
 	
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);

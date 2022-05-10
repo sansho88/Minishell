@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:12:24 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/09 19:12:51 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/10 11:36:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ void	execute(t_args *p, char **args, int nb)
 	int		j;
 
 	j = 0;
-	int check;
-
-	check = 0;
 	/*
 		Vérifie tout les path + fonction et check si c'est executable, si oui, execute, "sinon invalid path"
 		ex : bin/ls
@@ -32,7 +29,6 @@ void	execute(t_args *p, char **args, int nb)
 		//dprintf(1, "valeur de path[%d] : %s\n", j, p->path[j]);
 		if (access(tmp, F_OK | X_OK) == 0)
 		{
-			check = 1;
 			break ;
 		}
 		j++;
@@ -40,7 +36,6 @@ void	execute(t_args *p, char **args, int nb)
 	if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
 	{
 		perror("Invalid Path");
-		exit(EXIT_FAILURE);
 	}
 	else if (tmp)
 	{
