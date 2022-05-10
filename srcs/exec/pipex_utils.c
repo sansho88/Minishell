@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 11:24:21 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/05 17:06:04 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/09 19:13:03 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	i;
+	int r;
 
 	if (!s)
 		return (0);
@@ -91,36 +92,6 @@ size_t	mod_ft_strlen(const char	*str)
 	return (i);
 }
 
-void	execute(t_args *p, char **args, int nb)
-{
-	char	*tmp;
-	int		j;
-
-	j = 0;
-	/*
-		Vérifie tout les path + fonction et check si c'est executable, si oui, execute, "sinon invalid path"
-		ex : bin/ls
-	*/
-
-	while (p->path[j])
-	{
-		tmp = ft_strjoin(p->path[j], args[0]);
-		//dprintf(1, "valeur de path[%d] : %s\n", j, p->path[j]);
-		if (access(tmp, F_OK | X_OK) == 0)
-			break ;
-		j++;
-	}
-	if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
-	{
-		perror("Invalid Path");
-		exit(EXIT_FAILURE);
-	}
-	else if (tmp)
-	{
-		args[0] = tmp;
-		execve(args[0], args, p->env);
-	}
-}
 /*
 Making my own dup2 to get error message 
 */
@@ -132,7 +103,7 @@ int	ft_dup2(int a, int b)
 	if (fd == -1)
 	{
 		perror("dup error");
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); /*TODO Il faut pas EXIT */
 	}
 	return (fd);
 }
