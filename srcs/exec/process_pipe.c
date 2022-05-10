@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/10 11:39:09 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/10 14:33:22 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,41 @@
 /*
 REDIRECTIONS
 */
-void	redirection(t_args *d, t_argmode *argv)
+void	redirection_bck(t_args *d, t_argmode *argv)
 {
 	int file;
 
-	file = open(argv[d->acutal_arg + 1].arg, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	file = open(argv[d->acutal_arg + 1].arg, O_RDONLY, 0644);
 	if (file == -1)
 	{
 		perror("bad outfile");
 		exit(EXIT_FAILURE);
+	}
+	ft_dup2(file, 0);
+	close(file);
+	
+}
+void	redirection_fwd(t_args *d, t_argmode *argv)
+{
+	int file;
+	int i;
+	int j;
+
+	j = d->acutal_arg;
+	i = d->acutal_arg + 1;
+	//dprintf(2, "nom du fichier : %s\n", argv[2].arg);
+	while (argv[j].mode == 2)
+	{
+	//	dprintf(2, "valeur de i : %d ||", i);
+	//	dprintf(2, "nom du fichier : %s\n", argv[i].arg);
+		file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+		if (file == -1)
+		{
+			perror("bad outfile");
+			exit(EXIT_FAILURE);
+		}
+		j++;
+		i++;
 	}
 	ft_dup2(file, 1);
 	close(file);
@@ -36,6 +62,15 @@ void	start_process(t_args *d, t_argmode *argv)
 {
 	close(d->temp_tube[0]);
 	close(d->tube[0]);
+	/*int file2;
+
+	file2 = open("bijour", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (file2 == -1)
+	{
+		perror("bad outfile");
+		exit(EXIT_FAILURE);
+	}
+	ft_dup2(file2, 1);*/
 	ft_dup2(d->tube[1], STDOUT_FILENO);
 	close(d->tube[1]);
 }
@@ -68,11 +103,16 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 	//dprintf(2, "valeur de argv : %s\n", d->argv[5]);
 	if (d->acutal_arg == 0)
 	{
+		/*if (argv[d->acutal_arg].mode == 4)
+		{
+			dprintf(2, "redirection Bck\n");
+			redirection_bck(d, argv);
+		}*/
 		dprintf(2, "Start Process \n");
 		start_process(d, argv);
 		if (argv[d->acutal_arg].mode == 2)
 		{
-			redirection(d, argv);
+			redirection_fwd(d, argv);
 		}
 	}
 	/*
@@ -85,7 +125,7 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 		end_process (d, argv);
 		if (argv[d->acutal_arg].mode == 2)
 		{
-			redirection(d, argv);
+			redirection_fwd(d, argv);
 		}
 	}
 	else
@@ -94,7 +134,7 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 		progress_process (d);
 		if (argv[d->acutal_arg].mode == 2)
 		{
-			redirection(d, argv);
+			redirection_fwd(d, argv);
 		}
 	}
 }

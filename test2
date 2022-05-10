@@ -1,0 +1,16 @@
+CMakeLists.txt
+Makefile
+README.md
+a.out
+built-ins
+incs
+libft
+ls
+minishell
+print_args
+print_args.c
+srcs
+test
+test2
+test_functions
+tests

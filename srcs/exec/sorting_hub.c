@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/10 11:39:39 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/10 13:50:25 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		fork_process(d, argv);
 		d->j++;
 		d->acutal_arg++;
+		break;
 	}
 	
 }
