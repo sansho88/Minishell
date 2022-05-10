@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/10 14:33:22 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/10 15:42:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,22 @@ void	redirection_fwd(t_args *d, t_argmode *argv)
 	j = d->acutal_arg;
 	i = d->acutal_arg + 1;
 	//dprintf(2, "nom du fichier : %s\n", argv[2].arg);
-	while (argv[j].mode == 2)
+
+	while (argv[j].mode == 2 && i < d->argc)
 	{
-	//	dprintf(2, "valeur de i : %d ||", i);
-	//	dprintf(2, "nom du fichier : %s\n", argv[i].arg);
-		file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+		dprintf(2, "valeur de i : %d ||", i);
+		dprintf(2, "nom du fichier : %s\n", argv[i].arg);
+		/*file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 		if (file == -1)
 		{
 			perror("bad outfile");
 			exit(EXIT_FAILURE);
 		}
+		ft_dup2(file, 1);
+		close(file);*/
 		j++;
 		i++;
 	}
-	ft_dup2(file, 1);
-	close(file);
 }
 
 /*
@@ -112,7 +113,7 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 		start_process(d, argv);
 		if (argv[d->acutal_arg].mode == 2)
 		{
-			redirection_fwd(d, argv);
+			//redirection_fwd(d, argv);
 		}
 	}
 	/*
@@ -160,6 +161,8 @@ void    process_pipe(t_args *d, t_argmode *argv)
 	//dprintf(1, "valeur de argv[%d].arg : %s\n \n", d->acutal_arg , argv[d->acutal_arg].arg);
 	//dprintf (1, "valeur de d->argc : %d, valeur de actual arg : %d\n", d->argc, d->acutal_arg);
 	
+	for (int t = 0; t < d->argc; t++)
+		dprintf(2, "name: %s\n", argv[t].arg);
 	if (d->argc < 2)
 		one_arg(d, argv);
 	pipe_conditions(d, argv);
