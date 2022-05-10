@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/06 19:54:52 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/10 10:53:53 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_argmode	*split_arg_redirect(char *cmdline, int *argc)
 		else if (!ft_strchr(cmdline + i, '>') && !ft_strchr(cmdline + i, '<')
 			&& !ft_strchr(cmdline + i, '|'))
 		{
-			res[*argc].arg = cmdline + i;
+			res[*argc].arg = ft_strtrim(cmdline + i, " ");
 			res[*argc].mode = 0;
 			(*argc)++;
 			return (res);
