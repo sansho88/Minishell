@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:12:24 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/10 11:36:39 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/11 13:52:42 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	execute(t_args *p, char **args, int nb)
 	}
 	else if (tmp)
 	{
-		dprintf(2, "valeur de tmp : %s\n", tmp);
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 

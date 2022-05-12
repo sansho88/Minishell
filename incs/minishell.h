@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/10 12:08:10 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/11 12:10:56 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_arguments
 	int		tube[2];
 	int		temp_tube[2];
 	int 	redir_bck;
+	int		redir_fwd;
+	int		count;
 }				t_args;
 
 // FUNCTIONS PARSING

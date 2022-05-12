@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/10 15:42:41 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/11 13:56:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,24 @@ void	redirection_fwd(t_args *d, t_argmode *argv)
 	int file;
 	int i;
 	int j;
-
+	
 	j = d->acutal_arg;
 	i = d->acutal_arg + 1;
 	//dprintf(2, "nom du fichier : %s\n", argv[2].arg);
 
-	while (argv[j].mode == 2 && i < d->argc)
+	while (argv[j].mode == 2)
 	{
-		dprintf(2, "valeur de i : %d ||", i);
-		dprintf(2, "nom du fichier : %s\n", argv[i].arg);
-		/*file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+		file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 		if (file == -1)
 		{
 			perror("bad outfile");
 			exit(EXIT_FAILURE);
 		}
 		ft_dup2(file, 1);
-		close(file);*/
+		close(file);
 		j++;
 		i++;
+		d->count++;
 	}
 }
 
@@ -113,7 +112,7 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 		start_process(d, argv);
 		if (argv[d->acutal_arg].mode == 2)
 		{
-			//redirection_fwd(d, argv);
+			redirection_fwd(d, argv);
 		}
 	}
 	/*
@@ -161,19 +160,25 @@ void    process_pipe(t_args *d, t_argmode *argv)
 	//dprintf(1, "valeur de argv[%d].arg : %s\n \n", d->acutal_arg , argv[d->acutal_arg].arg);
 	//dprintf (1, "valeur de d->argc : %d, valeur de actual arg : %d\n", d->argc, d->acutal_arg);
 	
-	for (int t = 0; t < d->argc; t++)
-		dprintf(2, "name: %s\n", argv[t].arg);
 	if (d->argc < 2)
 		one_arg(d, argv);
 	pipe_conditions(d, argv);
 	
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	i = 0;
-	while (args[i])
+	/*while (args[i])
 	{
 		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d", i, args[i], d->acutal_arg);
 		dprintf(2, " || valeur du mode : %d\n", argv[d->acutal_arg].mode);
 		i++;
+	}*/
+	if (d->count != 0)
+	{
+		dprintf(2, "valeur de actual arg %d\n", d->acutal_arg);		
+		dprintf(2, "hell o!! \n");
+		d->acutal_arg = d->acutal_arg + d->count;
+		dprintf(2, "valeur de actual arg + count %d\n", d->acutal_arg);
+		d->count = 0;
 	}
 	if (access(args[0], F_OK | X_OK) == 0)
 	{
