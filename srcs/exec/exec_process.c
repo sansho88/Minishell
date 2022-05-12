@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:12:24 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/12 18:42:19 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/12 19:35:11 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	execute(t_args *p, char **args, int nb)
 	}
 	else if (tmp)
 	{
-		dprintf(2, "valeur de TMP : %s\n" , tmp);
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 
