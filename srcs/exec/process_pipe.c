@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/12 17:52:10 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/12 19:35:11 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	redirection_fwd(t_args *d, t_argmode *argv)
 		close(file);
 		j++;
 		i++;
-		d->count++;
 	}
 }
 
@@ -62,15 +61,6 @@ void	start_process(t_args *d, t_argmode *argv)
 {
 	close(d->temp_tube[0]);
 	close(d->tube[0]);
-	/*int file2;
-
-	file2 = open("bijour", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	if (file2 == -1)
-	{
-		perror("bad outfile");
-		exit(EXIT_FAILURE);
-	}
-	ft_dup2(file2, 1);*/
 	ft_dup2(d->tube[1], STDOUT_FILENO);
 	close(d->tube[1]);
 }
@@ -163,8 +153,8 @@ void    process_pipe(t_args *d, t_argmode *argv)
 	if (d->argc < 2)
 		one_arg(d, argv);
 	pipe_conditions(d, argv);
-	
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
+	dprintf(2, "valeur de acutal arg : %s\n" , args[0]);
 	i = 0;
 	/*while (args[i])
 	{
