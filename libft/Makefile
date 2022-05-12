@@ -6,7 +6,7 @@
 #   By: tgriffit <tgriffit@student.42lyon.fr>      +#+  +:+       +#+        #
 #                                                +#+#+#+#+#+   +#+           #
 #   Created: 2021/11/10 17:13:35 by tgriffit          #+#    #+#             #
-#   Updated: 202#    Updated: 2022/04/19 18:05:26 by tgriffit         ###   ########.fr        #
+#   Updated: 202#    Updated: 2022/05/12 11:58:45 by tgriffit         ###   ########.fr        #
                                                            #
 # ************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS = ft_memset.c \
 		ft_tolower.c \
 		ft_calloc.c \
 		ft_strdup.c \
+		ft_strndup.c \
 		ft_substr.c \
 		ft_strjoin.c \
 		ft_strtrim.c \

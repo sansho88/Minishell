@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/06 19:55:04 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/12 18:01:15 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,14 @@ bool	is_chars_partouze(char *cmdline)
 
 bool	is_cmdline_ok(char *cmdline)
 {
+	char	*testcmd;
+
+	testcmd = ft_strtrim(cmdline, " ");
+	if (!*testcmd)
+	{
+		free(testcmd);
+		return (false);
+	}
 	if (!are_quotes_closed(cmdline))
 		return (false);
 	if (is_chars_partouze(cmdline))
@@ -215,8 +223,10 @@ int	main(int argc, char *argv[], char	*env[])
 		//cmd_parsed = parse_command_line(commandline, &nb_args);
 		if (commandline && *commandline && is_cmdline_ok(commandline))
 		{
-			args = split_arg_redirect(commandline, &nb_args);
-			debug_t_argmode(args, nb_args);
+			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
+			args = create_targmode_array(commandline);
+			//debug_t_argmode(args, nb_args);
+			dprintf(1, "Parsing: OK\n");
 			exec_home(args, nb_args, env);
 			//free(cmd_parsed);
 			//printf("args[0] = %s | nb args entered = %d\n", args[0].arg, nb_args);
