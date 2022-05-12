@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/11 13:56:15 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:52:10 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 			dprintf(2, "redirection Bck\n");
 			redirection_bck(d, argv);
 		}*/
-		dprintf(2, "Start Process \n");
+		//dprintf(2, "Start Process \n");
 		start_process(d, argv);
 		if (argv[d->acutal_arg].mode == 2)
 		{
@@ -172,14 +172,13 @@ void    process_pipe(t_args *d, t_argmode *argv)
 		dprintf(2, " || valeur du mode : %d\n", argv[d->acutal_arg].mode);
 		i++;
 	}*/
-	if (d->count != 0)
+	/*if (d->count != 0)
 	{
-		dprintf(2, "valeur de actual arg %d\n", d->acutal_arg);		
-		dprintf(2, "hell o!! \n");
+		d->count++;
 		d->acutal_arg = d->acutal_arg + d->count;
-		dprintf(2, "valeur de actual arg + count %d\n", d->acutal_arg);
 		d->count = 0;
 	}
+	dprintf(2, "valeur de actual arg après opération : %d\n", d->acutal_arg);*/
 	if (access(args[0], F_OK | X_OK) == 0)
 	{
 		execve(args[0], args, d->env);
