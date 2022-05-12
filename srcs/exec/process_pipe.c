@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/10 00:48:09 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/12 17:52:10 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,44 @@
 /*
 REDIRECTIONS
 */
-void	redirection(t_args *d, t_argmode *argv)
+void	redirection_bck(t_args *d, t_argmode *argv)
 {
 	int file;
 
-	file = open(argv[d->acutal_arg + 1].arg, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	file = open(argv[d->acutal_arg + 1].arg, O_RDONLY, 0644);
 	if (file == -1)
 	{
 		perror("bad outfile");
 		exit(EXIT_FAILURE);
 	}
-	ft_dup2(file, 1);
+	ft_dup2(file, 0);
 	close(file);
+	
+}
+void	redirection_fwd(t_args *d, t_argmode *argv)
+{
+	int file;
+	int i;
+	int j;
+	
+	j = d->acutal_arg;
+	i = d->acutal_arg + 1;
+	//dprintf(2, "nom du fichier : %s\n", argv[2].arg);
+
+	while (argv[j].mode == 2)
+	{
+		file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+		if (file == -1)
+		{
+			perror("bad outfile");
+			exit(EXIT_FAILURE);
+		}
+		ft_dup2(file, 1);
+		close(file);
+		j++;
+		i++;
+		d->count++;
+	}
 }
 
 /*
@@ -36,6 +62,15 @@ void	start_process(t_args *d, t_argmode *argv)
 {
 	close(d->temp_tube[0]);
 	close(d->tube[0]);
+	/*int file2;
+
+	file2 = open("bijour", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (file2 == -1)
+	{
+		perror("bad outfile");
+		exit(EXIT_FAILURE);
+	}
+	ft_dup2(file2, 1);*/
 	ft_dup2(d->tube[1], STDOUT_FILENO);
 	close(d->tube[1]);
 }
@@ -68,11 +103,16 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 	//dprintf(2, "valeur de argv : %s\n", d->argv[5]);
 	if (d->acutal_arg == 0)
 	{
-		dprintf(2, "Start Process \n");
+		/*if (argv[d->acutal_arg].mode == 4)
+		{
+			dprintf(2, "redirection Bck\n");
+			redirection_bck(d, argv);
+		}*/
+		//dprintf(2, "Start Process \n");
 		start_process(d, argv);
 		if (argv[d->acutal_arg].mode == 2)
 		{
-			redirection(d, argv);
+			redirection_fwd(d, argv);
 		}
 	}
 	/*
@@ -85,7 +125,7 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 		end_process (d, argv);
 		if (argv[d->acutal_arg].mode == 2)
 		{
-			redirection(d, argv);
+			redirection_fwd(d, argv);
 		}
 	}
 	else
@@ -94,9 +134,17 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 		progress_process (d);
 		if (argv[d->acutal_arg].mode == 2)
 		{
-			redirection(d, argv);
+			redirection_fwd(d, argv);
 		}
 	}
+}
+void	one_arg(t_args *d, t_argmode *argv)
+{
+	char	**args;
+	int		argc;
+
+	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
+	execute(d, args, d->acutal_arg);
 }
 
 void    process_pipe(t_args *d, t_argmode *argv)
@@ -111,16 +159,26 @@ void    process_pipe(t_args *d, t_argmode *argv)
 	*/
 	//dprintf(1, "valeur de argv[%d].arg : %s\n \n", d->acutal_arg , argv[d->acutal_arg].arg);
 	//dprintf (1, "valeur de d->argc : %d, valeur de actual arg : %d\n", d->argc, d->acutal_arg);
+	
+	if (d->argc < 2)
+		one_arg(d, argv);
 	pipe_conditions(d, argv);
 	
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	i = 0;
-	while (args[i])
+	/*while (args[i])
 	{
 		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d", i, args[i], d->acutal_arg);
 		dprintf(2, " || valeur du mode : %d\n", argv[d->acutal_arg].mode);
 		i++;
+	}*/
+	/*if (d->count != 0)
+	{
+		d->count++;
+		d->acutal_arg = d->acutal_arg + d->count;
+		d->count = 0;
 	}
+	dprintf(2, "valeur de actual arg après opération : %d\n", d->acutal_arg);*/
 	if (access(args[0], F_OK | X_OK) == 0)
 	{
 		execve(args[0], args, d->env);

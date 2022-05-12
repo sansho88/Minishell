@@ -3,7 +3,7 @@ LIBFT_PATH := ./libft/
 LIBFT := $(LIBFT_PATH)libft.a
 READLINE_LIB := -lreadline -L $(shell brew --prefix readline)/lib
 READLINE_INC := -I $(shell brew --prefix readline)/include
-FLAGS := -Wall -Werror -Wextra #-fsanitize=address -g3
+FLAGS := -Wall -Werror -Wextra -fsanitize=address -g3
 
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \
@@ -21,10 +21,10 @@ OBJS := $(SRCS:.c=.o)
 all: libftmake $(NAME)
 
 %.o:%.c minishell.h Makefile $(LIBFT)
-	gcc -c $< -o $@
+	gcc -c $< $(FLAGS) -o $@
 
 $(NAME): $(OBJS)
-	gcc $(LIBFT) $(READLINE_LIB) $(READLINE_INC) $(OBJS)  -o $(NAME)
+	gcc $(LIBFT) $(READLINE_LIB) $(FLAGS) $(READLINE_INC) $(OBJS)  -o $(NAME)
 
 clean:
 	rm $(OBJS)

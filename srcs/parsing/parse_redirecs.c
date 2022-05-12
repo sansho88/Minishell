@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirecs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/10 10:53:53 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:37:12 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ t_argmode	ft_fill_argmode_array(char *cmdline, size_t i, int argc)
 	argmode_array.mode = ft_check_redir(cmdline + i);
 	//dprintf(1, "[%s]argmode_array.arg = %s_|_ argmode_array.mode = %d\n",__func__, argmode_array.arg, argmode_array.mode);
 	while (tmp_splitlen > 0)
-		free(tmp_split[tmp_splitlen--]);
-	free(tmp_split);
+		//free(tmp_split[tmp_splitlen--]);
+	//free(tmp_split);
 	return (argmode_array);
 }
 

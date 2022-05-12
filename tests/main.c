@@ -98,9 +98,9 @@ void parse_line(const char *line, int len)
             char *s = strndup(line + tokstart, i - tokstart);
             char *resolved = resolve_vars(s);
 
-            free(s);
+            //free(s);
             printf("token: %s\n", resolved);
-            free(resolved);
+            //free(resolved);
         }
         else
             printf("Token %.*s\n", i - tokstart, line + tokstart);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nigga-tests.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/06 19:55:04 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:39:26 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ char	**parse_command_line(char *cmd, int *nb_args)
 	if (is_cmdline_ok(cmd))
 		return (cmd_split);
 	while (*nb_args > 0)
-		free(cmd_split[*(--nb_args)]);
+		//free(cmd_split[*(--nb_args)]);
 	return (NULL);
 }
 
