@@ -66,6 +66,8 @@ typedef struct s_arguments
 
 // FUNCTIONS PARSING
 t_argmode	*split_arg_redirect(char *cmdline, int *argc);
+t_argmode	*create_targmode_array(char *cmdline);
+size_t		get_nb_seps(const char *cmdline);
 //void	rl_clear_history(void);
 
 //FUNCTIONS EXEC (Have to make it clean)
