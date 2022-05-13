@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 14:35:46 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/13 11:37:33 by tgriffit         ###   ########.fr       */
+/*   Created: 2022/05/13 11:50:20 by tgriffit          #+#    #+#             */
+/*   Updated: 2022/05/13 11:50:24 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strdup(const char *s1);
+char			*ft_strndup(const char *str, size_t n);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 void			*ft_calloc(size_t count, size_t size);
 char			*ft_strjoin(char const *s1, char const *s2);
