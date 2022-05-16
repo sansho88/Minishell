@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_hub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/13 11:37:33 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:00:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ int	exec_home(t_argmode *argv, int argc, char	*env[])
 	j = 0;
 	i = 0;
 	//dprintf(2, "valeur de ARGC : %d || ", argc);
-	/*while (i < argc)
+	dprintf(2, "hello \n\n");
+	while (i < argc)
 	{
-		dprintf (2, "valeur de arg : %s\n", argv[i].arg);
+		dprintf (2, "valeur de arg : %s\n", argv[0].arg);
 		i++;
-	}*/
+	}
 	data.env = env;
 	data.count = 0;
 	data.argc = argc;
