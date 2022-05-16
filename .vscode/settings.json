@@ -3,5 +3,6 @@
 		"pipex.h": "c",
 		"minishell.h": "c",
 		"libft.h": "c"
-	}
+	},
+	"cmake.configureOnOpen": false
 }
