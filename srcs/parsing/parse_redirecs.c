@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/12 19:22:56 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:23:21 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ t_argmode	*create_targmode_array(char *cmdline)
 	res = ft_calloc(sizeof(t_argmode), get_nb_seps(cmdline) + 1);
 	if (!res)
 		return (NULL);
+	if (num_part == get_nb_seps(cmdline))
+		end_fill_split(res, num_part, cmdline, j);
 	while (cmdline[++i] && num_part != get_nb_seps(cmdline))
 	{
 		if (ft_check_redir(&cmdline[i]) != 0)
