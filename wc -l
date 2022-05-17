@@ -1,8 +1,8 @@
 CMakeLists.txt
 Makefile
 README.md
-a.out
 built-ins
+heyo
 incs
 libft
 ls
