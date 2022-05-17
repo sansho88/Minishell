@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nigga-tests.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/13 12:00:10 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:59:34 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ int	main(int argc, char *argv[], char	*env[])
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
-			//debug_t_argmode(args, nb_args);
+			debug_t_argmode(args, nb_args);
 			dprintf(1, "Parsing: OK\n");
 			exec_home(args, nb_args, env);
 			//free(cmd_parsed);
