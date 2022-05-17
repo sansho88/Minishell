@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/13 12:00:10 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:46:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,36 +206,28 @@ void debug_t_argmode(t_argmode *args, int nb_arg)
 int	main(int argc, char *argv[], char	*env[])
 {
 	char		*commandline;
-	char		**cmd_parsed;
 	t_argmode	*args;
 	int			nb_args;
-	const char	*prompt = "\033[1;32mConchito \033[93m✗\033[0m ";
 
 	commandline = ft_strdup("empty");
-	while (ft_strncmp(commandline, "exit", 5))
+	get_signals();
+	while (commandline && ft_strncmp(commandline, "exit", 5))
 	{
 		free(commandline);
-		commandline = readline(prompt);
+		sign_chars_manager(false);
+		commandline = readline(CONCHITO);
+		sign_chars_manager(true);
 		if (!commandline)
-			perror("Memory Allocation Error (No Space left in the RAM)");
+			exit(0);
 		add_history(commandline);
 		rl_redisplay();
-		//cmd_parsed = parse_command_line(commandline, &nb_args);
-		if (commandline && *commandline && is_cmdline_ok(commandline))
+		if (*commandline && is_cmdline_ok(commandline))
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
-			//debug_t_argmode(args, nb_args);
-			dprintf(1, "Parsing: OK\n");
 			exec_home(args, nb_args, env);
-			//free(cmd_parsed);
-			//printf("args[0] = %s | nb args entered = %d\n", args[0].arg, nb_args);
 		}
-		else
-			commandline = ft_strdup("");
 	}
-	//free(commandline);
-	//rl_clear_history();
 	exit(0);
 }
 

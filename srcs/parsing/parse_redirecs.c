@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/16 11:23:21 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:59:16 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,10 @@ void	ft_trim_args(t_argmode *argmode, size_t nb_args)
 	i = 0;
 	while (i < nb_args)
 	{
-		dprintf(2, "[%s]old argmode[%zu]=%s%%\n", __func__ , i, argmode[i].arg);
 		tmp = ft_strdup(argmode[i].arg);
-		//free(argmode[i]->arg);
+		free(argmode[i].arg);
 		argmode[i].arg = ft_strtrim(tmp, " ");
-		dprintf(2, "[%s]new argmode[%zu]=%s%%\n", __func__ , i, argmode[i].arg);
+		free(tmp);
 		i++;
 	}
 }

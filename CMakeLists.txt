@@ -6,4 +6,4 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(Minishell
-        minishell.h "Rebuild Pipex/srcs/parsing/nigga-tests.c")
+        incs/minishell.h "srcs/parsing/nigga-tests.c" srcs/signals/signal_handler.c)

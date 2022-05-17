@@ -7,6 +7,7 @@ FLAGS := -Wall -Werror -Wextra -fsanitize=address -g3
 
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \
+		srcs/signals/signal_handler.c \
 		srcs/exec/exec_hub.c \
 		srcs/exec/ft_split.c \
 		srcs/exec/env_checker.c \

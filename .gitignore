@@ -53,12 +53,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-<<<<<<< HEAD
-
-cmake-build-debug/
 
 # TRUE FILES BUT TEST ONES
 
-=======
->>>>>>> 1103c782182b5ce998ba778a0711c6f7f3f50157
+.vscode
 /cmake-build-debug/
