@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/16 14:57:02 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/16 15:57:28 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <string.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <termios.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -76,6 +78,7 @@ size_t		get_nb_seps(const char *cmdline);
 //FUNCTIONS SIGNALS
 void		signal_handler(int signum);
 void		get_signals(void);
+void		sign_chars_manager(bool turn_on_save);
 
 //FUNCTIONS EXEC (Have to make it clean)
 char	**ft_split(char const *s, char c);

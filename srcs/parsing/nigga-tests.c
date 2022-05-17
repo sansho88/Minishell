@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/16 15:10:00 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:46:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,10 +211,12 @@ int	main(int argc, char *argv[], char	*env[])
 
 	commandline = ft_strdup("empty");
 	get_signals();
-	while (commandline && ft_strncmp(commandline, "exit", 5) )//&& *commandline)
+	while (commandline && ft_strncmp(commandline, "exit", 5))
 	{
 		free(commandline);
+		sign_chars_manager(false);
 		commandline = readline(CONCHITO);
+		sign_chars_manager(true);
 		if (!commandline)
 			exit(0);
 		add_history(commandline);
@@ -223,16 +225,9 @@ int	main(int argc, char *argv[], char	*env[])
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
-			//debug_t_argmode(args, nb_args);
-			dprintf(1, "Parsing: OK\n");
 			exec_home(args, nb_args, env);
-			//printf("args[0] = %s | nb args entered = %d\n", args[0].arg, nb_args);
 		}
-		/*else
-			commandline = NULL;//ft_strdup("");*/
 	}
-	//free(commandline);
-	//rl_clear_history();
 	exit(0);
 }
 
