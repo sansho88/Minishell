@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/17 16:40:43 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/19 15:51:36 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	start_process(t_args *d, t_argmode *argv)
 
 	close(d->temp_tube[0]);
 	close(d->tube[0]);
-	if (d->next_mode == 0)
+	if (d->next_mode == 1)
 		ft_dup2(d->tube[1], STDOUT_FILENO);
 	close(d->tube[1]);
 }
