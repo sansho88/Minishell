@@ -1,6 +1,7 @@
 CMakeLists.txt
 Makefile
 README.md
+a.out
 heyo
 incs
 libft
@@ -10,6 +11,7 @@ print_args
 print_args.c
 srcs
 test
+test2
 test3
 test4
 tests
