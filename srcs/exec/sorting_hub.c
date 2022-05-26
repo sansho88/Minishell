@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_hub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/19 18:49:09 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/26 19:06:45 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	mode_after_bck_redirection(t_args *d, t_argmode *argv)
 	}
 	if (argv[i + 1].mode != 0)
 	{
-		dprintf(2, "valeur du mode : %d \n", argv[i + 1].mode);
+		//dprintf(2, "valeur du mode : %d \n", argv[i + 1].mode);
 		d->next_mode = 1;
 	}
 	

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/17 15:27:23 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/26 14:19:32 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void    execute(t_args *p, char **args, int nb)
         }
         j++;
     }
-    if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
+    /*if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
     {
         perror("Invalid Path");
-    }
-    else if (tmp)
+    }*/
+    if (tmp)
     {
         dprintf(2, "valeur de TMP : %s\n" , tmp);
         args[0] = tmp;

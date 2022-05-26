@@ -1,1 +1,15 @@
-hello
+CMakeLists.txt
+Makefile
+README.md
+heyo
+incs
+libft
+ls
+minishell
+print_args
+print_args.c
+srcs
+test
+test3
+test4
+tests
