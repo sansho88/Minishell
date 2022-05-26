@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/12 19:21:59 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/19 15:51:36 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,29 @@ REDIRECTIONS
 void	redirection_bck(t_args *d, t_argmode *argv)
 {
 	int file;
-
-	file = open(argv[d->acutal_arg + 1].arg, O_RDONLY, 0644);
-	if (file == -1)
-	{
-		perror("bad outfile");
-		exit(EXIT_FAILURE);
-	}
-	ft_dup2(file, 0);
-	close(file);
+	int i;
+	int j;
 	
+	j = d->acutal_arg;
+	i = d->acutal_arg + 1;
+	dprintf(2, "nom du fichier : %s\n", argv[i].arg);
+
+	while (argv[j].mode == 4)
+	{
+		file = open(argv[i].arg, O_RDONLY);
+		if (file == -1)
+		{
+			perror("bad outfile");
+			exit(EXIT_FAILURE);
+		}
+		ft_dup2(file, STDIN_FILENO);
+		//ft_dup2(1, STDOUT_FILENO);
+		close(file);
+		j++;
+		i++;
+	}
 }
+
 void	redirection_fwd(t_args *d, t_argmode *argv)
 {
 	int file;
@@ -59,9 +71,11 @@ Processus de pipe normal
 */
 void	start_process(t_args *d, t_argmode *argv)
 {
+
 	close(d->temp_tube[0]);
 	close(d->tube[0]);
-	ft_dup2(d->tube[1], STDOUT_FILENO);
+	if (d->next_mode == 1)
+		ft_dup2(d->tube[1], STDOUT_FILENO);
 	close(d->tube[1]);
 }
 
@@ -93,16 +107,16 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 	//dprintf(2, "valeur de argv : %s\n", d->argv[5]);
 	if (d->acutal_arg == 0)
 	{
-		/*if (argv[d->acutal_arg].mode == 4)
-		{
-			dprintf(2, "redirection Bck\n");
-			redirection_bck(d, argv);
-		}*/
-		//dprintf(2, "Start Process \n");
+		dprintf(2, "Start Process \n");
 		start_process(d, argv);
 		if (argv[d->acutal_arg].mode == 2)
 		{
 			redirection_fwd(d, argv);
+		}
+		if (argv[d->acutal_arg].mode == 4)
+		{
+			dprintf(2, "redirection Bck\n");
+			redirection_bck(d, argv);
 		}
 	}
 	/*
@@ -152,6 +166,7 @@ void    process_pipe(t_args *d, t_argmode *argv)
 	
 	if (d->argc < 2)
 		one_arg(d, argv);
+	dprintf(2, "valeur de next mode : %d\n", d->next_mode);
 	pipe_conditions(d, argv);
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	dprintf(2, "valeur de acutal arg : %s\n" , args[0]);
