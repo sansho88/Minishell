@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/17 16:24:14 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/26 13:21:34 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 //INCLUDE EXEC (i have to make it clean)
 # include <stdlib.h>
@@ -29,6 +30,8 @@
 # include <string.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <termios.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -39,6 +42,8 @@
 # define CONCAT_TO_OUT 3
 # define REDIR_TO_IN 4
 # define CONCAT_TO_IN 5
+
+# define CONCHITO "\033[1;32mConchito \033[93m✗\033[0m "
 
 //Structs PARSING
 typedef struct s_argmode{
@@ -70,6 +75,11 @@ t_argmode	*split_arg_redirect(char *cmdline, int *argc);
 t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
 //void	rl_clear_history(void);
+
+//FUNCTIONS SIGNALS
+void		signal_handler(int signum);
+void		get_signals(void);
+void		sign_chars_manager(bool turn_on_save);
 
 //FUNCTIONS EXEC (Have to make it clean)
 char	**ft_split(char const *s, char c);
