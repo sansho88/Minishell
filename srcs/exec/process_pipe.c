@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/26 20:16:05 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/26 20:54:22 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	redirection_bck(t_args *d, t_argmode *argv)
 
 	while (argv[j].mode == 4)
 	{
-		file = open(argv[i].arg, O_RDONLY);
+		file = open(argv[i].arg, 1);
 		if (file == -1)
 		{
 			perror("bad outfile");

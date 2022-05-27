@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/26 20:35:00 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/26 21:10:40 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,23 @@ void	counting_redirections_fwd(t_args *d, t_argmode *argv)
 	}
 }
 
-void	counting_redirection_bwd(t_args *d, t_argmode *argv)
+int	counting_redirection_bwd(t_args *d, t_argmode *argv)
 {
 	int i;
+	int file;
 
 	i = d->acutal_arg;
 	while (argv[i].mode == 4)
 	{
+		file = open(argv[i + 1].arg, 1);
+		if (file == -1)
+		{
+			//perror("bad outfile");
+			return(1);
+		}
 		i++;
 		d->count++;
+		return(0);
 	}
 }
 
@@ -65,7 +73,11 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		else
 			d->next_mode = 1;		
 		fork_process(d, argv);
-		counting_redirection_bwd(d, argv);
+		if (counting_redirection_bwd(d, argv) == 1)
+		{
+			dprintf(2, "%s : No such file or directory\n", argv[d->acutal_arg + 2].arg);
+			break;
+		}
 		counting_redirections_fwd(d, argv);
 		d->next_mode = 0;
 		if (d->count != 0)
