@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/26 13:21:34 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/27 18:09:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define REDIR_TO_OUT 2
 # define CONCAT_TO_OUT 3
 # define REDIR_TO_IN 4
-# define CONCAT_TO_IN 5
+# define HEREDOC 5
 
 # define CONCHITO "\033[1;32mConchito \033[93m✗\033[0m "
 
