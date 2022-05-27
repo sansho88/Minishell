@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/19 18:49:09 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/26 21:10:40 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,23 @@ void	counting_redirections_fwd(t_args *d, t_argmode *argv)
 	}
 }
 
-void	counting_redirection_bwd(t_args *d, t_argmode *argv)
+int	counting_redirection_bwd(t_args *d, t_argmode *argv)
 {
 	int i;
+	int file;
 
 	i = d->acutal_arg;
 	while (argv[i].mode == 4)
 	{
+		file = open(argv[i + 1].arg, 1);
+		if (file == -1)
+		{
+			//perror("bad outfile");
+			return(1);
+		}
 		i++;
 		d->count++;
+		return(0);
 	}
 }
 
@@ -44,10 +52,11 @@ void	mode_after_bck_redirection(t_args *d, t_argmode *argv)
 	while (argv[i].mode == 4 && argv[i + 1].mode && argv[i + 1].mode == 4)
 	{
 		i++;
+		d->count++;
 	}
 	if (argv[i + 1].mode != 0)
 	{
-		dprintf(2, "valeur du mode : %d \n", argv[i + 1].mode);
+		//dprintf(2, "valeur du mode : %d \n", argv[i + 1].mode);
 		d->next_mode = 1;
 	}
 	
@@ -64,15 +73,20 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		else
 			d->next_mode = 1;		
 		fork_process(d, argv);
-		counting_redirection_bwd(d, argv);
+		if (counting_redirection_bwd(d, argv) == 1)
+		{
+			dprintf(2, "%s : No such file or directory\n", argv[d->acutal_arg + 2].arg);
+			break;
+		}
 		counting_redirections_fwd(d, argv);
 		d->next_mode = 0;
 		if (d->count != 0)
 		{
-			d->acutal_arg = d->acutal_arg + d->count;
+			d->acutal_arg += d->count;
 			d->count = 0;
 		}
-		d->acutal_arg++;
+		else 
+			d->acutal_arg++;
 		d->j++;
 	}
 	
