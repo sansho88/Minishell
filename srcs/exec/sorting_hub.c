@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/26 21:10:40 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/27 16:23:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,44 @@ void	mode_after_bck_redirection(t_args *d, t_argmode *argv)
 	}
 	
 }
+void target_redirection(t_args *d, t_argmode *argv)
+{
+	int i;
+
+	i = d->acutal_arg;
+	while(argv[i].mode != 0 || argv[i].mode == 1)
+	{
+		while(argv[i].mode == 2)
+		{
+			i++;
+			d->stdout_pos = i;
+		}
+		while (argv[i].mode == 4)
+		{
+			i++;
+			d->stdout_pos = i;
+		}
+	}
+	dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d \n", d->stdin_pos, d->argc, d->stdout_pos, d->argc);
+}
+
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
 	d->j = 0;
 	d->count = 0;
 	while (d->acutal_arg < d->argc)
 	{
-		//dprintf(2, "valeur actuelle de acutal arg : %d\n", d->acutal_arg);
+	/*	dprintf(2, "valeur actuelle de acutal arg : %d\n", d->acutal_arg);
 		if(argv[d->acutal_arg].mode == 4)
 			mode_after_bck_redirection(d, argv);
 		else
 			d->next_mode = 1;		
-		fork_process(d, argv);
-		if (counting_redirection_bwd(d, argv) == 1)
+		*/
+		
+		
+		target_redirection (d, argv);
+		//fork_process(d, argv);
+		/*if (counting_redirection_bwd(d, argv) == 1)
 		{
 			dprintf(2, "%s : No such file or directory\n", argv[d->acutal_arg + 2].arg);
 			break;
@@ -85,8 +110,8 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 			d->acutal_arg += d->count;
 			d->count = 0;
 		}
-		else 
-			d->acutal_arg++;
+		else */
+		d->acutal_arg++;
 		d->j++;
 	}
 	

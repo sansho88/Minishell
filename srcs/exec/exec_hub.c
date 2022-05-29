@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/26 19:35:57 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/27 16:24:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	exec_home(t_argmode *argv, int argc, char	*env[])
 	data.count = 0;
 	data.argc = argc;
 	data.next_mode = 0;
+	data.stdin_pos = 0;
+	data.stdin_pos = 0;
 	//data.redir_fwd = 0;
 	data.path = path(env);
 	data.acutal_arg = 0;
