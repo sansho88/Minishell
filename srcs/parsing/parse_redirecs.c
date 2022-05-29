@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/27 12:18:51 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/27 18:09:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_check_redir(const char *cmdline)
 	else if (*cmdline == '<' && *(cmdline + 1) && *(cmdline + 1) != '<')
 		return (REDIR_TO_IN);
 	else if (*cmdline == '<' && *(cmdline + 1) && *(cmdline + 1) == '<')
-		return (CONCAT_TO_IN);
+		return (HEREDOC);
 	else
 		return (NOT_REDIR);
 }
@@ -45,8 +45,8 @@ size_t	get_nb_seps(const char *cmdline)
 	while (cmdline[++i])
 	{
 		nb_seps += ft_check_redir(&cmdline[i]) != 0;
-		if (cmdline[i + 1] + 1 != '\0')
-			i += (cmdline[i + 1] + 1 == '>' || cmdline[i + 1] == '<');
+		if (i > 0 && (cmdline[i - 1] == '>' || cmdline[i - 1] == '<'))
+				i++;
 	}
 	return (nb_seps);
 }

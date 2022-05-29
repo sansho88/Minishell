@@ -41,7 +41,7 @@
 # define REDIR_TO_OUT 2
 # define CONCAT_TO_OUT 3
 # define REDIR_TO_IN 4
-# define CONCAT_TO_IN 5
+# define HEREDOC 5
 
 # define CONCHITO "\033[1;32mConchito \033[93m✗\033[0m "
 
