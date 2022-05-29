@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/27 18:09:55 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/27 16:24:08 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_arguments
 	int		redir_fwd;
 	int		count;
 	int		next_mode;
+	int		stdin_pos;
+	int		stdout_pos;
 }				t_args;
 
 // FUNCTIONS PARSING
