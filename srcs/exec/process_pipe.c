@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/26 20:54:22 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/29 11:53:28 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,50 @@ void	redirection_fwd(t_args *d, t_argmode *argv)
 	}
 }
 
+void	ft_forward(t_args *d, t_argmode *argv)
+{
+	int file;
+
+	file = open(argv[d->stdout_pos].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+		if (file == -1)
+		{
+			perror("bad outfile");
+			exit(EXIT_FAILURE);
+		}
+		ft_dup2(file, 1);
+		close(file);
+}
+void	ft_backward(t_args *d, t_argmode *argv)
+{
+	int file;
+	
+	file = open(argv[2].arg, 1);
+	if (file == -1)
+	{
+		perror("bad outfile");
+		exit(EXIT_FAILURE);
+	}
+	ft_dup2(file, STDIN_FILENO);
+	close(file);
+}
+
 /*
 Processus de pipe normal
 */
 void	start_process(t_args *d, t_argmode *argv)
 {
-
+	
 	close(d->temp_tube[0]);
 	close(d->tube[0]);
-	if (d->next_mode == 1)
+	if (d->stdout_pos != 0)
+		ft_forward(d, argv);
+	else 
 		ft_dup2(d->tube[1], STDOUT_FILENO);
+	if (d->stdin_pos != 0)
+	{
+		dprintf(2, "heyo\n");
+		ft_backward(d, argv);
+	}
 	close(d->tube[1]);
 }
 
@@ -110,14 +144,14 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 	{
 		dprintf(2, "start process\n");
 		start_process(d, argv);
-		if (argv[d->acutal_arg].mode == 2)
+		/*if (argv[d->acutal_arg].mode == 2)
 		{
 			redirection_fwd(d, argv);
 		}
 		if (argv[d->acutal_arg].mode == 4)
 		{
 			redirection_bck(d, argv);
-		}
+		}*/
 	}
 	/*
 	Me donner le nombre d'argument total que je puisse définir le dernier argument
@@ -132,14 +166,14 @@ void	pipe_conditions(t_args *d, t_argmode *argv)
 	{
 		dprintf(2, "progress process\n");
 		progress_process (d);
-		if (argv[d->acutal_arg].mode == 2)
+	/*	if (argv[d->acutal_arg].mode == 2)
 		{
 			redirection_fwd(d, argv);
 		}
 		if (argv[d->acutal_arg].mode == 4)
 		{
 			redirection_bck(d, argv);
-		}
+		}*/
 	}
 }
 void	one_arg(t_args *d, t_argmode *argv)
@@ -166,7 +200,7 @@ void    process_pipe(t_args *d, t_argmode *argv)
 	
 	if (d->argc < 2)
 		one_arg(d, argv);
-	//dprintf(2, "valeur de next mode : %d\n", d->next_mode);
+	dprintf(2, "valeur de stdin : %s || %d\n", argv[d->stdin_pos].arg, d->stdin_pos);
 	pipe_conditions(d, argv);
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 //	dprintf(2, "valeur de acutal arg : %s\n" , args[0]);

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/27 16:23:49 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/30 14:25:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,38 @@ void	mode_after_bck_redirection(t_args *d, t_argmode *argv)
 	}
 	
 }
-void target_redirection(t_args *d, t_argmode *argv)
+int target_redirection(t_args *d, t_argmode *argv)
 {
 	int i;
+	int file;
 
-	i = d->acutal_arg;
+	i = d->acutal_arg + 1;
 	while(argv[i].mode != 0 || argv[i].mode == 1)
 	{
 		while(argv[i].mode == 2)
 		{
+			file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+			if (file == -1)
+			{
+				return(1);
+			}
 			i++;
 			d->stdout_pos = i;
 		}
 		while (argv[i].mode == 4)
 		{
+			/*file = open(argv[i].arg, 1);
+				if (file == -1)
+				{
+					dprintf(2, "%s : No such file or directory\n", argv[i].arg);
+					return(1);
+				}*/
 			i++;
-			d->stdout_pos = i;
+			d->stdin_pos = i;
 		}
+		i++;
 	}
+	return(0);
 	dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d \n", d->stdin_pos, d->argc, d->stdout_pos, d->argc);
 }
 
@@ -96,8 +110,14 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		*/
 		
 		
-		target_redirection (d, argv);
-		//fork_process(d, argv);
+		if ( target_redirection (d, argv) == 1)
+		{
+			dprintf(2, "bruh");
+			break;
+		}
+		fork_process(d, argv);
+		d->acutal_arg += d->stdin_pos;
+		d->acutal_arg += d->stdout_pos;
 		/*if (counting_redirection_bwd(d, argv) == 1)
 		{
 			dprintf(2, "%s : No such file or directory\n", argv[d->acutal_arg + 2].arg);
@@ -111,6 +131,8 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 			d->count = 0;
 		}
 		else */
+		d->stdin_pos = 0;
+		d->stdout_pos = 0;
 		d->acutal_arg++;
 		d->j++;
 	}
