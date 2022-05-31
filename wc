@@ -1,0 +1,18 @@
+total 264
+-rw-r--r--   1 robingeral  staff    198  6 mai 09:02 CMakeLists.txt
+-rw-r--r--   1 robingeral  staff    934 14 mai 18:07 Makefile
+-rw-r--r--@  1 robingeral  staff     10 20 avr 11:28 README.md
+-rwxr-xr-x   1 robingeral  staff  33426  9 mai 13:47 a.out
+drwxr-xr-x   4 robingeral  staff    128  6 mai 09:02 built-ins
+drwxr-xr-x   4 robingeral  staff    128 14 mai 18:12 incs
+drwxr-xr-x  87 robingeral  staff   2784 16 mai 11:29 libft
+-rw-r--r--   1 robingeral  staff      0 14 mai 18:07 ls
+-rwxr-xr-x   1 robingeral  staff  36854 16 mai 11:59 minishell
+-rwxr-xr-x   1 robingeral  staff  33431 10 mai 11:18 print_args
+-rw-r--r--   1 robingeral  staff    164 10 mai 11:18 print_args.c
+drwxr-xr-x   4 robingeral  staff    128  6 mai 09:06 srcs
+-rw-r--r--   1 robingeral  staff     35 16 mai 12:06 test
+-rw-r--r--   1 robingeral  staff      0 16 mai 11:40 test2
+-rw-r--r--   1 robingeral  staff      5 16 mai 11:41 test3
+drwxr-xr-x   6 robingeral  staff    192 14 mai 18:07 tests
+-rw-r--r--   1 robingeral  staff      0 17 mai 11:25 wc
