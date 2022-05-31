@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/26 13:21:34 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/05/16 15:57:28 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct s_arguments
 	int 	redir_bck;
 	int		redir_fwd;
 	int		count;
-	int		next_mode;
 }				t_args;
 
 // FUNCTIONS PARSING
@@ -92,7 +91,7 @@ void    process_pipe(t_args *d, t_argmode *argv);
 void    fork_process(t_args *d, t_argmode *argsmod);
 int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
-void	exec_home(t_argmode *argv, int argc, char	*env[]);
+int		exec_home(t_argmode *argv, int argc, char	*env[]);
 
 //REBUILD
 char	**path(char	**env);
