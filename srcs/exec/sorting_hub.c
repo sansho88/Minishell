@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_hub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/02 18:23:07 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/02 20:04:19 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int target_redirection(t_args *d, t_argmode *argv)
 	int i;
 	int file;
 
-	i = d->acutal_arg + 1;
+	i = d->acutal_arg;
 	while(argv[i].mode != 0 || argv[i].mode == 1)
 	{
 		while(argv[i].mode == 2)
@@ -101,21 +101,25 @@ void	check_if_last(t_args *d, t_argmode *argv)
 	int i;
 
 	i = d->acutal_arg;
-	while (argv[i].mode != 1 || argv[i].mode != 0)
+	while (i < d->argc - 1)
 	{
 		i++;
 	}
 	if (argv[i].mode == 1)
+	{
 		d->is_last = 1;
+	}
 	else if (argv[i].mode == 0)
+	{
 		d->is_last = 0;
+	}
 }
 
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
 	d->j = 0;
 	d->count = 0;
-	while (d->acutal_arg < d->argc)
+	while (d->acutal_arg < d->argc - 1)
 	{
 	/*	dprintf(2, "valeur actuelle de acutal arg : %d\n", d->acutal_arg);
 		if(argv[d->acutal_arg].mode == 4)

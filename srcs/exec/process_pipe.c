@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/02 18:44:49 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/02 20:03:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,37 +185,25 @@ void	one_arg(t_args *d, t_argmode *argv)
 	execute(d, args, d->acutal_arg);
 }
 
-void	pipe_rebuild(t_args *d, t_argmode *argv)
+void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 {
-	if (d->redir_bck != 0)
-		ft_backward(d, argv);
-	else if (d->is_last == 1)
-		ft_dup2(d->temp_tube[0], STDIN_FILENO);
-	else if (d->is_last == 0)
-		close(d->tube[0]);
-		close(d->temp_tube[0]);
-		close (d->tube[1]);
-
-	if (d->redir_fwd != 0)
-		ft_forward(d, argv);
-	else if (d->acutal_arg == 2)
-		ft_dup2(d->tube[1], STDOUT_FILENO);
-	else if (d->acutal_arg < 2)
+	if (d->stdin_pos != 0)
 	{
-		ft_dup2(d->temp_tube[0], STDIN_FILENO);
-		ft_dup2(d->tube[1], STDOUT_FILENO);
-		close(d->temp_tube[0]);
-		close(d->temp_tube[1]);
-		close(d->tube[0]);
-		close(d->tube[1]);
+		ft_backward(d, argv);
 	}
-
-
-
-
-
+	if (d->stdout_pos != 0)
+	{
+		dprintf(2, "test\n\n");
+		ft_forward(d, argv);
+	}
+	else if (d->is_last == 1)
+		ft_dup2(d->tube[1], STDOUT_FILENO);
 }
 
+void pipe_rebuild_esle(t_args *d, t_argmode *argv)
+{
+	
+}
 void    process_pipe(t_args *d, t_argmode *argv)
 {
 	char	**args;
@@ -232,8 +220,13 @@ void    process_pipe(t_args *d, t_argmode *argv)
 	dprintf(2, "valeur de stdin : %s || %d\n", argv[d->stdin_pos].arg, d->stdin_pos);
 	if (d->argc < 2)
 		one_arg(d, argv);
-	else 
-		pipe_rebuild(d, argv);
+	else if (d->acutal_arg == 0)
+	{
+		//dprintf(2, "Pipe rebuild first \n\n");
+		pipe_rebuild_first(d, argv);
+	}
+	//else if (d->acutal_arg < 0)
+	//	pipe_rebuild_else(d, argv)
 	//pipe_conditions(d, argv);
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 //	dprintf(2, "valeur de acutal arg : %s\n" , args[0]);
