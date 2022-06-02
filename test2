@@ -1,7 +1,6 @@
 CMakeLists.txt
 Makefile
 README.md
-a.out
 exit
 heyo
 incs
@@ -17,3 +16,4 @@ test3
 test4
 test5
 tests
+wc

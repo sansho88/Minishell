@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_hub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/30 14:25:51 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/02 18:23:07 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,21 @@ int target_redirection(t_args *d, t_argmode *argv)
 	dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d \n", d->stdin_pos, d->argc, d->stdout_pos, d->argc);
 }
 
+void	check_if_last(t_args *d, t_argmode *argv)
+{
+	int i;
+
+	i = d->acutal_arg;
+	while (argv[i].mode != 1 || argv[i].mode != 0)
+	{
+		i++;
+	}
+	if (argv[i].mode == 1)
+		d->is_last = 1;
+	else if (argv[i].mode == 0)
+		d->is_last = 0;
+}
+
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
 	d->j = 0;
@@ -115,6 +130,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 			dprintf(2, "bruh");
 			break;
 		}
+		check_if_last(d, argv);
 		fork_process(d, argv);
 		d->acutal_arg += d->stdin_pos;
 		d->acutal_arg += d->stdout_pos;
