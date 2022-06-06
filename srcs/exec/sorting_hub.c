@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/03 18:40:02 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/06 14:21:30 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int target_redirection(t_args *d, t_argmode *argv)
 	int i;
 	int file;
 	int file2;
+	int file3;
 
-	//d->stdout_pos = 0;
-	//d->stdin_pos = 0;
+
 	i = d->acutal_arg;
 	while(i < d->argc)
 	{
@@ -84,6 +84,8 @@ int target_redirection(t_args *d, t_argmode *argv)
 			i++;
 			d->stdout_pos = i;
 		}
+		if (argv[i].mode == 1 || argv[i].mode == 0)
+			break;
 		while (argv[i].mode == 4)
 		{
 			file2 = open(argv[i].arg, 0644);
@@ -95,8 +97,18 @@ int target_redirection(t_args *d, t_argmode *argv)
 			i++;
 			d->stdin_pos = i;
 		}
+		/*while (argv[i] == ">>")
+		{
+			file3 = open(argv[i].arg, O_APPEND | O_CREAT, 0666);
+			if (file == -1)
+			{
+				return(1);
+			}
+			i++;
+			d->stdout_pos = i;
+		}*/
 		//dprintf(2, "Valeur pointée : %s\n", argv->arg[i - 1]);
-		i++;
+		//i++;
 	}
 	if (argv[i].mode == 0)
 	{
@@ -108,6 +120,10 @@ int target_redirection(t_args *d, t_argmode *argv)
 		{
 			d->stdin_pos = i;
 		}
+		/*else if ((argv[i - 1].mode == ">>")
+		{
+			d->stdout_pos = i;
+		}*/
 	}
 	//dprintf(2, "valeur de i : %d\n\n", i);
 	//d->stdout_pos = 0;
