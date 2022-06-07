@@ -26,6 +26,7 @@ typedef struct s_list
 int				ft_atoi(const char *str);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
+int				ft_str_isdigit(char *str);
 int				ft_isalnum(int c);
 int				ft_isprint(int c);
 int				ft_isascii(int c);
