@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:50:20 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/13 11:50:24 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/06/07 12:19:42 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_list
 int				ft_atoi(const char *str);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
+int				ft_str_isdigit(char *str);
 int				ft_isalnum(int c);
 int				ft_isprint(int c);
 int				ft_isascii(int c);
