@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/26 13:22:15 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/03 17:41:30 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ int	main(int argc, char *argv[], char	*env[])
 		if (!commandline)
 			exit(0);
 		add_history(commandline);
+		dprintf(2, "[%s]command line = %s\n", __func__, commandline);
 		rl_redisplay();
 		if (*commandline && is_cmdline_ok(commandline))
 		{
