@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/03 18:35:30 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/08 14:58:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,23 @@ void	ft_forward(t_args *d, t_argmode *argv)
 {
 	int file;
 
-	file = open(argv[d->stdout_pos].arg, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	if (file == -1)
+	if (d->is_append == 0)
 	{
-		perror("bad outfile");
-		exit(EXIT_FAILURE);
+		file = open(argv[d->stdout_pos].arg, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		if (file == -1)
+		{
+			perror("bad outfile");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else if (d->is_append == 1)
+	{
+		file = open(argv[d->stdout_pos].arg, O_WRONLY | O_CREAT | O_APPEND);
+		if (file == -1)
+		{
+			perror("bad outfile");
+			exit(EXIT_FAILURE);
+		}		
 	}
 	ft_dup2(file, 1);
 	close(file);

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/06 14:21:30 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/08 15:00:57 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int target_redirection(t_args *d, t_argmode *argv)
 	int file2;
 	int file3;
 
-
-	i = d->acutal_arg;
+	dprintf(2, "enter target redirection");
+	i = d->acutal_arg + 1;
 	while(i < d->argc)
 	{
 		if (argv[i].mode == 1 || argv[i].mode == 0)
@@ -83,6 +83,7 @@ int target_redirection(t_args *d, t_argmode *argv)
 			}
 			i++;
 			d->stdout_pos = i;
+			d->is_append = 0;
 		}
 		if (argv[i].mode == 1 || argv[i].mode == 0)
 			break;
@@ -97,16 +98,17 @@ int target_redirection(t_args *d, t_argmode *argv)
 			i++;
 			d->stdin_pos = i;
 		}
-		/*while (argv[i] == ">>")
+		while (argv[i].mode == 3)
 		{
-			file3 = open(argv[i].arg, O_APPEND | O_CREAT, 0666);
+			file3 = open(argv[i].arg, O_APPEND | O_CREAT);
 			if (file == -1)
 			{
 				return(1);
 			}
 			i++;
+			d->is_append = 1;
 			d->stdout_pos = i;
-		}*/
+		}
 		//dprintf(2, "Valeur pointée : %s\n", argv->arg[i - 1]);
 		//i++;
 	}
@@ -120,10 +122,11 @@ int target_redirection(t_args *d, t_argmode *argv)
 		{
 			d->stdin_pos = i;
 		}
-		/*else if ((argv[i - 1].mode == ">>")
+		else if (argv[i - 1].mode == 3)
 		{
+			d->is_append = 1;
 			d->stdout_pos = i;
-		}*/
+		}
 	}
 	//dprintf(2, "valeur de i : %d\n\n", i);
 	//d->stdout_pos = 0;
@@ -156,8 +159,10 @@ void	check_if_last(t_args *d, t_argmode *argv)
 
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
+	dprintf(2, "sorting hub enter\n");
 	d->j = 0;
 	d->count = 0;
+	d->is_append = 0;
 	while (d->acutal_arg < d->argc)
 	{
 			if ( target_redirection (d, argv) == 1)
@@ -171,6 +176,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		d->acutal_arg += d->stdout_pos;
 		d->stdin_pos = 0;
 		d->stdout_pos = 0;
+		d->is_append = 0;
 		d->acutal_arg++;
 		d->j++;
 	}
