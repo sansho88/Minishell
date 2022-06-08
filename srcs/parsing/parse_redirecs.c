@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/07 18:19:09 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/05/27 18:09:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ size_t	get_nb_seps(const char *cmdline)
 	nb_seps = 0;
 	while (cmdline[++i])
 	{
-		if (i > 0 && (cmdline[i - 1] == '>' || cmdline[i - 1] == '<'))
-			i ++;
 		nb_seps += ft_check_redir(&cmdline[i]) != 0;
+		if (i > 0 && (cmdline[i - 1] == '>' || cmdline[i - 1] == '<'))
+				i++;
 	}
 	return (nb_seps);
 }
@@ -96,7 +96,7 @@ t_argmode	*create_targmode_array(char *cmdline)
 	{
 		if (ft_check_redir(&cmdline[i]) != 0)
 		{
-			res[num_part].arg = ft_strndup(&cmdline[j], i - j);
+			res[num_part].arg = ft_strndup(&cmdline[j], i - j - 1);
 			res[num_part].mode = ft_check_redir(&cmdline[i]);
 			j = i + (res[num_part].mode == 3 || res[num_part].mode == 5) + 1;
 			num_part++;

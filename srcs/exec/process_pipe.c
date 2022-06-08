@@ -23,18 +23,18 @@ void	redirection_bck(t_args *d, t_argmode *argv)
 	
 	j = d->acutal_arg;
 	i = d->acutal_arg + 1;
-	dprintf(2, "nom du fichier : %s\n", argv[i].arg);
+	dprintf(2, "redirection Bck\n");
+	//dprintf(2, "nom du fichier : %s\n", argv[i].arg);
 
 	while (argv[j].mode == 4)
 	{
-		file = open(argv[i].arg, O_RDONLY);
+		file = open(argv[i].arg, 1);
 		if (file == -1)
 		{
 			perror("bad outfile");
 			exit(EXIT_FAILURE);
 		}
 		ft_dup2(file, STDIN_FILENO);
-		//ft_dup2(1, STDOUT_FILENO);
 		close(file);
 		j++;
 		i++;
@@ -49,6 +49,7 @@ void	redirection_fwd(t_args *d, t_argmode *argv)
 	
 	j = d->acutal_arg;
 	i = d->acutal_arg + 1;
+	dprintf(2, "redirection fwd\n");
 	//dprintf(2, "nom du fichier : %s\n", argv[2].arg);
 
 	while (argv[j].mode == 2)
@@ -141,7 +142,7 @@ Les redirections
 	//dprintf(2, "valeur de argv : %s\n", d->argv[5]);
 	if (d->acutal_arg == 0)
 	{
-		dprintf(2, "Start Process \n");
+		dprintf(2, "start process\n");
 		start_process(d, argv);
 		/*if (argv[d->acutal_arg].mode == 2)
 		{
@@ -149,7 +150,6 @@ Les redirections
 		}
 		if (argv[d->acutal_arg].mode == 4)
 		{
-			dprintf(2, "redirection Bck\n");
 			redirection_bck(d, argv);
 		}
 	}
@@ -161,10 +161,6 @@ Les redirections
 	{
 		dprintf(2, "End process\n");
 		end_process (d, argv);
-		if (argv[d->acutal_arg].mode == 2)
-		{
-			redirection_fwd(d, argv);
-		}
 	}
 	else
 	{
@@ -173,6 +169,10 @@ Les redirections
 		if (argv[d->acutal_arg].mode == 2)
 		{
 			redirection_fwd(d, argv);
+		}
+		if (argv[d->acutal_arg].mode == 4)
+		{
+			redirection_bck(d, argv);
 		}
 	}
 }*/
@@ -262,9 +262,8 @@ void    process_pipe(t_args *d, t_argmode *argv)
 		pipe_rebuild_else(d, argv);
 	}
 	//pipe_conditions(d, argv);
-
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
-	dprintf(2, "valeur de acutal arg : %s\n" , args[0]);
+//	dprintf(2, "valeur de acutal arg : %s\n" , args[0]);
 	i = 0;
 	/*while (args[i])
 	{
