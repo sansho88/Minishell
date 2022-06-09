@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/17 13:46:55 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/06/09 18:37:13 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,10 @@ bool	is_chars_partouze(char *cmdline)
 	if (!check_chenillle_char(cmdline, '|'))
 		return (true);
 	if (ft_strchr(cmdline, '\\') && !ft_strchr(cmdline + 1, '\'')
-	&& (cmdline - 1 != NULL && !ft_strchr(cmdline - 1, '\'')))
+		&& (cmdline - 1 != NULL && !ft_strchr(cmdline - 1, '\'')))
 		return (true);
 	if (ft_strchr(cmdline, ';') && !ft_strchr(cmdline + 1, '\'')
-	&& (cmdline - 1 != NULL && !ft_strchr(cmdline - 1, '\'')))
+		&& (cmdline - 1 != NULL && !ft_strchr(cmdline - 1, '\'')))
 		return (true);
 	return (false);
 }
@@ -141,20 +141,15 @@ bool	is_cmdline_ok(char *cmdline)
 	char	*testcmd;
 
 	testcmd = ft_strtrim(cmdline, " ");
-	if (!*testcmd)
+	if (!*testcmd || !are_quotes_closed(cmdline) || is_chars_partouze(cmdline))
 	{
 		free(testcmd);
 		return (false);
 	}
-	if (!are_quotes_closed(cmdline))
-		return (false);
-	if (is_chars_partouze(cmdline))
-	{
-		printf("Chars partouze\n");
-		return (false);
-	}
 	return (true);
 }
+
+
 
 void	merge_cmd_with_args(char **cmd, size_t nb_args)
 {
