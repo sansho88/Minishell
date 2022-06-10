@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/10 12:52:24 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/10 20:15:36 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ Les redirections
 	{
 		dprintf(2, "start process\n");
 		start_process(d, argv);
-		/*if (argv[d->acutal_arg].mode == 2)
+		if (argv[d->acutal_arg].mode == 2)
 		{
 			redirection_fwd(d, argv);
 		}

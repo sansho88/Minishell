@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_hub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/10 17:14:45 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/10 20:52:54 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ int	ft_stdout(t_args *d, t_argmode *argv)
 				}
 			i++;
 			d->stdout_pos = i;
-	//		d->is_append = 0;
+			d->is_append = i;
 		}
 		else 
 			i++;
@@ -239,18 +239,17 @@ int	ft_append(t_args *d, t_argmode *argv)
 	int file;
 	
 	i = d->acutal_arg;
-	while (i < i < d->argc)
+	while (i < d->argc)
 	{
 		if (argv[i].mode == 3)
 		{
-			file = open(argv[i].arg, O_APPEND | O_CREAT);
+			file = open(argv[i + 1].arg, O_APPEND | O_CREAT);
 			if (file == -1)
 			{
 				return(1);
 			}
 			i++;
-	//		d->is_append = 1;
-			d->stdout_pos = i;
+			d->append_pos = i;
 		}
 		else 
 			i++;
@@ -259,7 +258,7 @@ int	ft_append(t_args *d, t_argmode *argv)
 	{
 		if (argv[i - 1].mode == 3)
 		{
-			d->stdin_pos = i;
+			d->append_pos = i;
 		}
 	}
 	return(0);
@@ -270,6 +269,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 	d->j = 0;
 	d->count = 0;
 	d->is_append = 0;
+	d->append_pos = 0;
 	while (d->acutal_arg < d->argc)
 	{
 		/*if ( target_redirection (d, argv) == 1)
@@ -284,8 +284,16 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		}*/
 		ft_stdin(d, argv);
 		ft_stdout(d, argv);
-		dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d \n", d->stdin_pos, d->argc, d->stdout_pos, d->argc);
+		ft_append(d, argv);
+		dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d || valeur de append : %d/%d\n", d->stdin_pos, d->argc, d->stdout_pos, d->argc, d->append_pos, d->argc);
 		check_if_last(d, argv);
+		if (d->append_pos > d->stdout_pos)
+		{
+			d->stdout_pos = d->append_pos;
+			d->is_append = 1;
+		}
+		else
+			d->is_append = 0;
 		fork_process(d, argv);
 		d->acutal_arg += d->stdin_pos;
 		d->acutal_arg += d->stdout_pos;
