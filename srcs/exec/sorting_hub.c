@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/08 15:00:57 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/10 17:14:45 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,35 +69,42 @@ int target_redirection(t_args *d, t_argmode *argv)
 	int file3;
 
 	dprintf(2, "enter target redirection");
-	i = d->acutal_arg + 1;
+	i = d->acutal_arg;
+	//dprintf(2, "valeur de i : %d\n", i);
 	while(i < d->argc)
 	{
 		if (argv[i].mode == 1 || argv[i].mode == 0)
 			break;
 		while(argv[i].mode == 2)
 		{
-			file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
-			if (file == -1)
+			if (i > 0)
 			{
-				return(1);
+				file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+				if (file == -1)
+				{
+					return(1);
+				}
 			}
 			i++;
 			d->stdout_pos = i;
 			d->is_append = 0;
 		}
 		if (argv[i].mode == 1 || argv[i].mode == 0)
-			break;
+			break; 
 		while (argv[i].mode == 4)
 		{
-			file2 = open(argv[i].arg, 0644);
-				if (file == -1)
+			file2 = open(argv[i + 1].arg, 0666);
+				if (file2 == -1)
 				{
-					dprintf(2, "%s : No such file or directory\n", argv[i].arg);
+					dprintf(2, "%s : No such file or directory\n", argv[i + 1].arg);
 					return(1);
 				}
 			i++;
 			d->stdin_pos = i;
+			close(file2);
 		}
+		if (argv[i].mode == 1 || argv[i].mode == 0)
+			break; 
 		while (argv[i].mode == 3)
 		{
 			file3 = open(argv[i].arg, O_APPEND | O_CREAT);
@@ -154,22 +161,130 @@ void	check_if_last(t_args *d, t_argmode *argv)
 		else 
 			i++;
 	}
-	dprintf(2, "valeur de is_last : %d\n", d->is_last);
+	//dprintf(2, "valeur de is_last : %d\n", d->is_last);
+}
+int	ft_stdin(t_args *d, t_argmode *argv)
+{
+	int i;
+	int file;
+
+	i = d->acutal_arg;
+	while (i < d->argc)
+	{
+		if (argv[i].mode == 1 || argv[i].mode == 0)
+			break; 
+		if (argv[i].mode == 4)
+		{
+			file = open(argv[i + 1].arg, 0666);
+				if (file == -1)
+				{
+					dprintf(2, "%s : No such file or directory\n", argv[i + 1].arg);
+					return(1);
+				}
+			i++;
+			d->stdin_pos = i;
+			close(file);
+		}
+		else 
+			i++;
+	}
+		if (argv[i].mode == 0)
+		{
+			if (argv[i - 1].mode == 4)
+			{
+				d->stdin_pos = i;
+			}
+		}
+	//close(file);
+	return(0);
+}
+int	ft_stdout(t_args *d, t_argmode *argv)
+{
+	int i;
+	int file2;
+	
+	i = d->acutal_arg;
+	while (i < d->argc)
+	{
+		if (argv[i].mode == 1 || argv[i].mode == 0)
+			break; 
+		if (argv[i].mode == 2)
+		{
+				file2 = open(argv[i + 1].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+				if (file2 == -1)
+				{
+					return(1);
+				}
+			i++;
+			d->stdout_pos = i;
+	//		d->is_append = 0;
+		}
+		else 
+			i++;
+	}
+	if (argv[i].mode == 0)
+	{
+		if (argv[i - 1].mode == 2)
+		{
+			d->stdout_pos = i;
+		}	
+	}
+	//close(file2);
+	return(0);
 }
 
+int	ft_append(t_args *d, t_argmode *argv)
+{
+	int i;
+	int file;
+	
+	i = d->acutal_arg;
+	while (i < i < d->argc)
+	{
+		if (argv[i].mode == 3)
+		{
+			file = open(argv[i].arg, O_APPEND | O_CREAT);
+			if (file == -1)
+			{
+				return(1);
+			}
+			i++;
+	//		d->is_append = 1;
+			d->stdout_pos = i;
+		}
+		else 
+			i++;
+	}
+	if (argv[i].mode == 0)
+	{
+		if (argv[i - 1].mode == 3)
+		{
+			d->stdin_pos = i;
+		}
+	}
+	return(0);
+}
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
-	dprintf(2, "sorting hub enter\n");
+	//dprintf(2, "sorting hub enter\n");
 	d->j = 0;
 	d->count = 0;
 	d->is_append = 0;
 	while (d->acutal_arg < d->argc)
 	{
-			if ( target_redirection (d, argv) == 1)
+		/*if ( target_redirection (d, argv) == 1)
 		{
-			dprintf(2, "bruh");
+			dprintf(2, "bruh\n");
 			break;
-		}
+		}*/
+		/*if (ft_stdin(d, argv) == 1 || ft_stdout(d, argv) == 1 || ft_append(d, argv) == 1)
+		{
+			dprintf(2, "bruh\n");
+			break;
+		}*/
+		ft_stdin(d, argv);
+		ft_stdout(d, argv);
+		dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d \n", d->stdin_pos, d->argc, d->stdout_pos, d->argc);
 		check_if_last(d, argv);
 		fork_process(d, argv);
 		d->acutal_arg += d->stdin_pos;
