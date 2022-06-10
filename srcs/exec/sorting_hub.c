@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/10 20:52:54 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/10 21:42:17 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,8 @@ int	ft_append(t_args *d, t_argmode *argv)
 	i = d->acutal_arg;
 	while (i < d->argc)
 	{
+		if (argv[i].mode == 1 || argv[i].mode == 0)
+			break; 
 		if (argv[i].mode == 3)
 		{
 			file = open(argv[i + 1].arg, O_APPEND | O_CREAT);
@@ -300,6 +302,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		d->stdin_pos = 0;
 		d->stdout_pos = 0;
 		d->is_append = 0;
+		d->append_pos = 0;
 		d->acutal_arg++;
 		d->j++;
 	}
