@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/10 20:15:36 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/22 15:01:34 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_forward(t_args *d, t_argmode *argv)
 	if (d->is_append == 0)
 		file = open(argv[d->stdout_pos].arg, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	else if (d->is_append == 1)
-		file = open(argv[d->stdout_pos].arg, O_WRONLY | O_CREAT | O_APPEND);
+		file = open(argv[d->stdout_pos].arg, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file == -1)
 	{
 		perror("bad outfile");
@@ -97,88 +97,6 @@ void	ft_backward(t_args *d, t_argmode *argv)
 	close(file2);
 }
 
-/*
-Processus de pipe normal
-*/
-/*void	start_process(t_args *d, t_argmode *argv)
-{
-	
-	close(d->temp_tube[0]);
-	close(d->tube[0]);
-	if (d->stdout_pos != 0)
-		ft_forward(d, argv);
-//	else 
-//		ft_dup2(d->tube[1], STDOUT_FILENO);
-	if (d->stdin_pos != 0)
-	{
-		dprintf(2, "heyo\n");
-		ft_backward(d, argv);
-	}
-	close(d->tube[1]);
-}
-
-void	progress_process(t_args *d)
-{
-	
-	ft_dup2(d->temp_tube[0], STDIN_FILENO);
-	ft_dup2(d->tube[1], STDOUT_FILENO);
-	close(d->temp_tube[0]);
-	close(d->temp_tube[1]);
-	close(d->tube[0]);
-	close(d->tube[1]);
-}
-
-void	end_process(t_args *d, t_argmode *argv)
-{
-	close(d->temp_tube[1]);
-	ft_dup2(d->temp_tube[0], STDIN_FILENO);
-	close(d->tube[0]);
-	close(d->temp_tube[0]);
-	close (d->tube[1]);
-}
-
-Les redirections 
-*/
-/*void	pipe_conditions(t_args *d, t_argmode *argv)
-{
-	//dprintf(1, "Valeur de actual_arg : %d || Valeur de argc : %d\n", d->acutal_arg, d->argc);
-	//dprintf(2, "valeur de argv : %s\n", d->argv[5]);
-	if (d->acutal_arg == 0)
-	{
-		dprintf(2, "start process\n");
-		start_process(d, argv);
-		if (argv[d->acutal_arg].mode == 2)
-		{
-			redirection_fwd(d, argv);
-		}
-		if (argv[d->acutal_arg].mode == 4)
-		{
-			redirection_bck(d, argv);
-		}
-	}
-	
-	Me donner le nombre d'argument total que je puisse définir le dernier argument
-	Pour le end_process
-	
-	else if (d->acutal_arg == d->argc - 1)
-	{
-		dprintf(2, "End process\n");
-		end_process (d, argv);
-	}
-	else
-	{
-		dprintf(2, "progress process\n");
-		progress_process (d);
-		if (argv[d->acutal_arg].mode == 2)
-		{
-			redirection_fwd(d, argv);
-		}
-		if (argv[d->acutal_arg].mode == 4)
-		{
-			redirection_bck(d, argv);
-		}
-	}
-}*/
 void	one_arg(t_args *d, t_argmode *argv)
 {
 	char	**args;
