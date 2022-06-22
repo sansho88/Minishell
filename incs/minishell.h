@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/10 20:33:01 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/22 13:23:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_arguments
 	int		is_last;
 	int		is_append;
 	int		append_pos;
+	int		redir_count;
 }				t_args;
 
 // FUNCTIONS PARSING
