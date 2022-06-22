@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/06/10 21:42:17 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/22 13:33:46 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ int	ft_stdin(t_args *d, t_argmode *argv)
 				}
 			i++;
 			d->stdin_pos = i;
+			d->redir_count++;
 			close(file);
 		}
 		else 
@@ -217,6 +218,7 @@ int	ft_stdout(t_args *d, t_argmode *argv)
 				}
 			i++;
 			d->stdout_pos = i;
+			d->redir_count++;
 			d->is_append = i;
 		}
 		else 
@@ -251,6 +253,7 @@ int	ft_append(t_args *d, t_argmode *argv)
 				return(1);
 			}
 			i++;
+			d->redir_count++;
 			d->append_pos = i;
 		}
 		else 
@@ -274,6 +277,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 	d->append_pos = 0;
 	while (d->acutal_arg < d->argc)
 	{
+		d->redir_count = 0;
 		/*if ( target_redirection (d, argv) == 1)
 		{
 			dprintf(2, "bruh\n");
@@ -281,7 +285,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		}*/
 		/*if (ft_stdin(d, argv) == 1 || ft_stdout(d, argv) == 1 || ft_append(d, argv) == 1)
 		{
-			dprintf(2, "bruh\n");
+			//dprintf(2, "bruh\n");
 			break;
 		}*/
 		ft_stdin(d, argv);
@@ -297,8 +301,10 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		else
 			d->is_append = 0;
 		fork_process(d, argv);
-		d->acutal_arg += d->stdin_pos;
-		d->acutal_arg += d->stdout_pos;
+		//d->acutal_arg += d->stdin_pos;
+		//d->acutal_arg += d->stdout_pos;
+		dprintf(2, "valeur de count : %d\n", d->redir_count);
+		d->acutal_arg += d->redir_count;
 		d->stdin_pos = 0;
 		d->stdout_pos = 0;
 		d->is_append = 0;
