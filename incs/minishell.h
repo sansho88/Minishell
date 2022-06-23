@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/27 16:24:08 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/09 18:39:35 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,13 @@ typedef struct s_arguments
 	int 	redir_bck;
 	int		redir_fwd;
 	int		count;
-	int		next_mode;
-	int		stdin_pos;
-	int		stdout_pos;
 }				t_args;
 
 // FUNCTIONS PARSING
 t_argmode	*split_arg_redirect(char *cmdline, int *argc);
 t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
+void		clean_quotes(char **arg);
 //void	rl_clear_history(void);
 
 //FUNCTIONS SIGNALS
