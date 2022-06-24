@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/09 18:39:35 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/06/24 14:23:39 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,18 @@ typedef struct s_arguments
 	int 	redir_bck;
 	int		redir_fwd;
 	int		count;
+	int		next_mode;
+	int		stdin_pos;
+	int 	stdout_pos;
+	bool	is_last;
 }				t_args;
 
 // FUNCTIONS PARSING
 t_argmode	*split_arg_redirect(char *cmdline, int *argc);
 t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
-void		clean_quotes(char **arg);
+void		clean_quotes(char *arg);
+bool		are_quotes_closed(const char *cmdline);
 //void	rl_clear_history(void);
 
 //FUNCTIONS SIGNALS
@@ -92,7 +97,7 @@ void    process_pipe(t_args *d, t_argmode *argv);
 void    fork_process(t_args *d, t_argmode *argsmod);
 int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
-int		exec_home(t_argmode *argv, int argc, char	*env[]);
+void		exec_home(t_argmode *argv, int argc, char	*env[]);
 
 //REBUILD
 char	**path(char	**env);

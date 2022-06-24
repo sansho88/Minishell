@@ -6,26 +6,42 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/09 18:41:33 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/06/24 14:48:54 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
 
-void	clean_quotes(char **arg) //TODO: remove 1 quote and its gemini. (pattern: echo "bon"jour = bonjour)
+void	clean_quotes(char *arg) //TODO: remove 1 quote and its gemini. (pattern: echo "bon"jour = bonjour)
 {
-	char	*arg_tmp;
-
-	arg_tmp = ft_strdup(*arg);
+	size_t	len_arg;
+	size_t	i;
+	size_t	j;
+	bool	in_quotes;
+	/*arg_tmp = ft_strdup(*arg);
 	if (*arg[0] == '\'')
 		ft_strtrim(arg_tmp, "\'");
 	if (*arg[0] == '\"')
 		ft_strtrim(arg_tmp, "\"");
-	printf("[%s] arg_tmp = %s\n", __func__, arg_tmp);
-	ft_strlcpy(*arg, arg_tmp, ft_strlen(*arg) + 1);
-	printf("[%s] arg_tmp=%s__arg=%s__arg.length=%u\n", __func__, arg_tmp, *arg, ft_strlen(*arg));
-	free(arg_tmp);
+	printf("[%s] arg_tmp = %s\n", __func__, arg_tmp);*/
+	i = 0;
+	j = 0;
+	in_quotes = false;
+	len_arg = ft_strlen(arg);
+	while (j < len_arg)
+	{
+		while (arg[j] == '\"')
+		{
+			j++;
+			in_quotes = !in_quotes;
+		}
+		while (in_quotes == false && arg[j] == '\'')
+			j++;
+		arg[i] = arg[j++];
+		i++;
+	}
+	arg[i] = '\0';
 }
 
 /**
@@ -61,6 +77,9 @@ size_t	get_nb_seps(const char *cmdline)
 	while (cmdline[++i])
 	{
 		nb_seps += ft_check_redir(&cmdline[i]) != 0;
+		if (ft_check_redir(&cmdline[i]) == 3
+			|| ft_check_redir(&cmdline[i]) == 5)
+			nb_seps--;
 		if (i > 0 && (cmdline[i - 1] == '>' || cmdline[i - 1] == '<'))
 				i++;
 	}
@@ -78,7 +97,8 @@ void	ft_trim_args(t_argmode *argmode, size_t nb_args)
 		tmp = ft_strdup(argmode[i].arg);
 		free(argmode[i].arg);
 		argmode[i].arg = ft_strtrim(tmp, " ");
-		clean_quotes(&argmode[i].arg);
+		if (are_quotes_closed(argmode[i].arg))
+			clean_quotes(argmode[i].arg);
 		free(tmp);
 		i++;
 	}
@@ -88,7 +108,7 @@ void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 {
 	res[num_part].arg = ft_strtrim(cmdline + j, " ");
 	res[num_part].mode = 0;
-	ft_trim_args(res, num_part);
+	ft_trim_args(res, num_part + 1);
 }
 
 /**
