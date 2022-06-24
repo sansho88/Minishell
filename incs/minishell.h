@@ -97,7 +97,7 @@ void    process_pipe(t_args *d, t_argmode *argv);
 void    fork_process(t_args *d, t_argmode *argsmod);
 int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
-void		exec_home(t_argmode *argv, int argc, char	*env[]);
+int		exec_home(t_argmode *argv, int argc, char	*env[]);
 
 //REBUILD
 char	**path(char	**env);
