@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/24 14:48:54 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:05:05 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,24 @@ void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 	ft_trim_args(res, num_part + 1);
 }
 
+t_argmode *replace_heredocs(t_argmode *args, size_t nb_args)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < nb_args)
+	{
+		if (args[i].mode == HEREDOC)
+		{
+			//free(args[++i].arg);
+			i++;
+			args[i].arg = ft_heredoc(args[i].arg);
+		}
+		i++;
+	}
+	return (args);
+}
+
 /**
  * Create the amount of t_argmode structs and
  * @param cmdline
@@ -142,5 +160,5 @@ t_argmode	*create_targmode_array(char *cmdline)
 	}
 	if (num_part == get_nb_seps(cmdline))
 		end_fill_split(res, num_part, cmdline, j);
-	return (res);
+	return (replace_heredocs(res, num_part));
 }

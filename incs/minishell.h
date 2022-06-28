@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/24 14:23:39 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:11:04 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 
-# define CONCHITO "\033[1;32mConchito \033[93m✗\033[0m "
+# define CONCHITO "\[}\033[1;32m\2Conchito \1\033[93m✗\033[0m\] "
 
 //Structs PARSING
 typedef struct s_argmode{
@@ -79,6 +79,7 @@ t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
 void		clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
+char		*ft_heredoc(char *stop);
 //void	rl_clear_history(void);
 
 //FUNCTIONS SIGNALS
