@@ -24,7 +24,7 @@ char	*ft_new_heredocname(int *nb_created)
 	const char	*ext = ".txt";
 
 	filename = ft_strdup("/tmp/.heredoc");
-	str_nb = ft_itoa(*nb_created++);
+	str_nb = ft_itoa((*nb_created)++);
 	if (!filename || !str_nb)
 		perror(HEREDOC_ERROR);
 	filename = ft_strjoin_free(filename, str_nb, 2);
@@ -37,7 +37,7 @@ char	*ft_heredoc(char *stop)
 	char		*filename;
 	char		*input;
 	int			fd;
-	static int	nb_heredocs;
+	static int	nb_heredocs = 0;
 
 	input = ft_strdup("");
 	filename = ft_new_heredocname(&nb_heredocs);

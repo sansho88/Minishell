@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/28 18:05:05 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:10:11 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,16 @@ t_argmode *replace_heredocs(t_argmode *args, size_t nb_args)
 		if (args[i].mode == HEREDOC)
 		{
 			//free(args[++i].arg);
+			if (ft_strlen(args[i].arg) == 0)
+			{
+				dprintf(2, "[args n.%zu]%s = 0\n",i ,args[i].arg);
+				free(&args[i]);
+			}
 			i++;
 			args[i].arg = ft_heredoc(args[i].arg);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (args);
 }
