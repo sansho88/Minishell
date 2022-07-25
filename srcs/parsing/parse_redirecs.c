@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/07/01 12:10:11 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:22:31 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,32 @@ void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 	ft_trim_args(res, num_part + 1);
 }
 
-t_argmode *replace_heredocs(t_argmode *args, size_t nb_args)
+/**
+ * Get only the word which stop the heredoc, and remove it from the t_argmode
+ * for keep only what is next after the heredoc. \n
+ * Example: << stop cat > file == /heredoc.txt > file
+ * @param stop
+ * @return
+ */
+char	*get_stop_word(char **stop)
+{
+	size_t	i;
+	char	*result;
+
+	i = 0;
+	result = ft_strdup(*stop);
+	while (stop[0][i] && stop[0][i] != ' ')
+	{
+		result[i] = stop[0][i];
+		dprintf(2,"[%s]%c:%zu\n", __func__, stop[0][i], i);
+		i++;
+	}
+	result[i] = '\0';
+	ft_strlcpy(*stop, *stop + i + 1, ft_strlen(*stop));
+	return (result);
+}
+
+t_argmode *replace_heredocs(t_argmode *args, size_t nb_args) //todo: manage "<< stop cat > file | cat file"
 {
 	size_t	i;
 
@@ -120,14 +145,14 @@ t_argmode *replace_heredocs(t_argmode *args, size_t nb_args)
 	{
 		if (args[i].mode == HEREDOC)
 		{
-			//free(args[++i].arg);
+			//free(args[i].arg);
 			if (ft_strlen(args[i].arg) == 0)
 			{
 				dprintf(2, "[args n.%zu]%s = 0\n",i ,args[i].arg);
 				free(&args[i]);
 			}
+			args[i].arg = ft_heredoc(get_stop_word(&args[i + 1].arg));
 			i++;
-			args[i].arg = ft_heredoc(args[i].arg);
 		}
 		else
 			i++;

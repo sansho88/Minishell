@@ -41,7 +41,7 @@ char	*ft_heredoc(char *stop)
 
 	input = ft_strdup("");
 	filename = ft_new_heredocname(&nb_heredocs);
-	fd = open(filename, O_CREAT | O_RDWR, 777); //644 //todo: fix perms! (can't read after created wesh)
+	fd = open(filename, O_CREAT | O_RDWR, 777);
 	if (!fd || !filename)
 		perror(HEREDOC_ERROR);
 	dprintf(2, "STOP is[%s]\n", stop);
