@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:58 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/28 18:52:10 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:14:03 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_heredoc(char *stop)
 
 	input = ft_strdup("");
 	filename = ft_new_heredocname(&nb_heredocs);
-	fd = open(filename, O_CREAT | O_RDWR, 644);
+	fd = open(filename, O_CREAT | O_RDWR, 777); //644 //todo: fix perms! (can't read after created wesh)
 	if (!fd || !filename)
 		perror(HEREDOC_ERROR);
 	dprintf(2, "STOP is[%s]\n", stop);
@@ -49,7 +49,9 @@ char	*ft_heredoc(char *stop)
 	{
 		//free(input);
 		input = readline("> ");
-		write(fd, input, ft_strlen(input));
+		if (!input || ft_strncmp(input, stop, ft_strlen(stop)) == 0)
+			break ;
+		ft_putendl_fd(input, fd);
 	}
 	printf("[END HEREDOC]%s\n", input);
 	free(input);
