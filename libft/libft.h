@@ -13,6 +13,8 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# define __STDC_LIMIT_MACROS before
+# include <stdint.h>
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>

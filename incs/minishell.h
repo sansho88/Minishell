@@ -43,7 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 
-# define CONCHITO "\[}\033[1;32m\2Conchito \1\033[93m✗\033[0m\] "
+# define CONCHITO "\[\033[1;32m\2Conchito \1\033[93m✗\033[0m]"
 
 //Structs PARSING
 typedef struct s_argmode{
@@ -72,6 +72,10 @@ typedef struct s_arguments
 	int 	stdout_pos;
 	bool	is_last;
 }				t_args;
+
+// UTILS
+void        debug_t_argmode(t_argmode *args, int nb_arg);
+void        free_t_argmode(t_argmode *args, int nb_args);
 
 // FUNCTIONS PARSING
 t_argmode	*split_arg_redirect(char *cmdline, int *argc);

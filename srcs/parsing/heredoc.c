@@ -14,9 +14,6 @@
 
 #define HEREDOC_ERROR "Impossible to create a new heredoc"
 
-//todo: replacer proprement l'argument ([debug_t_argmode]t_argmode->arg=<< chocapic > b__ t_argmode->mode=5
-// [debug_t_argmode]t_argmode->arg=/tmp/.heredoc0.txt__ t_argmode->mode=2
-// 	[debug_t_argmode]t_argmode->arg=b__ t_argmode->mode=0
 char	*ft_new_heredocname(int *nb_created)
 {
 	char		*filename;
@@ -39,6 +36,8 @@ char	*ft_heredoc(char *stop)
 	int			fd;
 	static int	nb_heredocs = 0;
 
+    if (!stop || !*stop)
+        return (NULL);
 	input = ft_strdup("");
 	filename = ft_new_heredocname(&nb_heredocs);
 	fd = open(filename, O_CREAT | O_RDWR, 777);

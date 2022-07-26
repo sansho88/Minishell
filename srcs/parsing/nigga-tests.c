@@ -190,19 +190,6 @@ char	**parse_command_line(char *cmd, int *nb_args)
 	return (NULL);
 }
 
-void debug_t_argmode(t_argmode *args, int nb_arg)
-{
-	int	i;
-
-	i = 0;
-	while (i < nb_arg)
-	{
-		dprintf(1, "[%s]t_argmode->arg=%s__ t_argmode->mode=%d\n",__func__, args[i].arg, args[i].mode);
-		i++;
-	}
-
-}
-
 int	main(int argc, char *argv[], char	*env[])
 {
 	char		*commandline;
@@ -220,7 +207,7 @@ int	main(int argc, char *argv[], char	*env[])
 		if (!commandline)
 			exit(0);
 		add_history(commandline);
-		dprintf(2, "[%s]command line = %s\n", __func__, commandline);
+		dprintf(2, "[%s]command line =%s__\n", __func__, commandline);
 		rl_redisplay();
 		if (*commandline && is_cmdline_ok(commandline))
 		{

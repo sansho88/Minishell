@@ -124,11 +124,12 @@ char	*get_stop_word(char **stop)
 	char	*result;
 
 	i = 0;
+    if (!stop || !*stop || !**stop)
+        return (NULL);
 	result = ft_strdup(*stop);
 	while (stop[0][i] && stop[0][i] != ' ')
 	{
 		result[i] = stop[0][i];
-		dprintf(2,"[%s]%c:%zu\n", __func__, stop[0][i], i);
 		i++;
 	}
 	result[i] = '\0';
@@ -152,6 +153,12 @@ t_argmode *replace_heredocs(t_argmode *args, size_t nb_args) //todo: manage "<< 
 				free(&args[i]);
 			}
 			args[i].arg = ft_heredoc(get_stop_word(&args[i + 1].arg));
+            if (!args[i].arg)
+            {
+                free_t_argmode(args, nb_args);
+                ft_putendl_fd("heredoc: No valid stop word entered. Aborted.", 2);
+                return (NULL);
+            }
 			i++;
 		}
 		else
