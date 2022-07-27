@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/07/25 17:22:31 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:46:07 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ void	clean_quotes(char *arg) //TODO: remove 1 quote and its gemini. (pattern: ec
  * @param cmdline = A pointer to the first char to check
  * @return The "mode" (check minishell.h)
  */
-int	ft_check_redir(const char *cmdline)
+int	ft_check_redir(const char *cmdline) //todo: if redir + \0 = error (str_is_alphanum(redir + 1) ?)
 {
-	if (!cmdline)
+	if (!cmdline || !*(cmdline + 1))
 		return (NOT_REDIR);
-	if (*cmdline == '|' && *(cmdline + 1))
+	if (*cmdline == '|')
 		return (PIPE);
-	else if (*cmdline == '>' && *(cmdline + 1) && *(cmdline + 1) != '>')
+	else if (*cmdline == '>' && *(cmdline + 1) != '>')
 		return (REDIR_TO_OUT);
-	else if (*cmdline == '>' && *(cmdline + 1) && *(cmdline + 1) == '>')
+	else if (*cmdline == '>' && *(cmdline + 1) == '>')
 		return (CONCAT_TO_OUT);
-	else if (*cmdline == '<' && *(cmdline + 1) && *(cmdline + 1) != '<')
+	else if (*cmdline == '<' && *(cmdline + 1) != '<')
 		return (REDIR_TO_IN);
-	else if (*cmdline == '<' && *(cmdline + 1) && *(cmdline + 1) == '<')
+	else if (*cmdline == '<' && *(cmdline + 1) == '<')
 		return (HEREDOC);
 	else
 		return (NOT_REDIR);
@@ -124,8 +124,8 @@ char	*get_stop_word(char **stop)
 	char	*result;
 
 	i = 0;
-    if (!stop || !*stop || !**stop)
-        return (NULL);
+	if (!stop || !*stop || !**stop)
+		return (NULL);
 	result = ft_strdup(*stop);
 	while (stop[0][i] && stop[0][i] != ' ')
 	{
@@ -148,17 +148,14 @@ t_argmode *replace_heredocs(t_argmode *args, size_t nb_args) //todo: manage "<< 
 		{
 			//free(args[i].arg);
 			if (ft_strlen(args[i].arg) == 0)
-			{
-				dprintf(2, "[args n.%zu]%s = 0\n",i ,args[i].arg);
 				free(&args[i]);
-			}
 			args[i].arg = ft_heredoc(get_stop_word(&args[i + 1].arg));
-            if (!args[i].arg)
-            {
-                free_t_argmode(args, nb_args);
-                ft_putendl_fd("heredoc: No valid stop word entered. Aborted.", 2);
-                return (NULL);
-            }
+			if (!args[i].arg)
+			{
+				free_t_argmode(args, nb_args);
+				ft_putendl_fd("heredoc: No valid stop word entered. Aborted.", 2);
+				return (NULL);
+			}
 			i++;
 		}
 		else
