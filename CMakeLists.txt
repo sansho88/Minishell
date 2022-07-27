@@ -11,4 +11,4 @@ add_executable(Minishell
         srcs/parsing/parse_redirecs.c
         a.out srcs/built-ins/echo.c libft/libft.a libft/libft.h
         srcs/built-ins/pwd.c srcs/built-ins/exit.c
-        GNL/get_next_line_bonus.c srcs/parsing/heredoc.c srcs/parsing/utils.c)
+        srcs/parsing/heredoc.c srcs/parsing/utils.c libft/ft_str_isalpha.c)

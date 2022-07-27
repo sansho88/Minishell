@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # define __STDC_LIMIT_MACROS before
+# include <stdbool.h>
 # include <stdint.h>
 # include <string.h>
 # include <stdlib.h>
