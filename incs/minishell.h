@@ -75,7 +75,7 @@ typedef struct s_arguments
 
 // UTILS
 void        debug_t_argmode(t_argmode *args, int nb_arg);
-void        free_t_argmode(t_argmode *args, int nb_args);
+void        free_t_argmode(t_argmode *args, size_t nb_args);
 
 // FUNCTIONS PARSING
 t_argmode	*split_arg_redirect(char *cmdline, int *argc);

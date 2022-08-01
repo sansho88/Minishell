@@ -5,23 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/27 15:50:48 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/07/27 15:58:23 by tgriffit         ###   ########.fr       */
+/*   Created: 2022/08/01 16:30:48 by tgriffit          #+#    #+#             */
+/*   Updated: 2022/08/01 16:58:23 by tgriffit         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_str_isalpha(char *str)
+bool	ft_str_isalnum(char *str)
 {
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isalpha(str[i]))
-			return (false);
-		i++;
-	}
-	return (true);
+	return (ft_str_isalpha(str) || ft_str_isdigit(str));
 }

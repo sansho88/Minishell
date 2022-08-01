@@ -156,6 +156,32 @@ bool	is_cmdline_ok(char *cmdline)
 	return (true);
 }
 
+bool	str_contains_redir(char *str)
+{
+	return (ft_strchr(str, '>') || ft_strchr(str, '<') || ft_strchr(str, '|'));
+}
+
+bool    are_args_ok(t_argmode   *args, size_t   nb_args)
+{
+    size_t  i;
+
+	if (args == NULL || nb_args == 0)
+		return (false);
+	i = 0;
+	while (i < nb_args)
+	{
+		if (!args[i].arg || (!ft_str_isalnum(args[i].arg)
+			&& str_contains_redir(args[i].arg)))
+		{
+			ft_putendl_fd("Conchito: syntax error", 2);
+			free_t_argmode(args, nb_args);
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
 void	merge_cmd_with_args(char **cmd, size_t nb_args)
 {
 	size_t	i_arg;
@@ -214,7 +240,8 @@ int	main(int argc, char *argv[], char	*env[])
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
 			debug_t_argmode(args, nb_args);
-			exec_home(args, nb_args, env);
+			if (are_args_ok(args, nb_args))
+				exec_home(args, nb_args, env);
 		}
 	}
 	exit(0);

@@ -6,9 +6,9 @@ void	debug_t_argmode(t_argmode *args, int nb_arg)
 	int	i;
 
 	i = 0;
-	if (!args || nb_arg == 0)
+	if (args == NULL)
 	{
-		printf("[%s]The struct is NULL.", __func__ );
+		dprintf(2, "[%s]The struct is NULL.\n", __func__ );
 		return ;
 	}
 	while (i < nb_arg)
@@ -18,7 +18,7 @@ void	debug_t_argmode(t_argmode *args, int nb_arg)
 	}
 }
 
-void	free_t_argmode(t_argmode *args, int nb_args)
+void	free_t_argmode(t_argmode *args, size_t nb_args)
 {
 	size_t	i;
 

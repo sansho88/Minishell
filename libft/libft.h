@@ -31,6 +31,8 @@ int				ft_isalpha(int c);
 int				ft_isdigit(int c);
 int				ft_str_isdigit(char *str);
 int				ft_isalnum(int c);
+bool			ft_str_isalnum(char *str);
+int				ft_str_isalpha(char *str);
 int				ft_isprint(int c);
 int				ft_isascii(int c);
 unsigned int	ft_strlen(const char *str);

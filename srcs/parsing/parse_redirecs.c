@@ -137,7 +137,7 @@ char	*get_stop_word(char **stop)
 	return (result);
 }
 
-t_argmode *replace_heredocs(t_argmode *args, size_t nb_args) //todo: manage "<< stop cat > file | cat file"
+t_argmode *replace_heredocs(t_argmode *args, size_t nb_args)
 {
 	size_t	i;
 
