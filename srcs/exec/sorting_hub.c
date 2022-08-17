@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_hub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/08/16 11:12:08 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/08/17 14:45:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,10 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 			//dprintf(2, "bruh\n");
 			break;
 		}
-		//dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d || valeur de append : %d/%d\n", d->stdin_pos, d->argc, d->stdout_pos, d->argc, d->append_pos, d->argc);
+		//ft_stdin(d, argv);
+		//ft_stdout(d, argv);
+		//ft_append(d, argv);
+		dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d || valeur de append : %d/%d\n", d->stdin_pos, d->argc, d->stdout_pos, d->argc, d->append_pos, d->argc);
 		check_if_last(d, argv);
 		if (d->append_pos > d->stdout_pos)
 		{
@@ -165,7 +168,9 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		else
 			d->is_append = 0;
 		fork_process(d, argv);
-	//	dprintf(2, "valeur de count : %d\n", d->redir_count);
+		//d->acutal_arg += d->stdin_pos;
+		//d->acutal_arg += d->stdout_pos;
+		dprintf(2, "valeur de count : %d\n", d->redir_count);
 		d->acutal_arg += d->redir_count;
 		d->stdin_pos = 0;
 		d->stdout_pos = 0;
