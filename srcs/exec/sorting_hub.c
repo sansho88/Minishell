@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_hub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/08/17 14:45:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/08/26 16:39:11 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		fork_process(d, argv);
 		//d->acutal_arg += d->stdin_pos;
 		//d->acutal_arg += d->stdout_pos;
-		dprintf(2, "valeur de count : %d\n", d->redir_count);
+		//dprintf(2, "valeur de count : %d\n", d->redir_count);
+		printf("test\n");
 		d->acutal_arg += d->redir_count;
 		d->stdin_pos = 0;
 		d->stdout_pos = 0;
