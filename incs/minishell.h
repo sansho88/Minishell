@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/22 13:23:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/08/27 13:24:27 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_arguments
 	int		is_append;
 	int		append_pos;
 	int		redir_count;
+	char	*pwd;
 }				t_args;
 
 // FUNCTIONS PARSING
@@ -99,6 +100,7 @@ void    fork_process(t_args *d, t_argmode *argsmod);
 int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
 void	exec_home(t_argmode *argv, int argc, char	*env[]);
+int 	cd_hub(t_argmode *args, t_args *d);
 
 //REBUILD
 char	**path(char	**env);

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/08/27 15:21:55 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/08/28 12:22:16 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ int cd_hub(t_argmode *args, t_args *d)
 		bwd_to_directory(args, d, arg);
 	else if (args_nbr == 1 && ft_strncmp("cd", arg[0], 2) == 0)
 		only_cd(args, d, arg);
-	
 	d->env[i] = d->pwd;
     return(0);
 }
