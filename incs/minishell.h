@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
 /*   Updated: 2022/06/28 12:11:04 by tgriffit         ###   ########.fr       */
@@ -69,8 +69,11 @@ typedef struct s_arguments
 	int		count;
 	int		next_mode;
 	int		stdin_pos;
-	int 	stdout_pos;
-	bool	is_last;
+	int		stdout_pos;
+	int		is_last;
+	int		is_append;
+	int		append_pos;
+	int		redir_count;
 }				t_args;
 
 // UTILS

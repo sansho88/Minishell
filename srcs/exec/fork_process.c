@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/26 19:57:31 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/08/17 14:12:07 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	make_fork(t_args *d, t_argmode *argv)
 {
-	dprintf(2, "valeur de actual arg : %d == %s\n", d->acutal_arg, argv[d->acutal_arg].arg);
+	//dprintf(2, "valeur de actual arg : %d == %s\n", d->acutal_arg, argv[d->acutal_arg].arg);
 	d->pid[d->j] = fork();
 	if (d->pid[d->j] == -1)
 	{
@@ -25,11 +25,11 @@ void	make_fork(t_args *d, t_argmode *argv)
 	{	
 		process_pipe(d, argv);
 	}
-	if (d->acutal_arg > 0)
+	/*if (d->acutal_arg > 0)
 	{
 		close(d->temp_tube[0]);
 		close(d->temp_tube[1]);
-	}
+	}*/
 	//for (int t = 0; t < d->argc; t++)
 		//dprintf(2, "name: %s\n", argv[t].arg);
 	
@@ -39,7 +39,6 @@ void	make_fork(t_args *d, t_argmode *argv)
 
 void	fork_process(t_args *d, t_argmode *argv)
 {
-	int	status;
 	int	i;
 
 	i = 0;
@@ -50,10 +49,4 @@ void	fork_process(t_args *d, t_argmode *argv)
 	}
 	//if (argv[d->acutal_arg - 1].mode == 1)
 	make_fork(d, argv);
-	i= 0;
-	while (i < d->argc)
-	{
-		waitpid(d->pid[i], &status, 0);
-		i++;
-	}
 }
