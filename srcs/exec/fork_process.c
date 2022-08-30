@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/08/17 14:12:07 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/08/26 16:54:01 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@ void	make_fork(t_args *d, t_argmode *argv)
 		exit(EXIT_FAILURE);
 	}
 	else if (d->pid[d->j] == 0)
-	{	
-		process_pipe(d, argv);
+	{	if (ft_strncmp(&argv->arg[d->acutal_arg], "cd", 2) == 0 && d->argc == 1)
+			cd_hub(argv, d);
+		else 
+			process_pipe(d, argv);
 	}
-	/*if (d->acutal_arg > 0)
+	if (d->acutal_arg > 0)
 	{
 		close(d->temp_tube[0]);
 		close(d->temp_tube[1]);
-	}*/
+	}
 	//for (int t = 0; t < d->argc; t++)
 		//dprintf(2, "name: %s\n", argv[t].arg);
 	
@@ -47,6 +49,5 @@ void	fork_process(t_args *d, t_argmode *argv)
 		if (pipe(d->tube) == -1)
 			perror("pipe is riped\n");
 	}
-	//if (argv[d->acutal_arg - 1].mode == 1)
 	make_fork(d, argv);
 }

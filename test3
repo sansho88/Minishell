@@ -1,0 +1,14 @@
+ test
+CMakeLists.txt
+Makefile
+README.md
+a.out
+incs
+libft
+minishell
+print_args.c
+srcs
+test
+test2
+test3
+tests
