@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/08/27 15:31:32 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/08/30 17:08:40 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 			//dprintf(2, "bruh\n");
 			break;
 		}
-		dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d || valeur de append : %d/%d\n", d->stdin_pos, d->argc, d->stdout_pos, d->argc, d->append_pos, d->argc);
+		//dprintf(2, "valeur de stdin : %d/%d || valeur de stdout : %d/%d || valeur de append : %d/%d\n", d->stdin_pos, d->argc, d->stdout_pos, d->argc, d->append_pos, d->argc);
 		check_if_last(d, argv);
 		if (d->append_pos > d->stdout_pos)
 		{

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/28 12:11:04 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:07:29 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void    process_pipe(t_args *d, t_argmode *argv);
 void    fork_process(t_args *d, t_argmode *argsmod);
 int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
-void	exec_home(t_argmode *argv, int argc, char	*env[]);
+int		exec_home(t_argmode *argv, int argc, char	*env[]);
 int 	cd_hub(t_argmode *args, t_args *d);
 
 //REBUILD
