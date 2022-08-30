@@ -1,15 +1,15 @@
 NAME := minishell
 LIBFT_PATH := ./libft/
 LIBFT := $(LIBFT_PATH)libft.a
-READLINE_LIB := -lreadline -L $(shell brew --prefix readline)/lib
-READLINE_INC := -I $(shell brew --prefix readline)/include
+READLINE_LIB := $(shell pkg-config --libs readline)
+READLINE_INC := $(shell pkg-config --cflags readline)
 FLAGS := -Wall -Werror -Wextra 
 #-fsanitize=address -g3
 
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \
 		srcs/parsing/heredoc.c \
-		srcs/parsing/utils.c \
+        srcs/parsing/utils.c \
 		srcs/signals/signal_handler.c \
 		srcs/exec/exec_hub.c \
 		srcs/exec/ft_split.c \
@@ -19,7 +19,6 @@ SRCS := srcs/parsing/nigga-tests.c \
 		srcs/exec/fork_process.c \
 		srcs/exec/sorting_hub.c \
 		srcs/exec/process_pipe.c \
-		srcs/exec/cd_exec.c \
 
 OBJS := $(SRCS:.c=.o)
 
@@ -29,7 +28,7 @@ all: libftmake $(NAME)
 	gcc -c $< $(FLAGS) -o $@
 
 $(NAME): $(OBJS)
-	gcc $(LIBFT) $(READLINE_LIB) $(FLAGS) $(READLINE_INC) $(OBJS) -L libft -lft -o $(NAME)
+	gcc $(OBJS) $(READLINE_LIB) $(FLAGS) $(LIBFT) -o $(NAME)
 
 clean:
 	rm $(OBJS)
