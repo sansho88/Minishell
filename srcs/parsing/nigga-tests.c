@@ -13,74 +13,6 @@
 #include "../../incs/minishell.h"
 #include "../../libft/libft.h"
 
-/*
- * Trouver le PATH dans les variables ENV
- * @param env
- * @return
-*//*
-char	**path(char	**env)
-{
-   int		i;
-   int		j;
-   char	**result;
-   char	*temp;
-
-   i = 0;
-   j = 0;
-   while (env[i])
-   {
-	   if (ft_memcmp(env[i], "PATH=", 5) == 0)
-	   {
-		   result = ft_split(&env[i][5], ':');
-		   while (result[j])
-		   {
-			   temp = result[j];
-			   result[j] = ft_strjoin(result[j], "/");
-			   free(temp);
-			   j++;
-		   }
-		   return (result);
-	   }
-	   i++;
-   }
-   return (NULL);
-}
-
-*//*
- * Check des paths
- * @param p
- * @param args
- * @param nb
-*//*
-void	execute(t_args *p, char **args, int nb)
-{
-   char	*tmp;
-   int		j;
-
-   j = 0;
-*//*
-	 Vérifie tout les path + fonction et check si c'est executable, si oui, execute, "sinon invalid path"
-	 ex : bin/ls
-*//*
-   while (p->path[j])
-   {
-	   tmp = ft_strjoin(p->path[j], args[0]);
-	   if (access(tmp, F_OK | X_OK) == 0)
-		   break ;
-	   j++;
-   }
-   if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
-   {
-	   perror("Invalid Path");
-	   exit(EXIT_FAILURE);
-   }
-   else if (tmp)
-   {
-	   args[0] = tmp;
-	   execve(args[0], args, p->env);
-   }
-}*/
-
 bool	are_quotes_closed(const char *cmdline)
 {
 	size_t	nb_single_quotes;
@@ -233,13 +165,12 @@ int	main(int argc, char *argv[], char	*env[])
 		if (!commandline)
 			exit(0);
 		add_history(commandline);
-		dprintf(2, "[%s]command line =%s__\n", __func__, commandline);
 		rl_redisplay();
 		if (*commandline && is_cmdline_ok(commandline))
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
-			debug_t_argmode(args, nb_args);
+			//debug_t_argmode(args, nb_args);
 			if (are_args_ok(args, nb_args))
 				exec_home(args, nb_args, env);
 		}
