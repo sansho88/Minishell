@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-void	exec_home(t_argmode *argv, int argc, char	*env[])
+int	exec_home(t_argmode *argv, int argc, char	*env[])
 {
 	t_args	data;
 	int i;
@@ -22,7 +22,7 @@ void	exec_home(t_argmode *argv, int argc, char	*env[])
 	j = 0;
 	i = 0;
 	//dprintf(2, "valeur de ARGC : %d || ", argc);
-	//dprintf(2, "hello \n\n");
+	dprintf(2, "hello \n\n");
 	while (i < argc)
 	{
 		dprintf (2, "valeur de arg[%d] : %s || ", i, argv[i].arg);
