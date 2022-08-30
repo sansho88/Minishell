@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/22 13:23:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/06/28 12:11:04 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 
-# define CONCHITO "\033[1;32mConchito \033[93m✗\033[0m "
+# define CONCHITO "\[\033[1;32m\2Conchito \1\033[93m✗\033[0m]"
 
 //Structs PARSING
 typedef struct s_argmode{
@@ -76,10 +76,17 @@ typedef struct s_arguments
 	int		redir_count;
 }				t_args;
 
+// UTILS
+void        debug_t_argmode(t_argmode *args, int nb_arg);
+void        free_t_argmode(t_argmode *args, size_t nb_args);
+
 // FUNCTIONS PARSING
 t_argmode	*split_arg_redirect(char *cmdline, int *argc);
 t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
+void		clean_quotes(char *arg);
+bool		are_quotes_closed(const char *cmdline);
+char		*ft_heredoc(char *stop);
 //void	rl_clear_history(void);
 
 //FUNCTIONS SIGNALS
@@ -98,7 +105,7 @@ void    process_pipe(t_args *d, t_argmode *argv);
 void    fork_process(t_args *d, t_argmode *argsmod);
 int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
-void	exec_home(t_argmode *argv, int argc, char	*env[]);
+int		exec_home(t_argmode *argv, int argc, char	*env[]);
 
 //REBUILD
 char	**path(char	**env);

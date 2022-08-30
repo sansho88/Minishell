@@ -10,15 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/minishell.h"
 
-char	*pwd(char *stored_path)
+#define BUF_SIZE 4200
+
+void	pwd(char *stored_path)
 {
-	if (getcwd(stored_path, ft_strlen(stored_path)))
-		return (stored_path);
-	else
+	if (!getcwd(stored_path, BUF_SIZE))
 	{
-		strerror(err)
-		return (NULL);
+		strerror(8);
+		return ;
 	}
 }
+

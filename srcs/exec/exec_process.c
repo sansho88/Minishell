@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
 /*   Updated: 2022/08/17 14:36:56 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../incs/minishell.h"
 
-void    execute(t_args *p, char **args, int nb)
+void	execute(t_args *p, char **args, int nb)
 {
     char    *tmp;
     int     j;

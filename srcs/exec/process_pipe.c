@@ -26,7 +26,8 @@ void	redirection_bck(t_args *d, t_argmode *argv)
 	//dprintf(2, "redirection Bck\n");
 	//dprintf(2, "nom du fichier : %s\n", argv[i].arg);
 
-	while (argv[j].mode == 4)
+	file = open(argv[d->acutal_arg + 1].arg, O_RDONLY, 0644);
+	if (file == -1)
 	{
 		file = open(argv[i].arg, 1);
 		if (file == -1)
@@ -39,8 +40,10 @@ void	redirection_bck(t_args *d, t_argmode *argv)
 		j++;
 		i++;
 	}
+	ft_dup2(file, 0);
+	close(file);
+	
 }
-
 void	redirection_fwd(t_args *d, t_argmode *argv)
 {
 	int file;
