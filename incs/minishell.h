@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/08/30 17:07:29 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/02 18:50:04 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 
-# define CONCHITO "\[\033[1;32m\2Conchito \1\033[93m✗\033[0m]"
+# define CONCHITO /*"[Minishell]"*/"[\033[1;32m\2Conchito \1\033[93m✗\033[0m]" 
 
 //Structs PARSING
 typedef struct s_argmode{
