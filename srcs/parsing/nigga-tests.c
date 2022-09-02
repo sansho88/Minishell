@@ -153,9 +153,11 @@ int	main(int argc, char *argv[], char	*env[])
 	char		*commandline;
 	t_argmode	*args;
 	int			nb_args;
+	char 		**custom_env;
 
 	commandline = ft_strdup("empty");
 	get_signals();
+	custom_env = init_env(env);
 	while (commandline && ft_strncmp(commandline, "exit", 5))
 	{
 		free(commandline);
@@ -173,7 +175,7 @@ int	main(int argc, char *argv[], char	*env[])
 			args = create_targmode_array(commandline);
 			//debug_t_argmode(args, nb_args);
 			if (are_args_ok(args, nb_args))
-				exec_home(args, nb_args, env);
+				exec_home(args, nb_args, custom_env);
 		}
 	}
 	exit(0);

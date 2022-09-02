@@ -3,9 +3,11 @@ project(Minishell C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(. libft ./srcs/built-ins)
+include_directories(.libft ./srcs/built-ins)
 
 file(GLOB minishell_SRC CONFIGURE_DEPENDS "*.h" "*.c")
 
 add_executable(Minishell
-        ${minishell_SRC})
+        ${minishell_SRC} srcs/utils/init.c
+        Makefile.linux
+        Makefile)

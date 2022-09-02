@@ -90,6 +90,9 @@ bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 //void	rl_clear_history(void);
 
+//UTILS
+char		**init_env(char	**env);
+
 //FUNCTIONS SIGNALS
 void		signal_handler(int signum);
 void		get_signals(void);
