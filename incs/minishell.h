@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/08/30 17:07:29 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/05 11:58:54 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char		*ft_heredoc(char *stop);
 
 //UTILS
 char		**init_env(char	**env);
+void		replace_dollars(char *cmdline, char **env);
 
 //FUNCTIONS SIGNALS
 void		signal_handler(int signum);

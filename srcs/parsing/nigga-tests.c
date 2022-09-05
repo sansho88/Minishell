@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/05 12:23:50 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/05 13:40:41 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,6 @@ bool	is_chars_partouze(char *cmdline)
 	return (false);
 }
 
-void	replace_dollars(char *cmdline, char **env) {
-	//TODO
-}
-
 bool	is_cmdline_ok(char *cmdline, char **env)
 {
 	char	*testcmd;
@@ -90,6 +86,7 @@ bool	is_cmdline_ok(char *cmdline, char **env)
 		return (false);
 	}
 	replace_dollars(cmdline, env);
+	dprintf(2, "dollars?[%s]\n", cmdline);
 	return (true);
 }
 
