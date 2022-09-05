@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/28 12:08:14 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:23:50 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,11 @@ bool	is_chars_partouze(char *cmdline)
 	return (false);
 }
 
-bool	is_cmdline_ok(char *cmdline)
+void	replace_dollars(char *cmdline, char **env) {
+	//TODO
+}
+
+bool	is_cmdline_ok(char *cmdline, char **env)
 {
 	char	*testcmd;
 
@@ -85,6 +89,7 @@ bool	is_cmdline_ok(char *cmdline)
 		printf("Chars partouze\n");
 		return (false);
 	}
+	replace_dollars(cmdline, env);
 	return (true);
 }
 
@@ -141,8 +146,8 @@ char	**parse_command_line(char *cmd, int *nb_args)
 		cmd_split = ft_split_len(cmd, '|', nb_args);
 	else
 		cmd_split = ft_split_len(cmd, ' ', nb_args);
-	if (is_cmdline_ok(cmd))
-		return (cmd_split);
+	/*if (is_cmdline_ok(cmd))
+		return (cmd_split);*/
 	while (*nb_args > 0)
 		free(cmd_split[*(--nb_args)]);
 	return (NULL);
@@ -169,7 +174,7 @@ int	main(int argc, char *argv[], char	*env[])
 		add_history(commandline);
 		dprintf(2, "[%s]command line = %s\n", __func__, commandline);
 		rl_redisplay();
-		if (*commandline && is_cmdline_ok(commandline))
+		if (*commandline && is_cmdline_ok(commandline, custom_env))
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
