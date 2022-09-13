@@ -92,7 +92,7 @@ char		*ft_heredoc(char *stop);
 
 //UTILS
 char		**init_env(char	**env);
-void		replace_dollars(char *cmdline, char **env);
+char		*replace_dollars(char *cmdline, char **env);
 
 //FUNCTIONS SIGNALS
 void		signal_handler(int signum);

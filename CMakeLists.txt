@@ -10,5 +10,7 @@ file(GLOB minishell_SRC CONFIGURE_DEPENDS "*.h" "*.c")
 add_executable(Minishell
         ${minishell_SRC} srcs/utils/init.c
         srcs/parsing/nigga-tests.c
+        srcs/utils
+        srcs/parsing/utils.c
         Makefile.linux
         Makefile)
