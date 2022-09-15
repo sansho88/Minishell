@@ -75,60 +75,59 @@ char *ft_insert_str(char *dst, char *src, char *pos)
 {
 	char 	*result;
 	size_t	target;
+	size_t	sz;
 
-	result = malloc(ft_strlen(dst) + ft_strlen(src) + 1);
+	sz = ft_strlen(dst) + ft_strlen(src) + 1;
+	result = malloc(sz);
 	target = pos - dst;
 	ft_strlcpy(result, dst, target + 1);
 	ft_strlcat(result, src, ft_strlen(result) + ft_strlen(src) + 1);
+	ft_strlcat(result, dst + target, sz);
 	//free(dst);
+	return (result);
+}
+
+char    *ft_strreplace(char *str, char *newchaine, int pos, int len)
+{
+	char    *result;
+	size_t  sz;
+
+	sz = ft_strlen(str) - len + ft_strlen(newchaine) + 1;
+	result = malloc(sz);
+	if (!result)
+		return (NULL);
+	ft_strlcpy(result, str, pos + 1);
+	ft_strlcat(result + pos, newchaine, sz);
+	ft_strlcat(result + pos + ft_strlen(newchaine), str + pos + len, sz);
+	free(str);
 	return (result);
 }
 
 char	*replace_dollars(char *cmdline, char **env)
 {
 	char	*env_var;
-	char	*next_$; //pos of the next $ (it's just a checkpoint, DO NOT WRITE IN, but in cmdline directly)
+	char	*next_$;
 	char	*next_sep;
+	int 	off;
+	int 	len;
 
 	next_$ = ft_strchr(cmdline, '$');
-	//env_var = ft_strstrchr(next_$ + 1, env, ft_strchr(next_$,' ') - next_$ + 1); //todo: len of target to the next ' '
 	while (next_$)
 	{
 		next_sep = ft_strchr(next_$, ' ');
+		off = (int)(next_$ - cmdline);
 		if (next_sep)
 		{
-			dprintf(2, "Variable: %.*s\n", next_sep - next_$, next_$);
+			len = (int)(next_sep - next_$);
 			env_var = ft_strstrchr(next_$ + 1, env, next_sep - next_$ - 1);
-			dprintf(2, "Value: %s\n", ft_strstrchr(next_$ + 1, env, next_sep - next_$ - 1));
-			cmdline = ft_insert_str(cmdline, env_var, next_$);
-			next_$ = ft_strchr(next_sep + 1, '$');
 		}
 		else
 		{
-			dprintf(2, "Variable: %s\n", next_$);
-			dprintf(2, "Value: %s\n", ft_strstrchr(next_$ + 1, env, ft_strlen(next_$ + 1)));
+			len = (int)(ft_strlen(cmdline) - off);
 			env_var = ft_strstrchr(next_$ + 1, env, ft_strlen(next_$ + 1));
-			cmdline = ft_insert_str(cmdline, env_var, next_$); //todo: insert ' ' || rest of the cmdline
-			break ;
 		}
-	/*	if (!env_var || !ft_strlen(env_var))
-			env_var = "";
-		printf("env_var=_%s_|next_$=_%s_\n", env_var, next_$);
-		cmdline = ft_insert_str(cmdline, env_var, next_$);
-		if (next_$[1] != '\0')
-		{
-			next_$ = ft_strchr(next_$ + 1, '$' ); //fixme
-			if (next_$)
-			{
-				env_var = ft_strstrchr(next_$, env, ft_strchr(next_$,' ') - next_$);
-				//dprintf(2, "[%s]size true next_$=%p\n", __func__, ft_strchr(next_$, ' ') || ft_strchr(next_$, '\0'));
-			}
-		}
-		else
-			break; */
-		/*if (next_$ == ft_strchr(next_$, '$'))
-			break;*/
+		cmdline = ft_strreplace(cmdline, env_var, off, len);
+		next_$ = ft_strchr(cmdline + off + ft_strlen(env_var), '$');
 	}
-	dprintf(2, "cmdline should be like:%s\n", cmdline);
 	return (cmdline);
 }
