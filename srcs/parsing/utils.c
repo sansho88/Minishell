@@ -75,20 +75,11 @@ char *ft_insert_str(char *dst, char *src, char *pos)
 {
 	char 	*result;
 	size_t	target;
-	size_t	i;
 
 	result = malloc(ft_strlen(dst) + ft_strlen(src) + 1);
 	target = pos - dst;
-	i = 0;
 	ft_strlcpy(result, dst, target + 1);
-	/*while (i < target)
-	{
-		result[i] = dst[i];
-		i++;
-	}*/
 	ft_strlcat(result, src, ft_strlen(result) + ft_strlen(src) + 1);
-	//ft_strlcat(result, dst + i + ft_strlen(src), i + ft_strlen(src) + 1);
-	//result[i + ft_strlen(src)] = '\0';
 	//free(dst);
 	return (result);
 }
@@ -116,7 +107,8 @@ char	*replace_dollars(char *cmdline, char **env)
 		{
 			dprintf(2, "Variable: %s\n", next_$);
 			dprintf(2, "Value: %s\n", ft_strstrchr(next_$ + 1, env, ft_strlen(next_$ + 1)));
-			//cmdline = ft_insert_str(cmdline, env_var, next_$);
+			env_var = ft_strstrchr(next_$ + 1, env, ft_strlen(next_$ + 1));
+			cmdline = ft_insert_str(cmdline, env_var, next_$); //todo: insert ' ' || rest of the cmdline
 			break ;
 		}
 	/*	if (!env_var || !ft_strlen(env_var))
