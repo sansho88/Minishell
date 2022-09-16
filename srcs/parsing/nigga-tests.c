@@ -169,7 +169,7 @@ int	main(int argc, char *argv[], char	*env[])
 		if (!commandline)
 			exit(0);
 		add_history(commandline);
-		dprintf(2, "[%s]command line = %s\n", __func__, commandline);
+		//dprintf(2, "[%s]command line = %s\n", __func__, commandline);
 		rl_redisplay();
 		if (*commandline && is_cmdline_ok(&commandline, custom_env))
 		{

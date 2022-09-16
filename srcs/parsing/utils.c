@@ -34,6 +34,13 @@ void	free_t_argmode(t_argmode *args, size_t nb_args)
 
 //TODO: EXPORT: cas a gerer: "a b= c=5" env = "b="" c="5" "; export = "a   b=""   c="5" "  + 'export b+=u' = b="5u"
 
+bool    str_in_quotes(const char *str, size_t lenstr, bool is_env_var) //todo: implement somewhere
+{
+    if (!(str - is_env_var) || *(str - is_env_var) != '\'')
+        return (false);
+    return (str[lenstr] + 1 && str[lenstr] + 1 == '\'');
+}
+
 char	*ft_strstrchr(char *target, char **tab, size_t len_target)
 {
 	int		i;
@@ -60,47 +67,45 @@ char	*ft_strstrchr(char *target, char **tab, size_t len_target)
 	return (result);
 }
 
-char	*ft_new_strcpy(char *dst, char *src)
-{
-	char *new_copy;
-
-	new_copy = malloc(ft_strlen(dst) + ft_strlen(src) + 1);
-	ft_strlcpy(new_copy, dst, ft_strlen(dst) + ft_strlen(src) + 1);
-	//free(dst);
-	//dprintf(2, "[%s]new_copy=%s\n", __func__, new_copy);
-	return (new_copy);
-}
-
-char *ft_insert_str(char *dst, char *src, char *pos)
-{
-	char 	*result;
-	size_t	target;
-	size_t	sz;
-
-	sz = ft_strlen(dst) + ft_strlen(src) + 1;
-	result = malloc(sz);
-	target = pos - dst;
-	ft_strlcpy(result, dst, target + 1);
-	ft_strlcat(result, src, ft_strlen(result) + ft_strlen(src) + 1);
-	ft_strlcat(result, dst + target, sz);
-	//free(dst);
-	return (result);
-}
-
-char    *ft_strreplace(char *str, char *newchaine, int pos, int len)
+char    *ft_strreplace(char *str, char *to_insert, int pos, int len_to_replace)
 {
 	char    *result;
-	size_t  sz;
+	size_t  size;
 
-	sz = ft_strlen(str) - len + ft_strlen(newchaine) + 1;
-	result = malloc(sz);
+    size = ft_strlen(str) - len_to_replace + ft_strlen(to_insert) + 1;
+	result = malloc(size);
 	if (!result)
 		return (NULL);
 	ft_strlcpy(result, str, pos + 1);
-	ft_strlcat(result + pos, newchaine, sz);
-	ft_strlcat(result + pos + ft_strlen(newchaine), str + pos + len, sz);
+    if (str_in_quotes(to_insert, len_to_replace + 1, true))
+        ft_strjoin_free(result, str + pos, 1);
+    else
+    {
+        ft_strlcat(result + pos, to_insert, size);
+        ft_strlcat(result + pos + ft_strlen(to_insert), str + pos
+                                                        + len_to_replace, size);
+    }
 	free(str);
 	return (result);
+}
+
+/**
+ *
+ * @param str Start of the part of the str to test
+ * @return the pos of the end's word, or the NULL terminating char
+ */
+char *get_next_valid_sep(char *str)
+{
+    size_t  i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (!ft_isalnum(str[i]))
+            return (&str[i]);
+        i++;
+    }
+    return (NULL);
 }
 
 char	*replace_dollars(char *cmdline, char **env)
@@ -108,14 +113,14 @@ char	*replace_dollars(char *cmdline, char **env)
 	char	*env_var;
 	char	*next_$;
 	char	*next_sep;
-	int 	off;
+	int 	offset;
 	int 	len;
 
 	next_$ = ft_strchr(cmdline, '$');
 	while (next_$)
 	{
-		next_sep = ft_strchr(next_$, ' ');
-		off = (int)(next_$ - cmdline);
+		next_sep = get_next_valid_sep(next_$ + 1);
+        offset = (int)(next_$ - cmdline);
 		if (next_sep)
 		{
 			len = (int)(next_sep - next_$);
@@ -123,11 +128,11 @@ char	*replace_dollars(char *cmdline, char **env)
 		}
 		else
 		{
-			len = (int)(ft_strlen(cmdline) - off);
+			len = (int)(ft_strlen(cmdline) - offset);
 			env_var = ft_strstrchr(next_$ + 1, env, ft_strlen(next_$ + 1));
 		}
-		cmdline = ft_strreplace(cmdline, env_var, off, len);
-		next_$ = ft_strchr(cmdline + off + ft_strlen(env_var), '$');
+		cmdline = ft_strreplace(cmdline, env_var, offset, len);
+		next_$ = ft_strchr(cmdline + offset + ft_strlen(env_var), '$');
 	}
 	return (cmdline);
 }
