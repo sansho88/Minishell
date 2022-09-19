@@ -43,7 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 
-# define CONCHITO "\[\033[1;32m\2Conchito \1\033[93m✗\033[0m]"
+# define CONCHITO /*"[Minishell]"*/"[\033[1;32m\2Conchito \1\033[93m✗\033[0m]" 
 
 //Structs PARSING
 typedef struct s_argmode{
