@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/08/30 17:08:19 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/19 15:52:58 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	exec_home(t_argmode *argv, int argc, char	*env[])
 		dprintf (2, "ARGC : %d/%d\n", i, argc );
 		i++;
 	}*/
+	if (data.env);
 	data.env = env; /*J'ai le droit de faire ça ?? */
 	data.count = 0;
 	data.argc = argc;
