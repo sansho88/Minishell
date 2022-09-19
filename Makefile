@@ -19,8 +19,10 @@ SRCS := srcs/parsing/nigga-tests.c \
 		srcs/exec/fork_process.c \
 		srcs/exec/sorting_hub.c \
 		srcs/exec/process_pipe.c \
+		srcs/utils/init.c \
 		srcs/exec/cd_exec.c \
-		srcs/utils/init.c
+		srcs/exec/env_exec.c \
+		srcs/exec/export_exec.c \
 
 OBJS := $(SRCS:.c=.o)
 

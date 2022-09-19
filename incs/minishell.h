@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/05 11:58:54 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:15:17 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_arguments
 	int		append_pos;
 	int		redir_count;
 	char	*pwd;
+	int		heredoc_pos;
 }				t_args;
 
 // UTILS
@@ -112,6 +113,8 @@ int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
 int		exec_home(t_argmode *argv, int argc, char	*env[]);
 int 	cd_hub(t_argmode *args, t_args *d);
+int 	env_hub(t_argmode *args, t_args *d);
+char 	**export_hub(t_argmode *args, t_args *d);
 
 //REBUILD
 char	**path(char	**env);
