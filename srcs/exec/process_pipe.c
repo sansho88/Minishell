@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/08/17 14:55:21 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/19 15:53:14 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_backward(t_args *d, t_argmode *argv)
 {
 	int file2;
 	
+	printf("fichier : %s\n", argv[0].arg);
 	file2 = open(argv[d->stdin_pos].arg, 0644);
 	if (file2 == -1)
 	{
@@ -113,6 +114,7 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 {
 	if (d->stdin_pos != 0)
 	{
+		//printf("stdinpos\n");
 		ft_backward(d, argv);
 	}
 	if (d->stdout_pos != 0)
@@ -177,7 +179,7 @@ void    process_pipe(t_args *d, t_argmode *argv)
 		one_arg(d, argv);
 	if (d->acutal_arg == 0)
 	{
-		dprintf(2, "Pipe rebuild first\n");
+		//dprintf(2, "Pipe rebuild first\n");
 		pipe_rebuild_first(d, argv);
 	}
 	else

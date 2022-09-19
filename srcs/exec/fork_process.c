@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/08/30 18:13:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/08 09:53:17 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,21 @@ void	make_fork(t_args *d, t_argmode *argv)
 {
 	//dprintf(2, "valeur de actual arg : %d == %s\n", d->acutal_arg, argv[d->acutal_arg].arg);
 	if (ft_strncmp(&argv->arg[d->acutal_arg], "cd", 2) == 0 && d->argc == 1)
-			cd_hub(argv, d);
+		cd_hub(argv, d);
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "export", 6) == 0 && d->argc == 1)
+	{
+		d->env = export_hub(argv, d);
+		int i;
+
+    	i = 0;
+    	while (d->env[i])
+    	{
+      	  	printf("%s\n", d->env[i]);
+       		i++;
+    	}
+	}
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "env", 3) == 0 && d->argc == 1)
+		env_hub(argv, d);
 	else
 	{
 		d->pid[d->j] = fork();

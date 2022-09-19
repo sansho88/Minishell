@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/08/17 14:45:17 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/02 19:03:12 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../incs/minishell.h"
 
