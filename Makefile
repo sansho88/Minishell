@@ -4,7 +4,7 @@ LIBFT := $(LIBFT_PATH)libft.a
 READLINE_LIB := -lreadline -L $(shell brew --prefix readline)/lib
 READLINE_INC := -I $(shell brew --prefix readline)/include
 FLAGS := -Wall -Werror -Wextra 
-#-fsanitize=address -g3
+FLAGS += -fsanitize=address -g3
 
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \
@@ -20,6 +20,7 @@ SRCS := srcs/parsing/nigga-tests.c \
 		srcs/exec/sorting_hub.c \
 		srcs/exec/process_pipe.c \
 		srcs/exec/cd_exec.c \
+		srcs/utils/init.c
 
 OBJS := $(SRCS:.c=.o)
 

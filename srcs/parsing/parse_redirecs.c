@@ -6,14 +6,14 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/07/27 15:46:40 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/05 11:27:40 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
 
-void	clean_quotes(char *arg) //TODO: remove 1 quote and its gemini. (pattern: echo "bon"jour = bonjour)
+void	clean_quotes(char *arg)
 {
 	size_t	len_arg;
 	size_t	i;

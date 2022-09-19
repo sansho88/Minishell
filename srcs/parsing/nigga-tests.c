@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/28 12:08:14 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:23:11 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,25 @@ bool	is_chars_partouze(char *cmdline)
 	return (false);
 }
 
-bool	is_cmdline_ok(char *cmdline)
+bool	is_cmdline_ok(char **cmdline, char **env)
 {
 	char	*testcmd;
 
-	testcmd = ft_strtrim(cmdline, " ");
+	testcmd = ft_strtrim(*cmdline, " ");
 	if (!*testcmd)
 	{
 		free(testcmd);
 		return (false);
 	}
-	if (!are_quotes_closed(cmdline))
+	if (!are_quotes_closed(*cmdline))
 		return (false);
-	if (is_chars_partouze(cmdline))
+	if (is_chars_partouze(*cmdline))
 	{
 		printf("Chars partouze\n");
 		return (false);
 	}
+	if (ft_strchr(*cmdline, '$'))
+		*cmdline = replace_dollars(*cmdline, env);
 	return (true);
 }
 
@@ -141,8 +143,8 @@ char	**parse_command_line(char *cmd, int *nb_args)
 		cmd_split = ft_split_len(cmd, '|', nb_args);
 	else
 		cmd_split = ft_split_len(cmd, ' ', nb_args);
-	if (is_cmdline_ok(cmd))
-		return (cmd_split);
+	/*if (is_cmdline_ok(cmd))
+		return (cmd_split);*/
 	while (*nb_args > 0)
 		free(cmd_split[*(--nb_args)]);
 	return (NULL);
@@ -153,9 +155,11 @@ int	main(int argc, char *argv[], char	*env[])
 	char		*commandline;
 	t_argmode	*args;
 	int			nb_args;
+	char		**custom_env;
 
 	commandline = ft_strdup("empty");
 	get_signals();
+	custom_env = init_env(env);
 	while (commandline && ft_strncmp(commandline, "exit", 5))
 	{
 		free(commandline);
@@ -165,15 +169,15 @@ int	main(int argc, char *argv[], char	*env[])
 		if (!commandline)
 			exit(0);
 		add_history(commandline);
-		dprintf(2, "[%s]command line = %s\n", __func__, commandline);
+		//dprintf(2, "[%s]command line = %s\n", __func__, commandline);
 		rl_redisplay();
-		if (*commandline && is_cmdline_ok(commandline))
+		if (*commandline && is_cmdline_ok(&commandline, custom_env))
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
 			//debug_t_argmode(args, nb_args);
 			if (are_args_ok(args, nb_args))
-				exec_home(args, nb_args, env);
+				exec_home(args, nb_args, custom_env);
 		}
 	}
 	exit(0);

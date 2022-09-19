@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/02 18:50:04 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/05 11:58:54 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void		clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 //void	rl_clear_history(void);
+
+//UTILS
+char		**init_env(char	**env);
+char		*replace_dollars(char *cmdline, char **env);
 
 //FUNCTIONS SIGNALS
 void		signal_handler(int signum);
