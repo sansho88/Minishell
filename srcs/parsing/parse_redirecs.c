@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/05 11:27:40 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:17:11 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,14 +146,19 @@ t_argmode *replace_heredocs(t_argmode *args, size_t nb_args)
 	{
 		if (args[i].mode == HEREDOC)
 		{
-			//free(args[i].arg);
-			if (ft_strlen(args[i].arg) == 0)
-				free(&args[i]);
-			args[i].arg = ft_heredoc(get_stop_word(&args[i + 1].arg));
+			if (ft_strlen(args[i].arg))
+				ft_strlcpy(args[i].arg, args[i].arg,
+					get_next_valid_sep(args[i].arg) - args[i].arg);
+			else
+			{
+				free(args[i].arg); //fixme: << stop:::::: [debug_t_argmode]t_argmode->arg=<< stop__ t_argmode->mode=5	[debug_t_argmode]t_argmode->arg=/tmp/.heredoc0.txt__ t_argmode->mode=0 (args[0] doit etre vide maggle)
+
+			}
+			args[i + 1].arg = ft_heredoc(get_stop_word(&args[i + 1].arg));
 			if (!args[i].arg)
 			{
 				free_t_argmode(args, nb_args);
-				ft_putendl_fd("heredoc: No valid stop word entered. Aborted.", 2);
+				ft_putendl_fd("heredoc: stop word invalid. Aborted.", 2);
 				return (NULL);
 			}
 			i++;

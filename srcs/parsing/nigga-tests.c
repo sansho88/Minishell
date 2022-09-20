@@ -175,7 +175,7 @@ int	main(int argc, char *argv[], char	*env[])
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
-			//debug_t_argmode(args, nb_args);
+			debug_t_argmode(args, nb_args);
 			if (are_args_ok(args, nb_args))
 				exec_home(args, nb_args, custom_env);
 		}
