@@ -14,4 +14,4 @@ add_executable(Minishell
         srcs/parsing/heredoc.c
         srcs/parsing/parse_redirecs.c
         Makefile.linux
-        Makefile)
+        Makefile srcs/parsing/utils_heredoc.c)
