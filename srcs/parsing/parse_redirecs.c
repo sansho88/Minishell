@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/05 11:27:40 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:00:54 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,58 +111,7 @@ void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 	ft_trim_args(res, num_part + 1);
 }
 
-/**
- * Get only the word which stop the heredoc, and remove it from the t_argmode
- * for keep only what is next after the heredoc. \n
- * Example: << stop cat > file == /heredoc.txt > file
- * @param stop
- * @return
- */
-char	*get_stop_word(char **stop)
-{
-	size_t	i;
-	char	*result;
 
-	i = 0;
-	if (!stop || !*stop || !**stop)
-		return (NULL);
-	result = ft_strdup(*stop);
-	while (stop[0][i] && stop[0][i] != ' ')
-	{
-		result[i] = stop[0][i];
-		i++;
-	}
-	result[i] = '\0';
-	ft_strlcpy(*stop, *stop + i + 1, ft_strlen(*stop));
-	return (result);
-}
-
-t_argmode *replace_heredocs(t_argmode *args, size_t nb_args)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < nb_args)
-	{
-		if (args[i].mode == HEREDOC)
-		{
-			//free(args[i].arg);
-			if (ft_strlen(args[i].arg) == 0)
-				free(&args[i]);
-			args[i].arg = ft_heredoc(get_stop_word(&args[i + 1].arg));
-			if (!args[i].arg)
-			{
-				free_t_argmode(args, nb_args);
-				ft_putendl_fd("heredoc: No valid stop word entered. Aborted.", 2);
-				return (NULL);
-			}
-			i++;
-		}
-		else
-			i++;
-	}
-	return (args);
-}
 
 /**
  * Create the amount of t_argmode structs and

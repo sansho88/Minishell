@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:58 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/07/25 14:14:03 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:23:59 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ char	*ft_heredoc(char *stop)
 	int			fd;
 	static int	nb_heredocs = 0;
 
-    if (!stop || !*stop)
-        return (NULL);
+	if (!stop || !*stop)
+		return (NULL);
 	input = ft_strdup("");
 	filename = ft_new_heredocname(&nb_heredocs);
 	fd = open(filename, O_CREAT | O_RDWR, 777);
-	if (!fd || !filename)
+	if (fd < 0 || !filename)
 		perror(HEREDOC_ERROR);
 	dprintf(2, "STOP is[%s]\n", stop);
 	while (ft_strncmp(input, stop, ft_strlen(stop)) != 0)

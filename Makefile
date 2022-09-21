@@ -9,6 +9,7 @@ FLAGS += -fsanitize=address -g3
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \
 		srcs/parsing/heredoc.c \
+		srcs/parsing/utils_heredoc.c \
 		srcs/parsing/utils.c \
 		srcs/signals/signal_handler.c \
 		srcs/exec/exec_hub.c \

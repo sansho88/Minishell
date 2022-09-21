@@ -93,7 +93,11 @@ char		*ft_heredoc(char *stop);
 
 //UTILS
 char		**init_env(char	**env);
+char		*get_next_valid_sep(char *str);
 char		*replace_dollars(char *cmdline, char **env);
+
+//UTILS_HEREDOC
+t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);
 
 //FUNCTIONS SIGNALS
 void		signal_handler(int signum);
