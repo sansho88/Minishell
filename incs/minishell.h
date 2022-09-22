@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/21 14:16:14 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:07:54 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 
-# define CONCHITO /*"[Minishell]"*/"[\033[1;32m\2Conchito \1\033[93m✗\033[0m]" 
+# define CONCHITO /*"[Minishell]"*/"[\033[1;32m\001Conchito \1\033[93m✗\033[0m\002]"
 
 //Structs PARSING
 typedef struct s_argmode{
@@ -90,6 +90,10 @@ void		clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 //void	rl_clear_history(void);
+
+//QUOTES
+size_t		get_nb_quote(char *str, char quote);
+bool		is_str_in_quotes(const char *str, const char	*start, const char	*end, char quote);
 
 //UTILS
 char		**init_env(char	**env);
