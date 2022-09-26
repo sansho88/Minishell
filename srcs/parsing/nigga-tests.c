@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/22 15:46:49 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:38:34 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,7 @@
 
 bool	are_quotes_closed(const char *cmdline)
 {
-	const char	*start = ft_strchr(cmdline, '\"');
-
-	if (start && is_str_in_quotes(cmdline, start, &cmdline[ft_strlen(cmdline) - 1], '\''))
-	{
-		NULL; //todo: to continue (maybe ft_strchr(start, ') > ft_strchr(start, ")) ?
-	}
-
-
-	/*size_t	nb_single_quotes;
+	size_t	nb_single_quotes;
 	size_t	nb_double_quotes;
 	size_t	i;
 
@@ -42,7 +34,7 @@ bool	are_quotes_closed(const char *cmdline)
 		ft_putendl_fd("Double-Quotes not closed", 2);
 	if (nb_single_quotes % 2 == 1)
 		ft_putendl_fd("Single-Quotes not closed", 2);
-	return (nb_single_quotes % 2 == 0 && nb_double_quotes % 2 == 0);*/
+	return (nb_single_quotes % 2 == 0 && nb_double_quotes % 2 == 0);
 }
 
 bool	check_chenillle_char(char *cmdline, char testchar)
@@ -103,9 +95,9 @@ bool	str_contains_redir(char *str)
 	return (ft_strchr(str, '>') || ft_strchr(str, '<') || ft_strchr(str, '|'));
 }
 
-bool    are_args_ok(t_argmode   *args, size_t   nb_args)
+bool	are_args_ok(t_argmode	*args, size_t	nb_args)
 {
-    size_t  i;
+	size_t	i;
 
 	if (args == NULL || nb_args == 0)
 		return (false);
@@ -188,7 +180,6 @@ int	main(int argc, char *argv[], char	*env[])
 				exec_home(args, nb_args, custom_env);
 		}
 	}
-	exit(0);
 }
 
 

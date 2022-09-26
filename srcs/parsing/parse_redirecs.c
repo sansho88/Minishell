@@ -6,12 +6,32 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/21 12:00:54 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:50:11 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
+void	switch_inquotes(char c, size_t *iterator, bool *in_quotes, char *between)
+{
+	if (c == *between)
+	{
+		*in_quotes = !*in_quotes;
+		(*iterator)++;
+	}
+	if (c == '\"' && !*in_quotes)
+	{
+		*between = '\"';
+		*in_quotes = !*in_quotes;
+		(*iterator)++;
+	}
+	else if (c == '\'' && !*in_quotes)
+	{
+		*between = '\'';
+		*in_quotes = !*in_quotes;
+		(*iterator)++;
+	}
+}
 
 void	clean_quotes(char *arg)
 {
@@ -19,27 +39,16 @@ void	clean_quotes(char *arg)
 	size_t	i;
 	size_t	j;
 	bool	in_quotes;
-	/*arg_tmp = ft_strdup(*arg);
-	if (*arg[0] == '\'')
-		ft_strtrim(arg_tmp, "\'");
-	if (*arg[0] == '\"')
-		ft_strtrim(arg_tmp, "\"");
-	printf("[%s] arg_tmp = %s\n", __func__, arg_tmp);*/
+	char	between;
+
 	i = 0;
 	j = 0;
 	in_quotes = false;
 	len_arg = ft_strlen(arg);
 	while (j < len_arg)
 	{
-		while (arg[j] == '\"')
-		{
-			j++;
-			in_quotes = !in_quotes;
-		}
-		while (in_quotes == false && arg[j] == '\'')
-			j++;
-		arg[i] = arg[j++];
-		i++;
+		switch_inquotes(arg[j], &j, &in_quotes, &between);
+		arg[i++] = arg[j++];
 	}
 	arg[i] = '\0';
 }

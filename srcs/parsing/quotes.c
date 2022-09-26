@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:28:43 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/22 15:07:54 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/26 11:12:26 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	get_nb_quote(char *str, char quote)
  * @param quote ' or "
  * @return True if the str is betweeen 2 sames quote chars
  */
-bool	is_str_in_quotes(char *str, const char	*start, const char	*end, char quote)
+bool	is_str_in_quotes(const char *str, const char	*start, const char	*end, char quote)
 {
 	size_t	nb_quotes;
 	bool	in_quotes;
@@ -63,6 +63,7 @@ bool	is_str_in_quotes(char *str, const char	*start, const char	*end, char quote)
 	return (in_quotes);
 }
 
+/*
 int main(void) //gcc srcs/parsing/quotes.c libft/libft.a -o quotes
 {
 	int offset =  6;
@@ -76,3 +77,4 @@ int main(void) //gcc srcs/parsing/quotes.c libft/libft.a -o quotes
 	printf("Second quote = %s\n", second_quote);
 	puts(test);
 }
+*/
