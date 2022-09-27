@@ -6,11 +6,57 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:28:43 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/26 11:12:26 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:39:33 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../incs/minishell.h"
+
+void	switch_inquotes(char c, size_t *iterator, bool *in_quotes, char *between)
+{
+	if (c == *between)
+	{
+		*in_quotes = !*in_quotes;
+		(*iterator)++;
+	}
+	else if (c == '\"' && !*in_quotes)
+	{
+		*between = '\"';
+		*in_quotes = !*in_quotes;
+		(*iterator)++;
+	}
+	else if (c == '\'' && !*in_quotes)
+	{
+		*between = '\'';
+		*in_quotes = !*in_quotes;
+		(*iterator)++;
+	}
+}
+
+void	clean_quotes(char *arg)
+{
+	const size_t	len_arg = ft_strlen(arg);
+	size_t			i;
+	size_t			j;
+	bool			in_quotes;
+	char			between;
+
+	i = 0;
+	j = 0;
+	in_quotes = false;
+	while (j < len_arg)
+	{
+		printf("[%s]arg:%c\n", __func__ , arg[j]);
+		switch_inquotes(arg[j], &j, &in_quotes, &between); //fixme: echo ""
+		//if (!in_quotes && arg[j] != between)
+			arg[i++] = arg[j++];
+		//else
+			//j++;
+	}
+	arg[i] = '\0';
+
+}
+
 
 size_t	get_nb_quote(char *str, char quote)
 {
@@ -44,37 +90,14 @@ bool	is_str_in_quotes(const char *str, const char	*start, const char	*end, char 
 	nb_quotes = 0;
 	i = 0;
 	in_quotes = false;
-	puts(start);
 	while (str[i] && end != NULL && (&str[i] != end + 1))
 	{
 		nb_quotes += str[i] == quote;
 		if (&str[i] == start + 1 && nb_quotes % 2 == 1)
-		{
 			in_quotes = true;
-			puts("oui");
-		}
 		if ((nb_quotes % 2 == 0 && &str[i] == end + 1))
-		{
 			in_quotes = false;
-			printf("non | &str[i]=%p == end = %p\n", &str[i], end);
-		}
 		i++;
 	}
 	return (in_quotes);
 }
-
-/*
-int main(void) //gcc srcs/parsing/quotes.c libft/libft.a -o quotes
-{
-	int offset =  6;
-	char *test = "THIS \'IS A VERY \'GOOD TEST\' \"STRING\"! ";
-	char *first_quote = ft_strchr(test + offset, '\'');
-	char *second_quote = ft_strchr(first_quote + 1, '\'');
-
-	printf("Is in quote: %s.\n", is_str_in_quotes(test, first_quote,
-												 second_quote, '\'') ? "yes" : "no");
-	printf("First quote = %s\n", first_quote);
-	printf("Second quote = %s\n", second_quote);
-	puts(test);
-}
-*/

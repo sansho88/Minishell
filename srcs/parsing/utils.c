@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/19 16:34:12 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:14:05 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	free_t_argmode(t_argmode *args, size_t nb_args)
 	free(args);
 }
 
-//TODO: EXPORT: cas a gerer: "a b= c=5" env = "b="" c="5" "; export = "a   b=""   c="5" "  + 'export b+=u' = b="5u"
-
-bool    str_in_quotes(const char *str, size_t lenstr, bool is_env_var) //todo: implement somewhere
+bool    str_in_quotes(const char *str, size_t lenstr, bool is_env_var)
 {
     if (!(str - is_env_var) || *(str - is_env_var) != '\'')
         return (false);
@@ -112,11 +110,25 @@ char *get_next_valid_sep(char *str)
     i = 0;
     while (str[i])
     {
-        if (!ft_isalnum(str[i]))
+    	if (!ft_isalnum(str[i]) && str[i] != '?' && str[i] != '_')
             return (&str[i]);
         i++;
     }
     return (NULL);
+}
+
+char *get_env_var(char *cmd, const char *start, size_t len_to_end, char **env)
+{
+	char *env_var;
+	char *tmp;
+
+	env_var = "";
+	tmp = ft_strstrchr((char *)start, env, len_to_end - 1);
+	if (tmp && !is_str_in_quotes(cmd, start, start + len_to_end, '\''))
+		env_var = tmp;
+	else if (tmp)
+		env_var = ft_strndup((char *)start - 1, get_next_valid_sep(start + 1) - start + 1);
+	return (env_var);
 }
 
 char	*replace_dollars(char *cmdline, char **env)
@@ -135,7 +147,7 @@ char	*replace_dollars(char *cmdline, char **env)
 		if (next_sep)
 		{
 			len = (int)(next_sep - next_$);
-			env_var = ft_strstrchr(next_$ + 1, env, next_sep - next_$ - 1);
+			env_var = get_env_var(cmdline, next_$ + 1, next_sep - next_$ - 1, env);
 		}
 		else
 		{

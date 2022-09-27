@@ -6,52 +6,11 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/26 18:50:11 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/27 09:48:24 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-void	switch_inquotes(char c, size_t *iterator, bool *in_quotes, char *between)
-{
-	if (c == *between)
-	{
-		*in_quotes = !*in_quotes;
-		(*iterator)++;
-	}
-	if (c == '\"' && !*in_quotes)
-	{
-		*between = '\"';
-		*in_quotes = !*in_quotes;
-		(*iterator)++;
-	}
-	else if (c == '\'' && !*in_quotes)
-	{
-		*between = '\'';
-		*in_quotes = !*in_quotes;
-		(*iterator)++;
-	}
-}
-
-void	clean_quotes(char *arg)
-{
-	size_t	len_arg;
-	size_t	i;
-	size_t	j;
-	bool	in_quotes;
-	char	between;
-
-	i = 0;
-	j = 0;
-	in_quotes = false;
-	len_arg = ft_strlen(arg);
-	while (j < len_arg)
-	{
-		switch_inquotes(arg[j], &j, &in_quotes, &between);
-		arg[i++] = arg[j++];
-	}
-	arg[i] = '\0';
-}
 
 /**
  * Check if the nexts 2 chars are redirection characters, and returns the mode
@@ -119,8 +78,6 @@ void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 	res[num_part].mode = 0;
 	ft_trim_args(res, num_part + 1);
 }
-
-
 
 /**
  * Create the amount of t_argmode structs and
