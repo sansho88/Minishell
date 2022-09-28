@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:28:43 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/28 11:31:47 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/28 15:18:12 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,36 @@ void	clean_quotes(char *arg)
 	arg[i] = '\0';
 }
 
-
-size_t	get_nb_quote(char *str, char quote)
+bool	are_quotes_closed(const char *cmdline)
 {
-	size_t	nb_quotes;
-	char	*next;
+	size_t	nb_single_quotes;
+	size_t	nb_double_quotes;
+	size_t	i;
 
-	next = ft_strchr(str, quote);
-	nb_quotes = (next != NULL);
-	while (next && (next + 1) != NULL)
+	nb_single_quotes = 0;
+	nb_double_quotes = 0;
+	i = 0;
+	while (cmdline[i])
 	{
-		next = ft_strchr(next + 1, quote);
-		nb_quotes++;
+		if (cmdline[i] == '"' && nb_single_quotes % 2 == 0)
+			nb_double_quotes++;
+		else if (cmdline[i] == '\'' && nb_double_quotes % 2 == 0)
+			nb_single_quotes++;
+		i++;
 	}
-	return (nb_quotes);
+	if (nb_double_quotes % 2 == 1)
+		ft_putendl_fd("Double-Quotes not closed", 2);
+	if (nb_single_quotes % 2 == 1)
+		ft_putendl_fd("Single-Quotes not closed", 2);
+	return (nb_single_quotes % 2 == 0 && nb_double_quotes % 2 == 0);
+}
+
+
+bool	is_envar_in_sngl_quotes(const char *str, size_t lenstr, bool is_env_var)
+{
+	if (!(str - is_env_var) || *(str - is_env_var) != '\'')
+		return (false);
+	return (str[lenstr] + 1 && str[lenstr] + 1 == '\'');
 }
 
 /**
@@ -77,7 +93,8 @@ size_t	get_nb_quote(char *str, char quote)
  * @param quote ' or "
  * @return True if the str is betweeen 2 sames quote chars
  */
-bool	is_str_in_quotes(const char *str, const char	*start, const char	*end, char quote)
+bool	is_str_in_quotes(const char *str, const char *start, const char *end, \
+						char quote)
 {
 	size_t	nb_quotes;
 	bool	in_quotes;
