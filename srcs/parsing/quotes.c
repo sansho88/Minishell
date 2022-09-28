@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:28:43 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/27 17:39:33 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:31:47 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,11 @@ void	clean_quotes(char *arg)
 	in_quotes = false;
 	while (j < len_arg)
 	{
-		printf("[%s]arg:%c\n", __func__ , arg[j]);
-		switch_inquotes(arg[j], &j, &in_quotes, &between); //fixme: echo ""
-		//if (!in_quotes && arg[j] != between)
-			arg[i++] = arg[j++];
-		//else
-			//j++;
+		switch_inquotes(arg[j], &j, &in_quotes, &between);
+		j += (j > 0 && arg[j - 1] == between && arg[j] == between);
+		arg[i++] = arg[j++];
 	}
 	arg[i] = '\0';
-
 }
 
 
