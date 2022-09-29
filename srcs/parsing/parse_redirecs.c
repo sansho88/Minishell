@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirecs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/27 09:48:24 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/29 14:49:56 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,33 @@
 
 /**
  * Check if the nexts 2 chars are redirection characters, and returns the mode
- * @param cmdline = A pointer to the first char to check
+ * @param chars = A pointer to the first char to check
  * @return The "mode" (check minishell.h)
  */
-int	ft_check_redir(const char *cmdline) //todo: if redir + \0 = error (str_is_alphanum(redir + 1) ?)
+static int	ft_check_redir(const char *chars, const char	*cmdline)
 {
-	if (!cmdline || !*(cmdline + 1))
+	printf("%c:",*chars);
+	if (!chars || !*(chars + 1)){
 		return (NOT_REDIR);
-	if (*cmdline == '|')
+	}
+	if (is_str_in_quotes(cmdline, chars, chars + 1, '"')
+		|| is_str_in_quotes(cmdline, chars, chars + 1, '\'')) //fixme: echo "||" : 2eme pipe detecté comme un vrai pipe
+	{
+		printf("NOT REDIR\n");
+		return (NOT_REDIR);
+	}
+	if (*chars == '|')
+	{
+		printf("PIPE DETECTED\n");
 		return (PIPE);
-	else if (*cmdline == '>' && *(cmdline + 1) != '>')
+	}
+	else if (*chars == '>' && *(chars + 1) != '>')
 		return (REDIR_TO_OUT);
-	else if (*cmdline == '>' && *(cmdline + 1) == '>')
+	else if (*chars == '>' && *(chars + 1) == '>')
 		return (CONCAT_TO_OUT);
-	else if (*cmdline == '<' && *(cmdline + 1) != '<')
+	else if (*chars == '<' && *(chars + 1) != '<')
 		return (REDIR_TO_IN);
-	else if (*cmdline == '<' && *(cmdline + 1) == '<')
+	else if (*chars == '<' && *(chars + 1) == '<')
 		return (HEREDOC);
 	else
 		return (NOT_REDIR);
@@ -39,14 +50,15 @@ size_t	get_nb_seps(const char *cmdline)
 {
 	size_t	i;
 	size_t	nb_seps;
+	int		redir;
 
 	i = -1;
 	nb_seps = 0;
 	while (cmdline[++i])
 	{
-		nb_seps += ft_check_redir(&cmdline[i]) != 0;
-		if (ft_check_redir(&cmdline[i]) == 3
-			|| ft_check_redir(&cmdline[i]) == 5)
+		redir = ft_check_redir(&cmdline[i], cmdline);
+		nb_seps += (redir != 0);
+		if (redir == 3 || redir == 5)
 			nb_seps--;
 		if (i > 0 && (cmdline[i - 1] == '>' || cmdline[i - 1] == '<'))
 				i++;
@@ -74,6 +86,8 @@ void	ft_trim_args(t_argmode *argmode, size_t nb_args)
 
 void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 {
+	if (res[num_part].arg != NULL)
+		free(res[num_part].arg);
 	res[num_part].arg = ft_strtrim(cmdline + j, " ");
 	res[num_part].mode = 0;
 	ft_trim_args(res, num_part + 1);
@@ -99,10 +113,10 @@ t_argmode	*create_targmode_array(char *cmdline)
 		return (NULL);
 	while (cmdline[++i] && num_part != get_nb_seps(cmdline))
 	{
-		if (ft_check_redir(&cmdline[i]) != 0)
+		if (ft_check_redir(&cmdline[i], cmdline) != 0)
 		{
 			res[num_part].arg = ft_strndup(&cmdline[j], i - j - 1);
-			res[num_part].mode = ft_check_redir(&cmdline[i]);
+			res[num_part].mode = ft_check_redir(&cmdline[i], cmdline);
 			j = i + (res[num_part].mode == 3 || res[num_part].mode == 5) + 1;
 			num_part++;
 			i = j;

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/28 17:56:50 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:29:53 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,11 @@ int	main(int argc, char *argv[], char	*env[])
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1; //forcement au moins 1 arg
 			args = create_targmode_array(commandline);
-			//debug_t_argmode(args, nb_args);
+			debug_t_argmode(args, nb_args);
 			if (are_args_ok(args, nb_args))
 				exec_home(args, nb_args, custom_env);
 		}
+		//free_t_argmode(args, nb_args);
 	}
 	clear_history();
 }

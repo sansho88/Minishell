@@ -82,12 +82,36 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 
 static bool	str_contains_redir(char *str) //fixme
 {
-	bool	answer;
+	char	*target;
+	char	*end_target;
 
-	return (ft_strchr(str, '>') || ft_strchr(str, '<') || ft_strchr(str, '|'));
-	//todo: check if the redir is not between quotes
+	target = ft_strchr(str, '>');
+	while (target)
+	{
+		end_target = get_next_valid_sep(target);
+		if (!is_str_in_quotes(str, target, end_target, '"'))
+			return (true);
+		target = ft_strchr(str, '>');
+	}
+	target = ft_strchr(str, '<');
+	while (target)
+	{
+		end_target = get_next_valid_sep(target);
+		if (!is_str_in_quotes(str, target, end_target, '"'))
+			return (true);
+		target = ft_strchr(str, '<');
+	}
+	target = ft_strchr(str, '|');
+	while (target)
+	{
+		end_target = get_next_valid_sep(target);
+		if (!is_str_in_quotes(str, target, end_target, '"'))
+			return (true);
+		target = ft_strchr(str, '|');
+	}
+	return (false);
+	//todo: a function, maybe "get_target_redir", for norm
 	//todo later: perform the same check when the next true redir is found
-	return (answer);
 }
 
 bool	are_args_ok(t_argmode	*args, size_t	nb_args)
