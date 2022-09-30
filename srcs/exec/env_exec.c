@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:33:32 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/19 15:51:42 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/30 17:25:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,22 @@
 int print_env(t_args *d)
 {
     int i;
+    int j;
 
+    j = 0;
     i = 0;
     while (d->env[i])
     {
-        printf("%s\n", d->env[i]);
+        while (d->env[i][j])
+        {
+            if (d->env[i][j] == '=')
+			{
+				printf("%s\n", d->env[i]);
+				break;
+			}
+			j++;
+        }
+		j = 0;
         i++;
     }
     return(0);

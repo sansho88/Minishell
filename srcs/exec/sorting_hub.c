@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/19 15:52:31 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/24 12:28:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,11 +154,10 @@ int	ft_here_doc(t_args *d, t_argmode *argv)
 			break; 
 		if (argv[i].mode == 5)
 		{
-			//printf("valeur de argv : %s\n\n", argv[i + 1].arg );
+		//	printf("valeur de argv : %s\n\n", argv[i + 1].arg );
 			file = open(argv[i + 1].arg, 0666);
 			if (file == -1)
 			{
-				printf("cassé123\n");
 				return(1);
 			}
 			i++;

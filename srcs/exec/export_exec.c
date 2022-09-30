@@ -6,13 +6,13 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/08 09:53:27 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/30 17:23:01 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char		**add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
+int	add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
 {
 	int len;
 	int i;
@@ -22,17 +22,12 @@ char		**add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
 	while (d->env[len])
 		len++;
 	env_copy = ft_calloc(len + 2, sizeof(char **));
-	while (d->env[i])
+	while (i < len)
 	{
 		env_copy[i] = d->env[i];
 		i++;
 	}
 	env_copy[len] = arg;
-	/*while(i < len + 1)
-	{
-		printf("%s\n", env_copy[i]);
-		i++;
-	}*/
 	d->env = ft_calloc(len + 2, sizeof(char **));
 	i = 0;
 	while (env_copy[i])
@@ -40,38 +35,78 @@ char		**add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
 		d->env[i] = env_copy[i];
 		i++;
 	}
-	return (d->env);
+	return (0);
 }
 
-char 	**export_hub(t_argmode *args, t_args *d)
+int	is_already_set(t_argmode *args, t_args *d, char	*arg)
 {
-	char	**arg;
-	char	**env_copy;
 	int i;
-	int	j;
-	int len;
 	
 	i = 0;
-	arg = ft_split(args->arg, ' ');
+	d->needle = ft_calloc(ft_strlen(arg), sizeof(char));
+	while (arg[i])
+	{
+		d->needle[i] = arg[i];
+		if (arg[i] == '=')
+			if (i == 0)
+			{
+				printf("export: `%s': not a valid identifier\n", arg);
+				return(1);
+			}	
+			break;
+		i++;
+	}
+	while (d->env[i])
+	{
+		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
+		{
+			d->env[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+			d->env[i] = arg;
+			return(1);
+		}
+		i++;
+	}
+	return(0);
+}
+
+int	check_arg(t_argmode *args, t_args *d, char **arg)
+{
+	int		i;
+	int		j;
+	char	**env_copy;
+
+	i = 1;
+	j = 0;
 	while (arg[i])
 	{
 		while (arg[i][j])
 		{
-			if (arg[i][j] == '=')
-				d->env = add_value(args, d, arg[i], env_copy);
+			/*if (arg[i][j] == '+' && arg[i][j + 1] == '=')
+			{
+				//append_value();
+			}*/
+			//if(arg[i][j] == '=')
+			//{
+				if (is_already_set(args, d, arg[i]) == 0)
+					add_value(args, d, arg[i], env_copy);
+			//}
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-	i = 0;
-	while (d->env[len])
-		len++;
-	/*while(d->env[i])
-	{
-		printf("%s\n", d->env[i]);
-		i++;
-	}*/
+	return(0);
+}
 
-    return(d->env);
+int export_hub(t_argmode *args, t_args *d)
+{
+	char	**arg;
+	int i;
+	
+	i = 0;
+	arg = ft_split(args->arg, ' ');
+	check_arg(args, d, arg);
+	if (!arg[1])
+		sort_export(args, d);
+    return(0);
 }
