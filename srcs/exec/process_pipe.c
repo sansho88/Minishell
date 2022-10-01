@@ -6,69 +6,11 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/19 15:53:14 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:36:02 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-/*
-REDIRECTIONS
-*/
-void	redirection_bck(t_args *d, t_argmode *argv)
-{
-	int file;
-	int i;
-	int j;
-	
-	j = d->acutal_arg;
-	i = d->acutal_arg + 1;
-	//dprintf(2, "redirection Bck\n");
-	//dprintf(2, "nom du fichier : %s\n", argv[i].arg);
-
-	file = open(argv[d->acutal_arg + 1].arg, O_RDONLY, 0644);
-	if (file == -1)
-	{
-		file = open(argv[i].arg, 1);
-		if (file == -1)
-		{
-			perror("bad outfile");
-			exit(EXIT_FAILURE);
-		}
-		ft_dup2(file, STDIN_FILENO);
-		close(file);
-		j++;
-		i++;
-	}
-	ft_dup2(file, 0);
-	close(file);
-	
-}
-void	redirection_fwd(t_args *d, t_argmode *argv)
-{
-	int file;
-	int i;
-	int j;
-	
-	j = d->acutal_arg;
-	i = d->acutal_arg + 1;
-	//dprintf(2, "redirection fwd\n");
-	//dprintf(2, "nom du fichier : %s\n", argv[2].arg);
-
-	while (argv[j].mode == 2)
-	{
-		file = open(argv[i].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
-		if (file == -1)
-		{
-			perror("bad outfile");
-			exit(EXIT_FAILURE);
-		}
-		ft_dup2(file, 1);
-		close(file);
-		j++;
-		i++;
-	}
-}
 
 void	ft_forward(t_args *d, t_argmode *argv)
 {
@@ -86,6 +28,7 @@ void	ft_forward(t_args *d, t_argmode *argv)
 	ft_dup2(file, 1);
 	close(file);
 }
+
 void	ft_backward(t_args *d, t_argmode *argv)
 {
 	int file2;
@@ -99,15 +42,6 @@ void	ft_backward(t_args *d, t_argmode *argv)
 	}
 	ft_dup2(file2, STDIN_FILENO);
 	close(file2);
-}
-
-void	one_arg(t_args *d, t_argmode *argv)
-{
-	char	**args;
-	int		argc;
-
-	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
-	execute(d, args, d->acutal_arg);
 }
 
 void	pipe_rebuild_first(t_args *d, t_argmode *argv)
@@ -129,9 +63,6 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 	}
 	close(d->tube[1]);
 	close(d->tube[0]);
-	//close(d->temp_tube[0]);
-	//close(d->temp_tube[1]);
-	
 }
 
 void pipe_rebuild_else(t_args *d, t_argmode *argv)
@@ -159,51 +90,21 @@ void pipe_rebuild_else(t_args *d, t_argmode *argv)
 	close(d->tube[0]);
 	close(d->temp_tube[0]);
 	close(d->temp_tube[1]);
-	
 }
+
 void    process_pipe(t_args *d, t_argmode *argv)
 {
 	char	**args;
 	int		i;
 	int		argc;
 
-	/* 
-	Dans le cas où il n'y a pas de particularités dans la demande (Pas de pipe, de redirections ..)
-	Il faut créer des conditions fonction de ce qu'on me renvoit (redirections)
-	*/
-	//dprintf(1, "valeur de argv[%d].arg : %s\n \n", d->acutal_arg , argv[d->acutal_arg].arg);
-	//dprintf (1, "valeur de d->argc : %d, valeur de actual arg : %d\n", d->argc, d->acutal_arg);
-	
-	//dprintf(2, "valeur de stdin : %s || %d\n", argv[d->stdin_pos].arg, d->stdin_pos);
 	if (d->argc < 2)
 		one_arg(d, argv);
 	if (d->acutal_arg == 0)
-	{
-		//dprintf(2, "Pipe rebuild first\n");
 		pipe_rebuild_first(d, argv);
-	}
 	else
-	{
-		//dprintf(2, "rebuild pipex\n");
 		pipe_rebuild_else(d, argv);
-	}
-	//pipe_conditions(d, argv);
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
-//	dprintf(2, "valeur de acutal arg : %s\n" , args[0]);
-	i = 0;
-	/*while (args[i])
-	{
-		dprintf(2, "valeur de args[%d] : %s || argument numéro : %d", i, args[i], d->acutal_arg);
-		dprintf(2, " || valeur du mode : %d\n", argv[d->acutal_arg].mode);
-		i++;
-	}*/
-	/*if (d->count != 0)
-	{
-		d->count++;
-		d->acutal_arg = d->acutal_arg + d->count;
-		d->count = 0;
-	}
-	dprintf(2, "valeur de actual arg après opération : %d\n", d->acutal_arg);*/
 	if (access(args[0], F_OK | X_OK) == 0)
 	{
 		execve(args[0], args, d->env);

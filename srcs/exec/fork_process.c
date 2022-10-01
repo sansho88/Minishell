@@ -6,15 +6,13 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/24 13:55:54 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:41:20 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-void	make_fork(t_args *d, t_argmode *argv)
+int	is_built_in(t_args *d, t_argmode *argv)
 {
-	//dprintf(2, "valeur de actual arg : %d == %s\n", d->acutal_arg, argv[d->acutal_arg].arg);
 	if (ft_strncmp(&argv->arg[d->acutal_arg], "cd", 2) == 0 && d->argc == 1)
 		cd_hub(argv, d);
 	else if (ft_strncmp(&argv->arg[d->acutal_arg], "export", 6) == 0 && d->argc == 1)
@@ -24,6 +22,12 @@ void	make_fork(t_args *d, t_argmode *argv)
 	else if (ft_strncmp(&argv->arg[d->acutal_arg], "unset", 5) == 0 && d->argc == 1)
 		unset_hub(argv, d);
 	else
+		return (0);
+	return (1);
+}
+void	make_fork(t_args *d, t_argmode *argv)
+{
+	if (is_built_in(d, argv) == 0)
 	{
 		d->pid[d->j] = fork();
 		if (d->pid[d->j] == -1)

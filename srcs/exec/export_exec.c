@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/30 17:23:01 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/01 19:05:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,8 @@ int	check_arg(t_argmode *args, t_args *d, char **arg)
 	{
 		while (arg[i][j])
 		{
-			/*if (arg[i][j] == '+' && arg[i][j + 1] == '=')
-			{
-				//append_value();
-			}*/
-			//if(arg[i][j] == '=')
-			//{
-				if (is_already_set(args, d, arg[i]) == 0)
+			if (is_already_set(args, d, arg[i]) == 0)
 					add_value(args, d, arg[i], env_copy);
-			//}
 			j++;
 		}
 		j = 0;
