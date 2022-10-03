@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/02 19:09:30 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/03 18:49:08 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,19 @@ int	bwd_to_directory(t_argmode *args, t_args *d, char **arg)
 
 int	fwd_to_directory(t_argmode *args, t_args *d, char **arg)
 {
-	d->pwd = ft_strjoin(d->pwd, "/");
-	d->pwd = ft_strjoin(d->pwd, arg[1]);
-	if (chdir(&d->pwd[4]) == -1)
+
+	char *tmp;
+	
+	tmp = d->pwd;
+	tmp = ft_strjoin(tmp, "/");
+	tmp = ft_strjoin(tmp, arg[1]);
+	if (chdir(&tmp[4]) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", arg[1]);
 		return (1);
 	}
+	else 
+		d->pwd = tmp;
 	return (0);
 }
 
@@ -99,9 +105,14 @@ int	cd_hub(t_argmode *args, t_args *d)
 	}
 	d->pwd = d->env[i];
 	arg = ft_split(args->arg, ' ');
-	if ((args_nbr == cd_args_count(args, d, arg)) == 0)
-		return (1);
-	if (args_nbr == 2 && ft_strncmp("..", arg[1], 3) != 0)
+	//printf("%c\n\n", arg[1][0]);
+	args_nbr = cd_args_count(args, d, arg);
+	printf("nbr args : %d\n", args_nbr);
+	/*if ((args_nbr == cd_args_count(args, d, arg)) == 0)
+		return (1);*/
+	if (args_nbr == 2 && ft_strncmp("/", arg[1], 1) == 0)
+		printf("Bonjour\n");
+	else if (args_nbr == 2 && ft_strncmp("..", arg[1], 3) != 0)
 		fwd_to_directory(args, d, arg);
 	else if (args_nbr == 2 && ft_strncmp("..", arg[1], 3) == 0)
 		bwd_to_directory(args, d, arg);

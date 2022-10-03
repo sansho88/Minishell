@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:03 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/01 18:35:41 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/03 17:23:05 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	one_arg(t_args *d, t_argmode *argv)
 {
 	char	**args;
 	int		argc;
+	int 	i;
 
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	execute(d, args, d->acutal_arg);
