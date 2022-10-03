@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/29 14:49:56 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/03 12:01:16 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,15 @@
  */
 static int	ft_check_redir(const char *chars, const char	*cmdline)
 {
-	printf("%c:",*chars);
-	if (!chars || !*(chars + 1)){
+	const bool	in_quotes = (is_str_in_quotes(cmdline, chars, chars + 1, '"')
+			|| is_str_in_quotes(cmdline, chars, chars + 1, '\''));
+
+	if (!chars || !*(chars + 1))
 		return (NOT_REDIR);
-	}
-	if (is_str_in_quotes(cmdline, chars, chars + 1, '"')
-		|| is_str_in_quotes(cmdline, chars, chars + 1, '\'')) //fixme: echo "||" : 2eme pipe detecté comme un vrai pipe
-	{
-		printf("NOT REDIR\n");
+	if (in_quotes)
 		return (NOT_REDIR);
-	}
 	if (*chars == '|')
-	{
-		printf("PIPE DETECTED\n");
 		return (PIPE);
-	}
 	else if (*chars == '>' && *(chars + 1) != '>')
 		return (REDIR_TO_OUT);
 	else if (*chars == '>' && *(chars + 1) == '>')

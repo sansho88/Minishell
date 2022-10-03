@@ -6,30 +6,30 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:28:43 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/28 15:18:12 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:38:46 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../incs/minishell.h"
+#include "../../incs/minishell.h"
 
-void	switch_inquotes(char c, size_t *iterator, bool *in_quotes, char *between)
+void	switch_inquotes(char c, size_t *i, bool *in_quotes, char *between)
 {
 	if (c == *between)
 	{
 		*in_quotes = !*in_quotes;
-		(*iterator)++;
+		(*i)++;
 	}
 	else if (c == '\"' && !*in_quotes)
 	{
 		*between = '\"';
 		*in_quotes = !*in_quotes;
-		(*iterator)++;
+		(*i)++;
 	}
 	else if (c == '\'' && !*in_quotes)
 	{
 		*between = '\'';
 		*in_quotes = !*in_quotes;
-		(*iterator)++;
+		(*i)++;
 	}
 }
 
@@ -77,7 +77,6 @@ bool	are_quotes_closed(const char *cmdline)
 	return (nb_single_quotes % 2 == 0 && nb_double_quotes % 2 == 0);
 }
 
-
 bool	is_envar_in_sngl_quotes(const char *str, size_t lenstr, bool is_env_var)
 {
 	if (!(str - is_env_var) || *(str - is_env_var) != '\'')
@@ -103,10 +102,10 @@ bool	is_str_in_quotes(const char *str, const char *start, const char *end, \
 	nb_quotes = 0;
 	i = 0;
 	in_quotes = false;
-	while (str[i] && end != NULL && (&str[i] != end + 1))
+	while (str[i] && end != NULL && (&str[i] != end))
 	{
 		nb_quotes += str[i] == quote;
-		if (&str[i] == start + 1 && nb_quotes % 2 == 1)
+		if (&str[i] == start && nb_quotes % 2 == 1)
 			in_quotes = true;
 		if ((nb_quotes % 2 == 0 && &str[i] == end + 1))
 			in_quotes = false;

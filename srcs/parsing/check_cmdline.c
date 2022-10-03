@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:02:34 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/28 19:14:46 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:20:24 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,26 @@ static bool	check_chenille_char(char *cmdline, char testchar)
 
 static bool	is_chars_partouze(char *cmdline)
 {
-	char	*target;
+	char	*trgt;
 
 	if (!check_chenille_char(cmdline, '|'))
 	{
 		puts("chars chenille");
 		return (true);
 	}
-	target = ft_strchr(cmdline, '\\');
-	while (target)
+	trgt = ft_strchr(cmdline, '\\');
+	while (trgt)
 	{
-		if (!is_str_in_quotes(cmdline, target, get_next_valid_sep(target + 1), '"'))
+		if (!is_str_in_quotes(cmdline, trgt, get_next_valid_sep(trgt + 1), '"'))
 			return (true);
-		target = ft_strchr(cmdline, '\\');
+		trgt = ft_strchr(cmdline, '\\');
 	}
-	target = ft_strchr(cmdline, ';');
-	while (target)
+	trgt = ft_strchr(cmdline, ';');
+	while (trgt)
 	{
-		if (!is_str_in_quotes(cmdline, target, get_next_valid_sep(target + 1), '"'))
+		if (!is_str_in_quotes(cmdline, trgt, get_next_valid_sep(trgt + 1), '"'))
 			return (true);
-		target = ft_strchr(cmdline, ';');
+		trgt = ft_strchr(cmdline, ';');
 	}
 	return (false);
 }
@@ -80,7 +80,7 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 	return (true);
 }
 
-static bool	str_contains_redir(char *str) //fixme
+static bool	str_contains_redir(char *str)
 {
 	char	*target;
 	char	*end_target;
@@ -110,8 +110,6 @@ static bool	str_contains_redir(char *str) //fixme
 		target = ft_strchr(str, '|');
 	}
 	return (false);
-	//todo: a function, maybe "get_target_redir", for norm
-	//todo later: perform the same check when the next true redir is found
 }
 
 bool	are_args_ok(t_argmode	*args, size_t	nb_args)
@@ -123,8 +121,8 @@ bool	are_args_ok(t_argmode	*args, size_t	nb_args)
 	i = 0;
 	while (i < nb_args)
 	{
-		if (!args[i].arg || (!ft_str_isalnum(args[i].arg)
-				&& str_contains_redir(args[i].arg)))
+		if (!args[i].arg /*|| (!ft_str_isalnum(args[i].arg)*/
+				/*|| str_contains_redir(args[i].arg)*/)
 		{
 			ft_putendl_fd("Conchito: syntax error", 2);
 			free_t_argmode(args, nb_args);

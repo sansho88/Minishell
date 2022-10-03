@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/29 11:31:36 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:14:56 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ void	debug_t_argmode(t_argmode *args, int nb_arg)
 	i = 0;
 	if (args == NULL)
 	{
-		dprintf(2, "[%s]The struct is NULL.\n", __func__ );
+		dprintf(2, "[%s]The struct is NULL.\n", __func__);
 		return ;
 	}
 	while (i < nb_arg)
 	{
-		dprintf(1, "[%s]t_argmode->arg=%s__ t_argmode->mode=%d\n",__func__, args[i].arg, args[i].mode);
+		dprintf(1, "[%s]t_argmode->arg=%s__ t_argmode->mode=%d\n",
+			__func__, args[i].arg, args[i].mode);
 		i++;
 	}
 }
@@ -41,7 +42,6 @@ void	free_t_argmode(t_argmode *args, size_t nb_args)
 		args[i].mode = 0;
 		i++;
 	}
-	puts("End of while");
 	if (args)
 		free(args);
 }
@@ -54,18 +54,21 @@ char	*ft_strstrchr(char *target, char **tab, size_t len_target)
 
 	i = 0;
 	result = ft_strdup("");
-	while (tab[i])
+	env_var = ft_split(tab[i], '=');
+	while (tab[i] && env_var)
 	{
 		env_var = ft_split(tab[i], '=');
-		if (ft_strncmp(env_var[0], target, len_target) == 0)
+		if (env_var[0] && ft_strncmp(env_var[0], target, len_target) == 0)
 		{
 			free(env_var[0]);
 			result = ft_strjoin_free(result, env_var[1], 3);
 			free(env_var);
 			return (result);
 		}
-		free(env_var[0]);
-		free(env_var[1]);
+		if (env_var[0] && *env_var[0])
+			free(env_var[0]);
+		if (env_var[1])
+			free(env_var[1]);
 		free(env_var);
 		i++;
 	}

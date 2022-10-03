@@ -106,7 +106,7 @@ bool		is_str_in_quotes(const char *str, const char	*start, const char	*end, char
 //UTILS
 char		**init_env(char	**env);
 char		*get_next_valid_sep(char *str);
-char		*replace_dollars(char *cmdline, char **env);
+char		*replace_dollars(char *cmd, char **env);
 char		*ft_strstrchr(char *target, char **tab, size_t len_target);
 
 //UTILS_HEREDOC

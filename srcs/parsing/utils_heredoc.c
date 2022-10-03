@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../incs/minishell.h"
+#include "../../incs/minishell.h"
 
 /**
  * Get only the word which stop the heredoc, and remove it from the t_argmode
