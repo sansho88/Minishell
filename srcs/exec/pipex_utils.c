@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:03 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/08/26 10:47:07 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:35:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,13 @@ int	ft_memcmp(const void	*po1, const void	*po2, size_t	size)
 	return (0);
 }
 
-size_t	mod_ft_strlen(const char	*str)
+void	one_arg(t_args *d, t_argmode *argv)
 {
-	int	i;
+	char	**args;
+	int		argc;
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
+	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
+	execute(d, args, d->acutal_arg);
 }
 
 /*

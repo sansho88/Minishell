@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/21 13:27:29 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:00:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 
-# define CONCHITO /*"[Minishell]"*/"[\033[1;32m\2Conchito \1\033[93m✗\033[0m]" 
+# define CONCHITO "[Minishell:] "//"[\033[1;32m\2Conchito \1\033[93m✗\033[0m]" 
 
 //Structs PARSING
 typedef struct s_argmode{
@@ -76,6 +76,7 @@ typedef struct s_arguments
 	int		redir_count;
 	char	*pwd;
 	int		heredoc_pos;
+	char	*needle;
 }				t_args;
 
 // UTILS
@@ -89,6 +90,7 @@ size_t		get_nb_seps(const char *cmdline);
 void		clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
+char		*ft_new_heredocname(int *nb_created);
 //void	rl_clear_history(void);
 
 //UTILS
@@ -108,21 +110,33 @@ void		sign_chars_manager(bool turn_on_save);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, char const *s2);
-//size_t	ft_strlen(const char	*str);
 int		ft_memcmp(const void	*po1, const void	*po2, size_t	size);
 char	*ft_strdup(const char *src);
 void    process_pipe(t_args *d, t_argmode *argv);
-void    fork_process(t_args *d, t_argmode *argsmod);
+void	fork_process(t_args *d, t_argmode *argv);
+int		export_hub(t_argmode *args, t_args *d);
+int 	env_hub(t_argmode *args, t_args *d);
+void	sorting_hub(t_args *d, t_argmode *argv);
+int 	unset_hub(t_argmode *args, t_args *d);
 int		ft_dup2(int a, int b);
 int		ft_strcmp(const char	*first, const char	*second);
-int		exec_home(t_argmode *argv, int argc, char	*env[]);
+int		exec_home(t_argmode *argv, int argc, t_args *d);
 int 	cd_hub(t_argmode *args, t_args *d);
+void    sort_export(t_argmode *args, t_args *d);
+int		set_back(t_args *d, t_argmode *argv, int i, int file);
+int		set_fwd(t_args *d, t_argmode *argv, int i, int file2);
+int		set_append(t_args *d, t_argmode *argv, int i, int file);
+int		set_heredoc(t_args *d, t_argmode *argv, int i, int file);
+void	is_append_or_heredoc(t_args *d);
+void	check_if_last(t_args *d, t_argmode *argv);
+void	one_arg(t_args *d, t_argmode *argv);
+void 	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy);
+void	ft_exit(t_args *d, t_argmode *argv);
 
 //REBUILD
 char	**path(char	**env);
 void	execute(t_args *p, char **args, int nb);
-void	sorting_hub(t_args *d, t_argmode *argv);
-void	fork_process(t_args *d, t_argmode *argv);
+//void	fork_process(t_args *d, t_argmode *argv);
 
 // COLORS
 # define BBLU	"\033[1;34m"

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/02 19:03:12 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/01 18:59:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,14 @@ void	execute(t_args *p, char **args, int nb)
     while (p->path[j])
     {
         tmp = ft_strjoin(p->path[j], args[0]);
-        //dprintf(1, "valeur de path[%d] : %s\n", j, p->path[j]);
         if (access(tmp, F_OK | X_OK) == 0)
         {
             break ;
         }
         j++;
     }
-    /*if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
-    {
-        perror("Invalid Path");
-    }*/
     if (tmp)
     {
-      //dprintf(2, "valeur de TMP : %s\n" , tmp);
         args[0] = tmp;
         execve(args[0], args, p->env);
     }
