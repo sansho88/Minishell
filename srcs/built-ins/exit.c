@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/03 14:18:55 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:36:31 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,19 @@ static bool	ft_check_all_args(char **args, size_t nb_args)
 }
 
 
-void	ft_exit(char **arg, size_t	nb_args)
+void	ft_exit(t_args *d, t_argmode *argv)
 {
-	if (!arg || nb_args <= 1)
-		exit(0);
-	if (ft_check_all_args(arg, nb_args))
-		exit (ft_atoi(arg[1]));
-}
+	int		nb_args;
+	char	**args;
+	int 	argc;
 
-int	main(int argc, char **argv)
-{
-	ft_exit(argv, argc);
+	args = ft_split(argv->arg, ' ');
+	while (args[nb_args])
+		nb_args++;
+	if (!args || nb_args <= 1)
+		exit(0);
+	if (ft_check_all_args(args, nb_args))
+	{
+		exit (ft_atoi(args[1]) % 256);
+	}
 }

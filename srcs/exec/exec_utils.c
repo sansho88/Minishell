@@ -1,43 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_exec.c                                         :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 09:33:32 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/30 17:25:41 by rgeral           ###   ########.fr       */
+/*   Created: 2022/10/01 00:49:42 by rgeral            #+#    #+#             */
+/*   Updated: 2022/10/01 00:50:31 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int print_env(t_args *d)
+void	check_if_last(t_args *d, t_argmode *argv)
 {
-    int i;
-    int j;
+	int	i;
 
-    j = 0;
-    i = 0;
-    while (d->env[i])
-    {
-        while (d->env[i][j])
-        {
-            if (d->env[i][j] == '=')
-			{
-				printf("%s\n", d->env[i]);
-				break;
-			}
-			j++;
-        }
-		j = 0;
-        i++;
-    }
-    return(0);
-}
-
-int env_hub(t_argmode *args, t_args *d)
-{
-    print_env(d);
-    return(0);
+	i = d->acutal_arg;
+	while (i < d->argc)
+	{
+		if (argv[i].mode == 1)
+		{
+			d->is_last = 1;
+			break ;
+		}
+		else if (argv[i].mode == 0)
+		{
+			d->is_last = 0;
+			break ;
+		}
+		else
+			i++;
+	}
 }

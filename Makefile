@@ -27,6 +27,11 @@ SRCS := srcs/parsing/nigga-tests.c \
 		srcs/exec/cd_exec.c \
 		srcs/exec/env_exec.c \
 		srcs/exec/export_exec.c \
+		srcs/exec/unset_exec.c \
+		srcs/exec/built_ins_utils.c \
+		srcs/built-ins/exit.c \
+		srcs/exec/set_redirection.c \
+		srcs/exec/exec_utils.c \
 
 OBJS := $(SRCS:.c=.o)
 
