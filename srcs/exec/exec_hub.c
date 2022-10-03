@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/30 21:54:55 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:14:16 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	int	i;
 	int	status;
 
+	i = 0;
+	/*while (i < argc)
+	{
+		dprintf (2, "valeur de arg[%d] : %s || ", i, argv[i].arg);
+		dprintf (2, "mode = %d || ", argv[i].mode);
+		dprintf (2, "ARGC : %d/%d\n", i, argc );
+		i++;
+	}*/
 	data_initialize(d, argc);
 	sorting_hub(d, argv);
 	i = 0;
@@ -61,4 +69,5 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 		i++;
 	}
 	rm_heredoc();
+	return(1);
 }
