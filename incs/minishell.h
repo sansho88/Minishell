@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/03 14:00:49 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/09/28 16:53:08 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 
-# define CONCHITO "[Minishell:] "//"[\033[1;32m\2Conchito \1\033[93m✗\033[0m]" 
+
+# define CONCHITO /*"[Minishell]"*/"[\033[1;32m\001Conchito \1\033[93m✗\033[0m\002]"
 
 //Structs PARSING
 typedef struct s_argmode{
@@ -80,8 +81,10 @@ typedef struct s_arguments
 }				t_args;
 
 // UTILS
-void        debug_t_argmode(t_argmode *args, int nb_arg);
-void        free_t_argmode(t_argmode *args, size_t nb_args);
+void		debug_t_argmode(t_argmode *args, int nb_arg);
+void		free_t_argmode(t_argmode *args, size_t nb_args);
+char		*ft_strreplace(char *str, char *to_insert, int pos, \
+															int len_to_replace);
 
 // FUNCTIONS PARSING
 t_argmode	*split_arg_redirect(char *cmdline, int *argc);
@@ -93,10 +96,21 @@ char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);
 //void	rl_clear_history(void);
 
+//CHECK_CMDLINE
+bool		is_cmdline_ok(char **cmdline, char **env);
+bool		are_args_ok(t_argmode	*args, size_t	nb_args);
+
+//QUOTES
+size_t		get_nb_quote(char *str, char quote);
+bool		is_envar_in_sngl_quotes(const char *str, size_t lenstr, bool is_env_var);
+bool		is_str_in_quotes(const char *str, const char	*start, const char	*end, char quote);
+
+
 //UTILS
 char		**init_env(char	**env);
 char		*get_next_valid_sep(char *str);
-char		*replace_dollars(char *cmdline, char **env);
+char		*replace_dollars(char *cmd, char **env);
+char		*ft_strstrchr(char *target, char **tab, size_t len_target);
 
 //UTILS_HEREDOC
 t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);

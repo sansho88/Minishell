@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:58 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/21 13:27:29 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:24:00 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,15 @@ char	*ft_heredoc(char *stop)
 	fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0 || !filename)
 		perror(HEREDOC_ERROR);
-	dprintf(2, "STOP is[%s]\n", stop);
+	printf("STOP is [%s]\n", stop);
 	while (ft_strncmp(input, stop, ft_strlen(stop)) != 0)
 	{
-		//free(input);
+		free(input);
 		input = readline("> ");
 		if (!input || ft_strncmp(input, stop, ft_strlen(stop)) == 0)
 			break ;
 		ft_putendl_fd(input, fd);
 	}
-	printf("[END HEREDOC]%s\n", input);
 	free(input);
 	close(fd);
 	return (filename);

@@ -4,13 +4,16 @@ LIBFT := $(LIBFT_PATH)libft.a
 READLINE_LIB := -lreadline -L $(shell brew --prefix readline)/lib
 READLINE_INC := -I $(shell brew --prefix readline)/include
 FLAGS := -Wall -Werror -Wextra 
-FLAGS += -fsanitize=address -g3
+#FLAGS += -fsanitize=address -g3
 
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \
 		srcs/parsing/heredoc.c \
 		srcs/parsing/utils_heredoc.c \
 		srcs/parsing/utils.c \
+		srcs/parsing/quotes.c \
+		srcs/parsing/dollars.c \
+		srcs/parsing/check_cmdline.c \
 		srcs/signals/signal_handler.c \
 		srcs/exec/exec_hub.c \
 		srcs/exec/ft_split.c \
