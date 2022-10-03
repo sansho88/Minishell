@@ -133,7 +133,6 @@ void	one_arg(t_args *d, t_argmode *argv);
 void 	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy);
 void	ft_exit(t_args *d, t_argmode *argv);
 
-
 //REBUILD
 char	**path(char	**env);
 void	execute(t_args *p, char **args, int nb);

@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:58 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/20 15:23:59 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:27:29 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_heredoc(char *stop)
 		return (NULL);
 	input = ft_strdup("");
 	filename = ft_new_heredocname(&nb_heredocs);
-	fd = open(filename, O_CREAT | O_RDWR, 777);
+	fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0 || !filename)
 		perror(HEREDOC_ERROR);
 	dprintf(2, "STOP is[%s]\n", stop);
@@ -57,17 +57,3 @@ char	*ft_heredoc(char *stop)
 	close(fd);
 	return (filename);
 }
-/*
-
-int main(int argc, char **argv)
-{
-	char	*stop;
-
-	if (argc != 2)
-		stop = "eof";
-	else
-		stop = argv[1];
-	printf("Stop Word is: %s\n", stop);
-	ft_heredoc(stop);
-}
-*/
