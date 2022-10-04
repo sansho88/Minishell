@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/01 19:05:39 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/03 22:57:06 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ int	is_already_set(t_argmode *args, t_args *d, char	*arg)
 	{
 		d->needle[i] = arg[i];
 		if (arg[i] == '=')
+		{
 			if (i == 0)
 			{
 				printf("export: `%s': not a valid identifier\n", arg);
 				return(1);
 			}	
 			break;
+		}
 		i++;
 	}
 	while (d->env[i])
@@ -79,13 +81,8 @@ int	check_arg(t_argmode *args, t_args *d, char **arg)
 	j = 0;
 	while (arg[i])
 	{
-		while (arg[i][j])
-		{
-			if (is_already_set(args, d, arg[i]) == 0)
-					add_value(args, d, arg[i], env_copy);
-			j++;
-		}
-		j = 0;
+		if (is_already_set(args, d, arg[i]) == 0)
+				add_value(args, d, arg[i], env_copy);
 		i++;
 	}
 	return(0);

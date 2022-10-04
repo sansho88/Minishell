@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/30 21:48:00 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/04 15:18:32 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int check_if_set(t_argmode *args, t_args *d, char   *arg)
 	i = 0;
 	d->needle = ft_calloc(ft_strlen(arg), sizeof(char));
 	d->needle = ft_strjoin(arg, "="); 
-	printf("%s\n", arg);
 	while (d->env[i])
 	{
 		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
@@ -62,6 +61,21 @@ int check_if_set(t_argmode *args, t_args *d, char   *arg)
 		i++;
 	}
 	return(0);
+}
+void	path_backup(t_args *d)
+{
+	int i;
+
+	i = 0;
+	while (d->env[i])
+	{
+		if (strstr(d->env[i], "PWD") != 0)
+		{
+			d->path_backup = ft_strdup(d->env[i]);
+			break;
+		}
+		i++;
+	}
 }
 
 int unset_hub(t_argmode *args, t_args *d)
@@ -73,14 +87,11 @@ int unset_hub(t_argmode *args, t_args *d)
 	arg = ft_split(args->arg, ' ');
     while (arg[i])
     {
+		if (ft_strncmp("PWD", arg[i], 3) == 0)
+			path_backup(d);
         check_if_set(args, d, arg[i]);
         i++;
     }
 	i = 0;
-/*	while (d->env[i])
-	{
-		printf("%s\n", d->env[i]);
-		i++;	
-	}*/
     return(0);
 }

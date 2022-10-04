@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/03 17:37:49 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/04 14:46:18 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	rm_heredoc(void)
 
 void data_initialize(t_args *d, int argc)
 {
+	char *tmp;
+	
+	d->pwd_len = 0;
 	d->count = 0;
 	d->argc = argc;
 	d->next_mode = 0;
@@ -44,6 +47,16 @@ void data_initialize(t_args *d, int argc)
 	d->pid = malloc(sizeof(int) * argc - 3);
 	if (!d->path)
 		exit(EXIT_FAILURE);
+	tmp = ft_calloc(d->pwd_len + 1, sizeof(char));
+	while (getcwd(tmp, d->pwd_len) == NULL)
+	{
+		d->pwd_len++;
+		tmp = ft_calloc(d->pwd_len + 1, sizeof(char));
+	}
+	d->pwd = tmp;
+//	printf("valeur de len : %d\n", d->pwd_len);
+//	printf("Valeur du TMP de base : %s\n", tmp);
+//	printf("Valeur du PWD de base : %s\n", d->pwd);
 }
 
 int	exec_home(t_argmode *argv, int argc, t_args *d)
@@ -53,13 +66,13 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	int	status;
 
 	i = 0;
-	while (i < argc)
+	/*while (i < argc)
 	{
 		dprintf (2, "valeur de arg[%d] : %s || ", i, argv[i].arg);
 		dprintf (2, "mode = %d || ", argv[i].mode);
 		dprintf (2, "ARGC : %d/%d\n", i, argc );
 		i++;
-	}
+	}*/
 	data_initialize(d, argc);
 	sorting_hub(d, argv);
 	i = 0;
