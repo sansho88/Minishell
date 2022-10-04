@@ -44,7 +44,7 @@ char	*ft_heredoc(char *stop)
 	if (fd < 0 || !filename)
 		perror(HEREDOC_ERROR);
 	printf("STOP is [%s]\n", stop);
-	while (ft_strncmp(input, stop, ft_strlen(stop)) != 0)
+	while (ft_strncmp(input, stop, ft_strlen(stop) + 1) != 0)
 	{
 		free(input);
 		input = readline("> ");

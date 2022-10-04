@@ -1,8 +1,8 @@
 NAME := minishell
 LIBFT_PATH := ./libft/
-LIBFT := $(LIBFT_PATH)libft.a
-READLINE_LIB := -lreadline -L $(shell brew --prefix readline)/lib
-READLINE_INC := -I $(shell brew --prefix readline)/include
+LIBFT := $(LIBFT_PATH)libft.a -lreadline
+READLINE_LIB :=  -L /Users/$(USER)/.brew/opt/readline/lib#-L $(shell brew --prefix readline)/lib -lreadline#-L .brew/opt/readline/lib and -I .brew/opt/readline/include
+READLINE_INC := -I /Users/$(USER)/.brew/opt/readline/include#-I $(shell brew --prefix readline)/include
 FLAGS := -Wall -Werror -Wextra 
 #FLAGS += -fsanitize=address -g3
 
