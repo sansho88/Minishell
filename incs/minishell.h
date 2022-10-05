@@ -86,14 +86,14 @@ void		free_t_argmode(t_argmode *args, size_t nb_args);
 char		*ft_strreplace(char *str, char *to_insert, int pos, \
 int len_to_replace);
 
-						   // FUNCTIONS PARSING
-						   t_argmode	*split_arg_redirect(char *cmdline, int *argc);
+// FUNCTIONS PARSING
 t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
 void		clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);
+void		rl_replace_line(char *str, int idk);
 //void	rl_clear_history(void);
 
 //CHECK_CMDLINE

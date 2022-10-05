@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:38:25 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/03 16:21:20 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/05 19:37:00 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -37,11 +37,18 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 
 	env_var = "";
 	tmp = ft_strstrchr((char *)start, env, len_end - 1);
-	if (tmp && !is_str_in_quotes(cmd, start, start + len_end, '\''))
-		env_var = tmp;
+	if (!is_str_in_quotes(cmd, start, start + len_end, '\''))
+	{
+		if (start[0] == '?' && len_end == 1){
+			ft_putnbr_fd(errno, 2); //fixme
+			return ("errno"); //todo: to replace with true ERRNO
+		}
+		if (tmp /*&& !is_str_in_quotes(cmd, start, start + len_end, '\'')*/)
+			env_var = tmp;
+	}
 	else if (tmp)
 		env_var = ft_strndup((char *)start - 1, get_next_valid_sep(start + 1)
-				- start + 1);
+		- start + 1);
 	return (env_var);
 }
 
@@ -66,7 +73,7 @@ char	*replace_dollars(char *cmd, char **env)
 		else
 		{
 			len = (int)(ft_strlen(cmd) - offset);
-			env_var = ft_strstrchr(next_d + 1, env, ft_strlen(next_d + 1));
+			env_var = get_env_var(cmd, next_d + 1, ft_strlen(next_d + 1), env);//ft_strstrchr(next_d + 1, env, ft_strlen(next_d + 1));
 		}
 		cmd = ft_strreplace(cmd, env_var, offset, len);
 		next_d = ft_strchr(cmd + offset + ft_strlen(env_var), '$');

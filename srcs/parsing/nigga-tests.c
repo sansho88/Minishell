@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/03 16:30:34 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/05 10:16:24 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char *argv[], char	*env[])
 	commandline = ft_strdup("empty");
 	get_signals();
 	data.env = init_env(env);
-	while (commandline && ft_strncmp(commandline, "exit", 5))
+	while (commandline)
 	{
 		free(commandline);
 		sign_chars_manager(false);
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[], char	*env[])
 			if (are_args_ok(args, nb_args))
 				exec_home(args, nb_args, &data);
 		}
-		//free_t_argmode(args, nb_args);
+		free_t_argmode(args, nb_args);
 	}
 	clear_history();
 }
