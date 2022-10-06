@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:38:25 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/05 19:37:00 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:22:26 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -39,11 +39,11 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 	tmp = ft_strstrchr((char *)start, env, len_end - 1);
 	if (!is_str_in_quotes(cmd, start, start + len_end, '\''))
 	{
-		if (start[0] == '?' && len_end == 1){
-			ft_putnbr_fd(errno, 2); //fixme
-			return ("errno"); //todo: to replace with true ERRNO
-		}
-		if (tmp /*&& !is_str_in_quotes(cmd, start, start + len_end, '\'')*/)
+		if (start[0] == '?' && len_end == 1)
+			return (ft_strdup(ft_itoa(errno)));
+		else if (start[0] != '?' && ft_strlen(start) == 1)
+			env_var = "";
+		else if ((tmp && ft_strlen(start) > 0))
 			env_var = tmp;
 	}
 	else if (tmp)
