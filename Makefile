@@ -4,7 +4,7 @@ LIBFT := $(LIBFT_PATH)libft.a -lreadline
 READLINE_LIB :=  -L /Users/$(USER)/.brew/opt/readline/lib#-L $(shell brew --prefix readline)/lib -lreadline#-L .brew/opt/readline/lib and -I .brew/opt/readline/include
 READLINE_INC := -I /Users/$(USER)/.brew/opt/readline/include#-I $(shell brew --prefix readline)/include
 FLAGS := -Wall -Werror -Wextra 
-#FLAGS += -fsanitize=address -g3
+FLAGS += -fsanitize=address -g3
 
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \
@@ -32,6 +32,7 @@ SRCS := srcs/parsing/nigga-tests.c \
 		srcs/built-ins/exit.c \
 		srcs/exec/set_redirection.c \
 		srcs/exec/exec_utils.c \
+
 
 OBJS := $(SRCS:.c=.o)
 

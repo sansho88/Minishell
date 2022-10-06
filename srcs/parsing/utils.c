@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/05 10:52:22 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/06 18:58:10 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	free_t_argmode(t_argmode *args, size_t nb_args)
 	i = 0;
 	while (i < nb_args && args && args[i].arg)
 	{
-		if (args[i].arg && *args[i].arg)
-			free(args[i].arg);
+		free(args[i].arg);
+		args[i].arg = NULL;
 		args[i].mode = 0;
 		i++;
 	}

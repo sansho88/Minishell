@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/03 12:01:16 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/06 18:26:42 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	ft_trim_args(t_argmode *argmode, size_t nb_args)
 	while (i < nb_args)
 	{
 		tmp = ft_strdup(argmode[i].arg);
-		free(argmode[i].arg);
+		if (argmode[i].arg && *argmode[i].arg)
+			free(argmode[i].arg);
 		argmode[i].arg = ft_strtrim(tmp, " ");
 		if (are_quotes_closed(argmode[i].arg))
 			clean_quotes(argmode[i].arg);
@@ -80,8 +81,8 @@ void	ft_trim_args(t_argmode *argmode, size_t nb_args)
 
 void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 {
-	if (res[num_part].arg != NULL)
-		free(res[num_part].arg);
+	/*if (res[num_part].arg != NULL && *res[num_part].arg)
+		free(res[num_part].arg);*/
 	res[num_part].arg = ft_strtrim(cmdline + j, " ");
 	res[num_part].mode = 0;
 	ft_trim_args(res, num_part + 1);

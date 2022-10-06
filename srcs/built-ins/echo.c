@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/06/07 18:19:09 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:39:46 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	ft_echo(char *arg)
 	split_arg = ft_split_len(arg, ' ', &nb_args);
 	n = is_opt_valid(split_arg[0]);
 	i = n - 1;
-	free(arg);
-	arg = NULL;
 	while (++i < nb_args - 1)
 	{
 		arg = ft_strjoin_free(arg, split_arg[i], 1);

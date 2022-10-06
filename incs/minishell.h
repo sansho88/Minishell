@@ -44,7 +44,8 @@
 # define HEREDOC 5
 
 
-# define CONCHITO /*"[Minishell]"*/"[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
+# define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
+# define ERR_SYNTAX "Conchito: syntax error"
 
 //Structs PARSING
 typedef struct s_argmode{
