@@ -41,7 +41,7 @@ all: libftmake $(NAME)
 %.o:%.c minishell.h Makefile $(LIBFT)
 	gcc -c $< $(FLAGS) -o $@
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) Makefile
 	gcc $(LIBFT) $(READLINE_LIB) $(FLAGS) $(READLINE_INC) $(OBJS) -L libft -lft -o $(NAME)
 
 clean:

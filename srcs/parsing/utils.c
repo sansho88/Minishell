@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/06 18:58:10 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:29:45 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_strreplace(char *str, char *to_insert, int pos, int len_to_replace)
 		return (NULL);
 	ft_strlcpy(result, str, pos + 1);
 	if (is_envar_in_sngl_quotes(to_insert, len_to_replace + 1, true))
-		ft_strjoin_free(result, str + pos, 1);
+		result = ft_strjoin_free(result, str + pos, 1);
 	else
 	{
 		ft_strlcat(result + pos, to_insert, size);
@@ -95,3 +95,5 @@ char	*ft_strreplace(char *str, char *to_insert, int pos, int len_to_replace)
 	free(str);
 	return (result);
 }
+
+//j'ai pas trouvé le leak mais j'ai une piste: "$A" leak le PATH pour des raisons très obscures, ça à l'air très instable

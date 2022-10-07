@@ -6,11 +6,19 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/06 19:58:46 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/07 18:15:24 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+
+void	free_env(size_t	nb_args, t_args data)
+{
+	nb_args = 0;
+	while (data.env[nb_args])
+		free(data.env[nb_args++]);
+	free(data.env);
+}
 
 int	main(int argc, char *argv[], char	*env[])
 {
@@ -19,17 +27,15 @@ int	main(int argc, char *argv[], char	*env[])
 	int			nb_args;
 	t_args		data;
 
-	commandline = ft_strdup("empty");
 	get_signals();
 	data.env = init_env(env);
-	while (commandline)
+	while (true)
 	{
-		free(commandline);
 		sign_chars_manager(false);
 		commandline = readline(CONCHITO);
 		sign_chars_manager(true);
 		if (!commandline)
-			exit(0);
+			break ;
 		add_history(commandline);
 		rl_redisplay();
 		if (*commandline && is_cmdline_ok(&commandline, data.env))
@@ -41,6 +47,8 @@ int	main(int argc, char *argv[], char	*env[])
 				exec_home(args, nb_args, &data);
 		}
 		free_t_argmode(args, nb_args);
+		free(commandline);
 	}
+	free_env(nb_args, data);
 	clear_history();
 }

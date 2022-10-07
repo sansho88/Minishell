@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:38:25 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/06 19:56:25 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/07 18:15:24 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -40,26 +40,34 @@ char	*get_next_valid_sep(char *str)
  */
 char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 {
-	char	*env_var;
 	char	*tmp;
 
-	env_var = "";
 	if (!env)
-		return (env_var);
+		return (ft_strdup(""));
 	tmp = ft_strstrchr((char *)start, env, len_end - 1);
 	if (!is_str_in_quotes(cmd, start, start + len_end, '\''))
 	{
 		if (start[0] == '?' && len_end == 1)
 			return (ft_strdup(ft_itoa(errno)));
 		else if (start[0] != '?' && ft_strlen(start) == 1)
-			return ("");
+			return (ft_strdup(""));
 		else if ((tmp && ft_strlen(start) > 0))
-			return (tmp);
+			return (ft_strdup(tmp));
 	}
 	else if (tmp)
-		env_var = ft_strndup((char *)start - 1,
-				get_next_valid_sep((char *)start + 1) - start + 1);
-	return (env_var);
+		return (ft_strndup((char *)start - 1,
+				get_next_valid_sep((char *)start + 1) - start + 1));
+	return (ft_strdup(""));
+}
+
+char	*update_cmdline(char **cmd, char *env_var, int offset, int len)
+{
+	char	*next_d;
+
+	*cmd = ft_strreplace(*cmd, env_var, offset, len);
+	next_d = ft_strchr(*cmd + offset + ft_strlen(env_var), '$');
+	free(env_var);
+	return (next_d);
 }
 
 /**
@@ -92,8 +100,7 @@ char	*replace_dollars(char *cmd, char **env)
 			len = (int)(ft_strlen(cmd) - offset);
 			env_var = get_env_var(cmd, next_d + 1, ft_strlen(next_d + 1), env);
 		}
-		cmd = ft_strreplace(cmd, env_var, offset, len);
-		next_d = ft_strchr(cmd + offset + ft_strlen(env_var), '$');
+		next_d = update_cmdline(&cmd, env_var, offset, len);
 	}
 	return (cmd);
 }

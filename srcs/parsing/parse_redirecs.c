@@ -81,8 +81,8 @@ void	ft_trim_args(t_argmode *argmode, size_t nb_args)
 
 void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 {
-	/*if (res[num_part].arg != NULL && *res[num_part].arg)
-		free(res[num_part].arg);*/
+	if (res[num_part].arg != NULL && *res[num_part].arg)
+		free(res[num_part].arg);
 	res[num_part].arg = ft_strtrim(cmdline + j, " ");
 	res[num_part].mode = 0;
 	ft_trim_args(res, num_part + 1);
