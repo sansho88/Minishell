@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/04 15:18:32 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/07 20:33:10 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int unset_hub(t_argmode *args, t_args *d)
     char	**arg;
 	int i;
 	
+	d->is_built_in = true;
 	i = 1;
 	arg = ft_split(args->arg, ' ');
     while (arg[i])

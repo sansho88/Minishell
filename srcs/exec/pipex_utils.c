@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:03 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/03 17:23:05 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/07 17:41:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,13 @@ void	one_arg(t_args *d, t_argmode *argv)
 	int		argc;
 	int 	i;
 
+	i = 0;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
+/*	while (args[i])
+	{
+		dprintf(1, "%s\n", args[i]);
+		i++;
+	}*/
 	execute(d, args, d->acutal_arg);
 }
 
@@ -101,7 +107,6 @@ int	ft_dup2(int a, int b)
 	if (fd == -1)
 	{
 		perror("dup error");
-		exit(EXIT_FAILURE); /*TODO Il faut pas EXIT */
 	}
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/04 15:46:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/07 20:32:48 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,9 @@ int	cd_hub(t_argmode *args, t_args *d)
 	char	**arg;
 	int		args_nbr;
 	int		i;
-	int		len;
-	bool	is_set;
 
+	d->is_built_in = true;
 	i = 0;
-	len = 0;
-	is_set = true;
-	while (d->env[len])
-		len++;
-	if (i == len)
-		is_set = false;
 	arg = ft_split(args->arg, ' ');
 	args_nbr = cd_args_count(args, d, arg);
 	if (args_nbr == 2 && ft_strncmp("/", arg[1], 1) == 0)

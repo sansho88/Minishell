@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:33:32 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/30 17:25:41 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/07 20:33:04 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int print_env(t_args *d)
 
 int env_hub(t_argmode *args, t_args *d)
 {
+    d->is_built_in = true;
     print_env(d);
     return(0);
 }

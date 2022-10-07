@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/03 22:57:06 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/07 20:32:58 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int export_hub(t_argmode *args, t_args *d)
 	char	**arg;
 	int i;
 	
+	d->is_built_in = true;
 	i = 0;
 	arg = ft_split(args->arg, ' ');
 	check_arg(args, d, arg);
