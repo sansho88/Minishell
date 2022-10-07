@@ -9,15 +9,13 @@
  */
 char	*ft_strjoin_free(char *s1, char *s2, int s_to_free)
 {
-	char	*res;
-	size_t	s1size;
-	size_t	s2size;
+	char			*res;
+	const size_t	s1size = ft_strlen(s1);
+	const size_t	s2size = ft_strlen(s2);
 
 	if (!s1 || !s2)
 		return (0);
-	s1size = ft_strlen(s1);
-	s2size = ft_strlen(s2);
-	res = malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 1);
+	res = malloc((s1size + s2size + 1) * sizeof(char));
 	if (res)
 	{
 		ft_memcpy(res, s1, s1size);

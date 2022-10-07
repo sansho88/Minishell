@@ -44,7 +44,8 @@
 # define HEREDOC 5
 
 
-# define CONCHITO /*"[Minishell]"*/"[\033[1;32m\001Conchito \1\033[93m✗\033[0m\002]"
+# define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
+# define ERR_SYNTAX "Conchito: syntax error"
 
 //Structs PARSING
 typedef struct s_argmode{
@@ -84,16 +85,16 @@ typedef struct s_arguments
 void		debug_t_argmode(t_argmode *args, int nb_arg);
 void		free_t_argmode(t_argmode *args, size_t nb_args);
 char		*ft_strreplace(char *str, char *to_insert, int pos, \
-															int len_to_replace);
+int len_to_replace);
 
 // FUNCTIONS PARSING
-t_argmode	*split_arg_redirect(char *cmdline, int *argc);
 t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
 void		clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);
+void		rl_replace_line(char *str, int idk);
 //void	rl_clear_history(void);
 
 //CHECK_CMDLINE

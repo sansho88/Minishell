@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:20:38 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/05/16 18:36:03 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:30:30 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void	signal_handler(int signum)
 
 	mini_pid = getpid();
 	if (signum == SIGINT)
-		ft_putstr_fd("\n"CONCHITO, 1);
+	{
+		ft_putstr_fd("\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 	else if (signum == SIGABRT)
 	{
 		printf("\n[1]\t%d\tabort\t./%s\n", mini_pid, "minishell");

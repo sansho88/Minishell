@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:02:34 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/03 16:20:24 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:48:11 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static bool	check_chenille_char(char *cmdline, char testchar)
 	return (true);
 }
 
-static bool	is_chars_partouze(char *cmdline)
+static bool	is_chars_orgy(char *cmdline)
 {
 	char	*trgt;
 
 	if (!check_chenille_char(cmdline, '|'))
 	{
-		puts("chars chenille");
+		printf("[hug of pipes]");
 		return (true);
 	}
 	trgt = ft_strchr(cmdline, '\\');
@@ -58,6 +58,13 @@ static bool	is_chars_partouze(char *cmdline)
 	return (false);
 }
 
+/**
+ * Clean up the command line, checks if the quotes are correctly closed, and
+ * replace dollars with their corresponding environment variables.
+ * @param cmdline
+ * @param env
+ * @return
+ */
 bool	is_cmdline_ok(char **cmdline, char **env)
 {
 	char	*testcmd;
@@ -70,9 +77,9 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 	}
 	if (!are_quotes_closed(*cmdline))
 		return (false);
-	if (is_chars_partouze(*cmdline))
+	if (is_chars_orgy(*cmdline))
 	{
-		printf("Chars partouze\n");
+		printf(ERR_SYNTAX"\n");
 		return (false);
 	}
 	if (ft_strchr(*cmdline, '$'))
@@ -80,38 +87,12 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 	return (true);
 }
 
-static bool	str_contains_redir(char *str)
-{
-	char	*target;
-	char	*end_target;
-
-	target = ft_strchr(str, '>');
-	while (target)
-	{
-		end_target = get_next_valid_sep(target);
-		if (!is_str_in_quotes(str, target, end_target, '"'))
-			return (true);
-		target = ft_strchr(str, '>');
-	}
-	target = ft_strchr(str, '<');
-	while (target)
-	{
-		end_target = get_next_valid_sep(target);
-		if (!is_str_in_quotes(str, target, end_target, '"'))
-			return (true);
-		target = ft_strchr(str, '<');
-	}
-	target = ft_strchr(str, '|');
-	while (target)
-	{
-		end_target = get_next_valid_sep(target);
-		if (!is_str_in_quotes(str, target, end_target, '"'))
-			return (true);
-		target = ft_strchr(str, '|');
-	}
-	return (false);
-}
-
+/**
+ * Check if all args are correctly built
+ * @param args
+ * @param nb_args
+ * @return False if something went wrong
+ */
 bool	are_args_ok(t_argmode	*args, size_t	nb_args)
 {
 	size_t	i;
@@ -121,10 +102,9 @@ bool	are_args_ok(t_argmode	*args, size_t	nb_args)
 	i = 0;
 	while (i < nb_args)
 	{
-		if (!args[i].arg /*|| (!ft_str_isalnum(args[i].arg)*/
-				/*|| str_contains_redir(args[i].arg)*/)
+		if (!args[i].arg)
 		{
-			ft_putendl_fd("Conchito: syntax error", 2);
+			ft_putendl_fd(ERR_SYNTAX, 2);
 			free_t_argmode(args, nb_args);
 			return (false);
 		}
