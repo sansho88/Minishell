@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/07 18:15:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/08 19:14:42 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	ft_forward(t_args *d, t_argmode *argv)
 {
-	int file;
+	int	file;
 
 	if (d->is_append == 0)
-		file = open(argv[d->stdout_pos].arg, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		file = open(argv[d->stdout_pos].arg, O_WRONLY
+				| O_TRUNC | O_CREAT, 0644);
 	else if (d->is_append == 1)
-		file = open(argv[d->stdout_pos].arg, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		file = open(argv[d->stdout_pos].arg, O_WRONLY
+				| O_CREAT | O_APPEND, 0644);
 	if (file == -1)
 	{
 		perror("bad outfile");
@@ -31,7 +33,7 @@ void	ft_forward(t_args *d, t_argmode *argv)
 
 void	ft_backward(t_args *d, t_argmode *argv)
 {
-	int file2;
+	int	file2;
 
 	file2 = open(argv[d->stdin_pos].arg, 0644);
 	if (file2 == -1)
@@ -46,33 +48,28 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 {
 	if (d->stdin_pos != 0)
 	{
-		//printf("stdinpos\n");
 		ft_backward(d, argv);
 	}
 	if (d->stdout_pos != 0)
 	{
-		//dprintf(2, "test\n");
 		ft_forward(d, argv);
 	}
 	else if (d->is_last == 1)
 	{
-		//dprintf(2, "ça ecrit\n");
 		ft_dup2(d->tube[1], STDOUT_FILENO);
 	}
 	close(d->tube[1]);
 	close(d->tube[0]);
 }
 
-void pipe_rebuild_else(t_args *d, t_argmode *argv)
+void	pipe_rebuild_else(t_args *d, t_argmode *argv)
 {
 	if (d->stdin_pos != 0)
 	{
-		//dprintf(2, "Heyooo\n");
 		ft_backward(d, argv);
 	}
-	else 
+	else
 	{
-		//dprintf(2, "ça read\n");
 		ft_dup2(d->temp_tube[0], STDIN_FILENO);
 	}
 	if (d->stdout_pos != 0)
@@ -81,7 +78,6 @@ void pipe_rebuild_else(t_args *d, t_argmode *argv)
 	}
 	else if (d->is_last == 1)
 	{
-		//dprintf(2, "ça continue \n\n ");
 		ft_dup2(d->tube[1], STDOUT_FILENO);
 	}
 	close(d->tube[1]);
@@ -90,25 +86,20 @@ void pipe_rebuild_else(t_args *d, t_argmode *argv)
 	close(d->temp_tube[1]);
 }
 
-void    process_pipe(t_args *d, t_argmode *argv)
+void	process_pipe(t_args *d, t_argmode *argv)
 {
 	char	**args;
 	int		i;
 	int		argc;
 
-/*	if (d->argc < 2)
-	{
-		one_arg(d, argv);
-	}*/
 	if (d->acutal_arg == 0)
 		pipe_rebuild_first(d, argv);
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
-	/*if (access(args[0], F_OK | X_OK) == 0)
+	if (access(args[0], F_OK | X_OK) == 0)
 	{
-		dprintf(1, "hello access perfect way\n");
 		execve(args[0], args, d->env);
-	}*/
+	}
 	execute(d, args, d->acutal_arg);
 }

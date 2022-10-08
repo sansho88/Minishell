@@ -6,25 +6,21 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/07 20:33:10 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/08 19:31:40 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int	unset_set_value(t_argmode *args, t_args *d, char   *arg)
+int	unset_set_value(t_argmode *args, t_args	*d, char	*arg)
 {
-	int		len;
 	int		i;
 	int		j;
 	char	**env_copy;
 
 	i = 0;
 	j = 0;
-	len = 0;
-	while (d->env[len])
-		len++;
-	env_copy = ft_calloc(len + 1, sizeof(char **));
+	env_copy = ft_calloc(d->env_len + 1, sizeof(char **));
 	while (d->env[j])
 	{
 		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
@@ -35,7 +31,7 @@ int	unset_set_value(t_argmode *args, t_args *d, char   *arg)
 		i++;
 		j++;
 	}
-	d->env = ft_calloc(len + 1, sizeof(char **));
+	d->env = ft_calloc(d->env_len + 1, sizeof(char **));
 	i = 0;
 	while (env_copy[i])
 	{
@@ -45,13 +41,13 @@ int	unset_set_value(t_argmode *args, t_args *d, char   *arg)
 	return (0);
 }
 
-int check_if_set(t_argmode *args, t_args *d, char   *arg)
+int	check_if_set(t_argmode	*args, t_args	*d, char	*arg)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	d->needle = ft_calloc(ft_strlen(arg), sizeof(char));
-	d->needle = ft_strjoin(arg, "="); 
+	d->needle = ft_strjoin(arg, "=");
 	while (d->env[i])
 	{
 		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
@@ -60,11 +56,12 @@ int check_if_set(t_argmode *args, t_args *d, char   *arg)
 			unset_set_value(args, d, arg);
 		i++;
 	}
-	return(0);
+	return (0);
 }
+
 void	path_backup(t_args *d)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (d->env[i])
@@ -72,27 +69,27 @@ void	path_backup(t_args *d)
 		if (strstr(d->env[i], "PWD") != 0)
 		{
 			d->path_backup = ft_strdup(d->env[i]);
-			break;
+			break ;
 		}
 		i++;
 	}
 }
 
-int unset_hub(t_argmode *args, t_args *d)
+int	unset_hub(t_argmode *args, t_args *d)
 {
-    char	**arg;
-	int i;
-	
+	char	**arg;
+	int		i;
+
 	d->is_built_in = true;
 	i = 1;
 	arg = ft_split(args->arg, ' ');
-    while (arg[i])
-    {
+	while (arg[i])
+	{
 		if (ft_strncmp("PWD", arg[i], 3) == 0)
 			path_backup(d);
-        check_if_set(args, d, arg[i]);
-        i++;
-    }
+		check_if_set(args, d, arg[i]);
+		i++;
+	}
 	i = 0;
-    return(0);
+	return (0);
 }

@@ -6,38 +6,11 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/04 15:58:59 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/08 19:45:55 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-char	**sort_tab_exec(char	**sort_tab, int len)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 0;
-	j = 0;
-	while (sort_tab[i])
-	{
-		while (j < len - 1 - i)
-		{
-			if (strcmp(sort_tab[j], sort_tab[j + 1]) > 0)
-			{
-				tmp = ft_calloc(ft_strlen(sort_tab[j]), sizeof(char));
-				tmp = ft_strdup(sort_tab[j]);
-				sort_tab[j] = sort_tab[j + 1];
-				sort_tab[j + 1] = tmp;
-			}
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (sort_tab);
-}
 
 void	sort_export(t_argmode *args, t_args *d)
 {
@@ -89,7 +62,6 @@ int	set_old_path(t_args *d)
 
 	j = 0;
 	len = 0;
-
 	while (d->env[len])
 		len++;
 	while (d->env[j])
@@ -102,7 +74,7 @@ int	set_old_path(t_args *d)
 	{
 		d->env[j] = ft_calloc(ft_strlen(d->pwd) + 8, sizeof(char));
 		d->env[j] = ft_strjoin(d->env[j], "OLDPWD=");
-		d->env[j] = ft_strjoin(d->env[j], d->pwd);		
+		d->env[j] = ft_strjoin(d->env[j], d->pwd);
 	}
 	return (0);
 }
@@ -114,7 +86,7 @@ int	set_pwd(t_args *d)
 
 	i = 0;
 	len = 0;
-	while(d->env[len])
+	while (d->env[len])
 		len++;
 	while (d->env[i])
 	{
@@ -128,7 +100,7 @@ int	set_pwd(t_args *d)
 		d->env[i] = ft_strjoin(d->env[i], "PWD=");
 		d->env[i] = ft_strjoin(d->env[i], d->pwd);
 	}
-	return(0);
+	return (0);
 }
 
 int	cd_args_count(t_argmode *args, t_args *d, char **arg)

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/07 20:32:48 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/08 19:26:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ int	bwd_to_directory(t_argmode *args, t_args *d, char **arg)
 
 int	fwd_to_directory(t_argmode *args, t_args *d, char **arg)
 {
-
-	char *tmp;
-	int	len;
-	int i;
+	char	*tmp;
+	int		len;
+	int		i;
 
 	tmp = ft_calloc(d->pwd_len + ft_strlen(arg[1]), sizeof(char));
 	tmp = getcwd(tmp, d->pwd_len);
@@ -85,16 +84,16 @@ int	only_cd(t_argmode *args, t_args *d, char **arg)
 int	direct_path(t_argmode *args, t_args *d, char	**arg)
 {
 	char	*tmp;
-	
+
 	tmp = arg[1];
 	if (chdir(tmp) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", arg[1]);
 		return (1);
 	}
-	else 
+	else
 		d->pwd = tmp;
-	return (0);	
+	return (0);
 }
 
 int	cd_hub(t_argmode *args, t_args *d)
