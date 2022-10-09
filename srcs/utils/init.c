@@ -17,7 +17,7 @@ size_t	ft_tabstrlen(char **tab)
 	size_t	i;
 
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 		i++;
 	return (i);
 }
@@ -28,10 +28,10 @@ char	**init_env(char	**env)
 	size_t	size_env;
 	size_t	i;
 
-	size_env = ft_tabstrlen(env);
-	new_env = ft_calloc(size_env,sizeof(env));
 	if (!env)
 		return (NULL);
+	size_env = ft_tabstrlen(env);
+	new_env = ft_calloc(size_env, sizeof(env));
 	i = 0;
 	while (i < size_env)
 	{
