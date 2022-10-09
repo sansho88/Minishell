@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:03 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/01 18:35:41 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/08 19:46:17 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	i;
-	int r;
+	int		r;
 
 	if (!s)
 		return (0);
@@ -80,18 +80,17 @@ int	ft_memcmp(const void	*po1, const void	*po2, size_t	size)
 	return (0);
 }
 
-void	one_arg(t_args *d, t_argmode *argv)
+/*void	one_arg(t_args *d, t_argmode *argv)
 {
 	char	**args;
 	int		argc;
+	int 	i;
 
+	i = 0;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	execute(d, args, d->acutal_arg);
-}
+}*/
 
-/*
-Making my own dup2 to get error message 
-*/
 int	ft_dup2(int a, int b)
 {
 	int	fd;
@@ -100,8 +99,33 @@ int	ft_dup2(int a, int b)
 	if (fd == -1)
 	{
 		perror("dup error");
-		exit(EXIT_FAILURE); /*TODO Il faut pas EXIT */
 	}
 	return (fd);
 }
 
+char	**sort_tab_exec(char	**sort_tab, int len)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	while (sort_tab[i])
+	{
+		while (j < len - 1 - i)
+		{
+			if (strcmp(sort_tab[j], sort_tab[j + 1]) > 0)
+			{
+				tmp = ft_calloc(ft_strlen(sort_tab[j]), sizeof(char));
+				tmp = ft_strdup(sort_tab[j]);
+				sort_tab[j] = sort_tab[j + 1];
+				sort_tab[j + 1] = tmp;
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (sort_tab);
+}

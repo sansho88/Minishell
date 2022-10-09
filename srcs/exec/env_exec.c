@@ -6,38 +6,39 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:33:32 by rgeral            #+#    #+#             */
-/*   Updated: 2022/09/30 17:25:41 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/08 19:04:40 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int print_env(t_args *d)
+int	print_env(t_args *d)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    j = 0;
-    i = 0;
-    while (d->env[i])
-    {
-        while (d->env[i][j])
-        {
-            if (d->env[i][j] == '=')
+	j = 0;
+	i = 0;
+	while (d->env[i])
+	{
+		while (d->env[i][j])
+		{
+			if (d->env[i][j] == '=')
 			{
 				printf("%s\n", d->env[i]);
-				break;
+				break ;
 			}
 			j++;
-        }
+		}
 		j = 0;
-        i++;
-    }
-    return(0);
+		i++;
+	}
+	return (0);
 }
 
-int env_hub(t_argmode *args, t_args *d)
+int	env_hub(t_argmode *args, t_args *d)
 {
-    print_env(d);
-    return(0);
+	d->is_built_in = true;
+	print_env(d);
+	return (0);
 }

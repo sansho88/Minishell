@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 23:35:48 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/01 00:23:10 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/08 19:18:21 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	set_append(t_args *d, t_argmode *argv, int i, int file)
 		else
 			i++;
 	}
-	return(0);
+	return (0);
 }
 
 int	set_fwd(t_args *d, t_argmode *argv, int i, int file2)
@@ -53,10 +53,10 @@ int	set_fwd(t_args *d, t_argmode *argv, int i, int file2)
 		else
 			i++;
 	}
-	return(0);
+	return (0);
 }
 
-int set_back(t_args *d, t_argmode *argv, int i, int file)
+int	set_back(t_args *d, t_argmode *argv, int i, int file)
 {
 	while (i < d->argc)
 	{
@@ -78,12 +78,12 @@ int set_back(t_args *d, t_argmode *argv, int i, int file)
 		else
 			i++;
 	}
-	return(0);
+	return (0);
 }
 
 int	set_heredoc(t_args *d, t_argmode *argv, int i, int file)
 {
-while (i < d->argc)
+	while (i < d->argc)
 	{
 		if (argv[i].mode == 1 || argv[i].mode == 0)
 			break ;
@@ -100,7 +100,7 @@ while (i < d->argc)
 		else
 			i++;
 	}
-	return(0);   
+	return (0);
 }
 
 void	is_append_or_heredoc(t_args *d)

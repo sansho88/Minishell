@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/28 16:53:08 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/08 19:45:28 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define HEREDOC 5
 
 
+
 # define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
 # define ERR_SYNTAX "Conchito: syntax error"
 
@@ -79,6 +80,11 @@ typedef struct s_arguments
 	char	*pwd;
 	int		heredoc_pos;
 	char	*needle;
+	char	*path_backup;
+	int		pwd_len;
+	int		env_len;
+	bool	is_path_set;
+	bool	is_built_in;
 }				t_args;
 
 // UTILS
@@ -147,9 +153,14 @@ void	check_if_last(t_args *d, t_argmode *argv);
 void	one_arg(t_args *d, t_argmode *argv);
 void 	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy);
 void	ft_exit(t_args *d, t_argmode *argv);
-
+int		cd_args_count(t_argmode *args, t_args *d, char **arg);
+int		set_pwd(t_args *d);
+int		set_old_path(t_args *d);
+void	path_hub(t_args *d);
+void	ft_echo(char *arg);
+char	**sort_tab_exec(char	**sort_tab, int len);
 //REBUILD
-char	**path(char	**env);
+void	path(t_args *d, char	**env);
 void	execute(t_args *p, char **args, int nb);
 //void	fork_process(t_args *d, t_argmode *argv);
 

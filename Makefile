@@ -30,6 +30,7 @@ SRCS := srcs/parsing/nigga-tests.c \
 		srcs/exec/unset_exec.c \
 		srcs/exec/built_ins_utils.c \
 		srcs/built-ins/exit.c \
+		srcs/built-ins/echo.c \
 		srcs/exec/set_redirection.c \
 		srcs/exec/exec_utils.c \
 

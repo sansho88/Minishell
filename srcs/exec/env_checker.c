@@ -3,39 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   env_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:50:11 by rgeral            #+#    #+#             */
-/*   Updated: 2022/05/13 11:37:33 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/08 19:25:17 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char	**path(char	**env)
+void	path_is_set(t_args *d, int pos)
 {
-	int		i;
-	int		j;
-	char	**result;
-	char	*temp;
+	int	len;
+	int	i;
 
 	i = 0;
-	j = 0;
-	while (env[i])
+	len = 0;
+	while (d->env[pos][i])
 	{
-		if (ft_memcmp(env[i], "PATH=", 5) == 0)
-		{
-			result = ft_split(&env[i][5], ':');
-			while (result[j])
-			{
-				temp = result[j];
-				result[j] = ft_strjoin(result[j], "/");
-				free(temp);
-				j++;
-			}
-			return (result);
-		}
+		if (d->env[pos][i] == ':')
+			len++;
 		i++;
 	}
-	return (NULL);
+	d->path = ft_calloc(len + 1, sizeof(char **));
+	d->path = ft_split(&d->env[pos][5], ':');
+	i = 0;
+	while (d->path[i])
+	{
+		d->path[i] = ft_strjoin(d->path[i], "/");
+		i++;
+	}
+}
+
+void	path_hub(t_args *d)
+{
+	int	i;
+
+	i = 0;
+	while (d->env[d->env_len])
+		d->env_len++;
+	while (d->env[i])
+	{
+		if (ft_memcmp(d->env[i], "PATH=", 5) == 0)
+			break ;
+		i++;
+	}
+	if (i < d->env_len)
+	{
+		path_is_set(d, i);
+		d->is_path_set = true;
+	}
+	else
+	{
+		d->path = ft_calloc(1, sizeof(char **));
+		d->is_path_set = false;
+	}	
 }
