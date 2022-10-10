@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/06 18:26:42 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/10 13:43:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_argmode	*create_targmode_array(char *cmdline)
 	{
 		if (ft_check_redir(&cmdline[i], cmdline) != 0)
 		{
-			res[num_part].arg = ft_strndup(&cmdline[j], i - j - 1);
+			res[num_part].arg = ft_strndup(&cmdline[j], i - j);
 			res[num_part].mode = ft_check_redir(&cmdline[i], cmdline);
 			j = i + (res[num_part].mode == 3 || res[num_part].mode == 5) + 1;
 			num_part++;
