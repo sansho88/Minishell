@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/10 14:07:34 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/10 23:59:19 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 	}
 	if (d->stdout_pos != 0)
 	{
+		printf("forward\n");
 		ft_forward(d, argv);
 	}
 	else if (d->is_last == 1)
@@ -97,25 +98,32 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	tmp = NULL;
 	j = 0;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
-	while (args[j])
-	{
-		printf("valeur de args : %s", args[i]);
-		j++;
-	}
 	j = 0;
 	tmp = resolve_path(d, args);
-	if (!tmp)
+	if (d->acutal_arg == 0 && argv[d->acutal_arg].mode == 5)
+		exit(127);
+	if (!tmp && d->is_built_in == false)
 	{
-		printf("%s: command not found\n", args[1]);
+		printf("%s: command not found\n", args[0]);
 		exit(127);
 	}
-	if (d->acutal_arg == 0)
+	else if (d->acutal_arg == 0)
+	{
+		printf("hello\n");
 		pipe_rebuild_first(d, argv);
+	}
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
 	if (access(args[0], F_OK | X_OK) == 0)
 	{
+		printf("execute2\n");
 		execve(args[0], args, d->env);
 	}
-	execute(d, args, d->acutal_arg);
+	else if (d->is_built_in == false)
+	{
+		printf("execute1\n");
+		execute(d, args, d->acutal_arg);
+	}
+	printf("exit\n");
+	exit(EXIT_SUCCESS);
 }
