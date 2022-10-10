@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/08 19:45:28 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/10 13:53:07 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ int		set_old_path(t_args *d);
 void	path_hub(t_args *d);
 void	ft_echo(char *arg);
 char	**sort_tab_exec(char	**sort_tab, int len);
+char	*resolve_path(t_args *d, char **args);
 //REBUILD
 void	path(t_args *d, char	**env);
 void	execute(t_args *p, char **args, int nb);

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/07 20:20:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/10 13:35:36 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,23 @@ int	ft_here_doc(t_args *d, t_argmode *argv)
 
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
+	int j;
+	char	*tmp;
+
+	j = 0;
+	
 	while (d->acutal_arg < d->argc)
 	{
 		d->redir_count = 0;
 		if (ft_stdin(d, argv) == 1 || ft_stdout(d, argv) == 1
 			|| ft_append(d, argv) == 1 || ft_here_doc(d, argv) == 1)
 			break ;
-		//printf("hey %d\n", d->is_path_set);
-		/*if (d->is_path_set == false)
+		/*while (d->path[j])
 		{
-			printf("%s :No such file or directory\n", argv[d->acutal_arg].arg);
+			tmp = ft_strjoin(d->path[j], args[0]);
+			if (access(tmp, F_OK | X_OK) == 0)
+				break ;
+			j++;
 		}*/
 		check_if_last(d, argv);
 		is_append_or_heredoc(d);
