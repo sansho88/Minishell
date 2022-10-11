@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/10 13:53:07 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/10 23:11:10 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_arguments
 	int		env_len;
 	bool	is_path_set;
 	bool	is_built_in;
+	bool	is_redirect;
 }				t_args;
 
 // UTILS
@@ -157,14 +158,22 @@ int		cd_args_count(t_argmode *args, t_args *d, char **arg);
 int		set_pwd(t_args *d);
 int		set_old_path(t_args *d);
 void	path_hub(t_args *d);
-void	ft_echo(char *arg);
+void	ft_echo(char *arg, t_args *d);
 char	**sort_tab_exec(char	**sort_tab, int len);
 char	*resolve_path(t_args *d, char **args);
+int		is_built_in(t_args *d, t_argmode *argv);
+void	make_fork_built_in(t_args *d, t_argmode *argv);
 //REBUILD
 void	path(t_args *d, char	**env);
 void	execute(t_args *p, char **args, int nb);
 //void	fork_process(t_args *d, t_argmode *argv);
-
+void	pipe_rebuild_else(t_args *d, t_argmode *argv);
+void	pipe_rebuild_first(t_args *d, t_argmode *argv);
+void	ft_backward(t_args *d, t_argmode *argv);
+void	ft_forward(t_args *d, t_argmode *argv);
+void	process_pipe_built_in(t_args *d, t_argmode *argv);
+int		print_env(t_args *d);
+int		echo_hub(char *arg, t_args *d, t_argmode *args);
 // COLORS
 # define BBLU	"\033[1;34m"
 # define BGREEN	"\033[1;32m"

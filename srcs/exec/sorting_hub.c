@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/10 13:35:36 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 11:30:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		fork_process(d, argv);
 		d->acutal_arg += d->redir_count;
 		d->stdin_pos = 0;
+		d->is_built_in = false;
+		d->is_redirect = false;
 		d->stdout_pos = 0;
 		d->is_append = 0;
 		d->append_pos = 0;

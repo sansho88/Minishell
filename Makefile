@@ -33,6 +33,7 @@ SRCS := srcs/parsing/nigga-tests.c \
 		srcs/built-ins/echo.c \
 		srcs/exec/set_redirection.c \
 		srcs/exec/exec_utils.c \
+		srcs/exec/process_pipe_built_in.c \
 
 
 OBJS := $(SRCS:.c=.o)

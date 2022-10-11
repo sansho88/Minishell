@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/10 22:40:00 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 11:32:23 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,4 @@ void	fork_process(t_args *d, t_argmode *argv)
 	is_built_in(d, argv);
 	if (d->is_built_in == false)
 		make_fork(d, argv);
-	/*if (d->is_built_in == true && d->is_redirect == true)
-		make_fork_built_in(d, argv);*/
 }

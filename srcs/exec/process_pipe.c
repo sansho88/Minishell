@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/10 23:59:19 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 11:33:18 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_forward(t_args *d, t_argmode *argv)
 				| O_CREAT | O_APPEND, 0644);
 	if (file == -1)
 	{
-		perror("bad outfile");
+	//	perror("bad outfile");
 		exit(EXIT_FAILURE);
 	}
 	ft_dup2(file, 1);
@@ -52,7 +52,7 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 	}
 	if (d->stdout_pos != 0)
 	{
-		printf("forward\n");
+	//	printf("forward\n");
 		ft_forward(d, argv);
 	}
 	else if (d->is_last == 1)
@@ -95,6 +95,7 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	char	*tmp;
 	int		j;
 
+	//printf("go in process pipe\n");
 	tmp = NULL;
 	j = 0;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
@@ -109,21 +110,21 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	}
 	else if (d->acutal_arg == 0)
 	{
-		printf("hello\n");
+		//printf("hello\n");
 		pipe_rebuild_first(d, argv);
 	}
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
 	if (access(args[0], F_OK | X_OK) == 0)
 	{
-		printf("execute2\n");
+		//printf("execute2\n");
 		execve(args[0], args, d->env);
 	}
 	else if (d->is_built_in == false)
 	{
-		printf("execute1\n");
+		//printf("execute1\n");
 		execute(d, args, d->acutal_arg);
 	}
-	printf("exit\n");
+	//printf("exit\n");
 	exit(EXIT_SUCCESS);
 }
