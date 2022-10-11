@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/10 23:14:43 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 14:53:45 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,16 @@ void	ft_echo(char *arg, t_args *d)
 	while (++i < nb_args)
 	{
 		result = ft_strjoin_free(result, split_arg[i], 1);
-		if (i != nb_args - 2)
+		if (i != nb_args - 1)
 			result = ft_strjoin_free(result, " ", 1);
 	}
 	free_args(split_arg, nb_args + 1);
-	if (n == false)
-		ft_putendl_fd(result, 1);
-	else
-		ft_putstr_fd(result, 1);
 	free(arg);
+	if (n == false)
+		printf("%s\n", result);
+	else
+		printf("%s", result);
+	free(result);
 }
 
 int	echo_hub(char *arg, t_args *d, t_argmode *args)
