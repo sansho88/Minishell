@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/08 19:45:55 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/10 22:34:26 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@ void	sort_export(t_argmode *args, t_args *d)
 {
 	char	**sort_tab;
 	int		i;
-	int		len;
 
 	i = 0;
-	while (d->env[len])
-		len++;
 	sort_tab = d->env;
-	sort_tab = sort_tab_exec(sort_tab, len);
+	sort_tab = sort_tab_exec(sort_tab, d->env_len);
 	i = 0;
-	while (i < len)
+	while (i < d->env_len)
 	{
-		printf("declare -x %s\n", sort_tab[i]);
+		printf("declare -x %s\n", d->env[i]);
 		i++;
 	}
 }

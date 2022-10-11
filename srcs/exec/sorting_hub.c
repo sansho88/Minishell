@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/07 20:20:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 11:30:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,31 @@ int	ft_here_doc(t_args *d, t_argmode *argv)
 
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
+	int j;
+	char	*tmp;
+
+	j = 0;
+	
 	while (d->acutal_arg < d->argc)
 	{
 		d->redir_count = 0;
 		if (ft_stdin(d, argv) == 1 || ft_stdout(d, argv) == 1
 			|| ft_append(d, argv) == 1 || ft_here_doc(d, argv) == 1)
 			break ;
-		//printf("hey %d\n", d->is_path_set);
-		/*if (d->is_path_set == false)
+		/*while (d->path[j])
 		{
-			printf("%s :No such file or directory\n", argv[d->acutal_arg].arg);
+			tmp = ft_strjoin(d->path[j], args[0]);
+			if (access(tmp, F_OK | X_OK) == 0)
+				break ;
+			j++;
 		}*/
 		check_if_last(d, argv);
 		is_append_or_heredoc(d);
 		fork_process(d, argv);
 		d->acutal_arg += d->redir_count;
 		d->stdin_pos = 0;
+		d->is_built_in = false;
+		d->is_redirect = false;
 		d->stdout_pos = 0;
 		d->is_append = 0;
 		d->append_pos = 0;

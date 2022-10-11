@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/09 13:03:04 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 11:32:23 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	is_built_in(t_args *d, t_argmode *argv)
 {
 	if (ft_strncmp(&argv->arg[d->acutal_arg], "cd", 2) == 0 && d->argc == 1)
 		cd_hub(argv, d);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "export", 6) == 0
-		&& d->argc == 1)
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "export", 6) == 0)
 		export_hub(argv, d);
 	else if (ft_strncmp(&argv->arg[d->acutal_arg], "env", 3) == 0
 		&& d->argc == 1)
@@ -27,11 +26,10 @@ int	is_built_in(t_args *d, t_argmode *argv)
 		unset_hub(argv, d);
 	else if (ft_strncmp(&argv->arg[d->acutal_arg], "exit", 4) == 0)
 		ft_exit(d, argv);
-	/*else if (ft_strncmp(&argv->arg[d->acutal_arg], "echo", 4) == 0)
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "echo", 4) == 0)
 	{
-		printf("hello\n");
-		ft_echo(argv[0].arg);
-	}*/
+		ft_echo(argv[0].arg, d);
+	}
 	else
 		return (0);
 	return (1);
@@ -39,7 +37,7 @@ int	is_built_in(t_args *d, t_argmode *argv)
 
 void	make_fork(t_args *d, t_argmode *argv)
 {
-	if (is_built_in(d, argv) == 0 && d->is_path_set == true)
+	if (d->is_path_set == true)
 	{
 		d->pid[d->j] = fork();
 		if (d->pid[d->j] == -1)
@@ -56,10 +54,27 @@ void	make_fork(t_args *d, t_argmode *argv)
 		d->temp_tube[0] = d->tube[0];
 		d->temp_tube[1] = d->tube[1];
 	}
-	else if (d->is_built_in == false && d->is_path_set == false)
+	else if (d->is_path_set == false)
 		printf("%s :No such file or directory\n", argv[d->acutal_arg].arg);
 }
 
+void	make_fork_built_in(t_args *d, t_argmode *argv)
+{
+	d->pid[d->j] = fork();
+	if (d->pid[d->j] == -1)
+	{
+		perror("fork");
+	}
+	else if (d->pid[d->j] == 0)
+		process_pipe_built_in(d, argv);
+	if (d->acutal_arg > 0)
+	{
+		close(d->temp_tube[0]);
+		close(d->temp_tube[1]);
+	}
+	d->temp_tube[0] = d->tube[0];
+	d->temp_tube[1] = d->tube[1];
+}
 void	fork_process(t_args *d, t_argmode *argv)
 {
 	int	i;
@@ -70,5 +85,7 @@ void	fork_process(t_args *d, t_argmode *argv)
 		if (pipe(d->tube) == -1)
 			perror("pipe is riped\n");
 	}
-	make_fork(d, argv);
+	is_built_in(d, argv);
+	if (d->is_built_in == false)
+		make_fork(d, argv);
 }

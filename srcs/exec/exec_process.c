@@ -6,37 +6,49 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/08 19:08:46 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/10 13:53:20 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	execute(t_args *d, char **args, int nb)
+char	*resolve_path(t_args *d, char **args)
 {
 	char	*tmp;
-	int		j;
-	int		len;
+	int j;
 
-	len = 0;
 	j = 0;
+	tmp = NULL;
 	if (d->is_path_set == true)
 	{
 		while (d->path[j])
 		{
 			tmp = ft_strjoin(d->path[j], args[0]);
 			if (access(tmp, F_OK | X_OK) == 0)
-				break ;
+				return (tmp);
+			free(tmp);
 			j++;
 		}
-		while (d->path[len])
-			len++;
 	}
-	if (tmp && d->is_path_set == true && len != j)
+	return (NULL);
+}
+
+void	execute(t_args *d, char **args, int nb)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (d->is_path_set)
+		tmp = resolve_path(d, args);
+	if (tmp && d->is_path_set == true)
 	{
 		args[0] = tmp;
 		execve(args[0], args, d->env);
 	}
 	else
 		printf("%s: command not found\n", args[0]);
+	exit(127);
 }
+
+// pour chqaue commqnde du pipe
+// 	fork -> cherche le path de la cmd (ls -> /bin/ls) -> dup2 et redir -> exec

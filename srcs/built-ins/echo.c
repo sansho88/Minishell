@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/06 15:39:46 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/10 23:14:43 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_opt_valid(char *opt)
 	size_t	i;
 
 	i = 0;
-	if (opt[i] != '-')
+	if (!opt || opt[i] != '-')
 		return (false);
 	while (opt[++i])
 		if (opt[i] != 'n')
@@ -40,48 +40,42 @@ static void	free_args(char **args, size_t nb_args)
  *
  * @param arg
  */
-void	ft_echo(char *arg)
+void	ft_echo(char *arg, t_args *d)
 {
 	bool	n;
 	char	**split_arg;
 	int		nb_args;
 	int		i;
+	char	*result;
 
+	d->is_built_in = true;
 	split_arg = ft_split_len(arg, ' ', &nb_args);
-	n = is_opt_valid(split_arg[0]);
-	i = n - 1;
-	while (++i < nb_args - 1)
+	result = ft_strdup("");
+	n = is_opt_valid(split_arg[1]);
+	i = n;
+	while (++i < nb_args)
 	{
-		arg = ft_strjoin_free(arg, split_arg[i], 1);
+		result = ft_strjoin_free(result, split_arg[i], 1);
 		if (i != nb_args - 2)
-			arg = ft_strjoin_free(arg, " ", 1);
+			result = ft_strjoin_free(result, " ", 1);
 	}
 	free_args(split_arg, nb_args + 1);
 	if (n == false)
-		ft_putendl_fd(arg, 1);
+		ft_putendl_fd(result, 1);
 	else
-		ft_putstr_fd(arg, 1);
+		ft_putstr_fd(result, 1);
 	free(arg);
 }
-/*
 
-int	main(int argc, char **argv)
+int	echo_hub(char *arg, t_args *d, t_argmode *args)
 {
-	int i = 1;
-	char *arg;
-	char *final_arg;
-
-	arg = ft_strdup("");
-	if (argc < 2)
-		return (0);
-	while (++i < argc)
+	d->is_built_in = true;
+	if (d->append_pos != 0 || d->stdout_pos != 0)
 	{
-		arg = ft_strjoin_free(arg, argv[i], 1);
-		if (i != argc)
-			arg = ft_strjoin_free(arg, " ", 1);
+		d->is_redirect = true;
+		make_fork_built_in(d, args);
+		return (0);
 	}
-	final_arg = ft_strtrim(arg, " ");
-	free(arg);
-	ft_echo(final_arg);
+	ft_echo(arg, d);
+	return (0);
 }
-*/
