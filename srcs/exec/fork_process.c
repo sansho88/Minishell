@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/11 11:32:23 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 15:48:28 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int	is_built_in(t_args *d, t_argmode *argv)
 	else if (ft_strncmp(&argv->arg[d->acutal_arg], "exit", 4) == 0)
 		ft_exit(d, argv);
 	else if (ft_strncmp(&argv->arg[d->acutal_arg], "echo", 4) == 0)
-	{
-		ft_echo(argv[0].arg, d);
-	}
+		echo_hub(argv[0].arg, d, argv);
 	else
 		return (0);
 	return (1);

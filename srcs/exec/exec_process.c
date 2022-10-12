@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/10 13:53:20 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 17:17:27 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	execute(t_args *d, char **args, int nb)
 	tmp = NULL;
 	if (d->is_path_set)
 		tmp = resolve_path(d, args);
+	//free_all(d->path);
 	if (tmp && d->is_path_set == true)
 	{
 		args[0] = tmp;

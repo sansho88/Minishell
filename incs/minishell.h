@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/10 23:11:10 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 18:01:00 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,9 +174,7 @@ void	ft_forward(t_args *d, t_argmode *argv);
 void	process_pipe_built_in(t_args *d, t_argmode *argv);
 int		print_env(t_args *d);
 int		echo_hub(char *arg, t_args *d, t_argmode *args);
-
-// BUILT-INS
-void	pwd(void);
+void	free_all(char **str);
 
 // COLORS
 # define BBLU	"\033[1;34m"

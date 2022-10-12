@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/08 19:26:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 17:40:53 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	bwd_to_directory(t_argmode *args, t_args *d, char **arg)
 		printf("bcw not fond\n");
 		return (1);
 	}
+	//free_all(pwd_copy);
 	return (0);
 }
 
@@ -42,9 +43,9 @@ int	fwd_to_directory(t_argmode *args, t_args *d, char **arg)
 	int		i;
 
 	tmp = ft_calloc(d->pwd_len + ft_strlen(arg[1]), sizeof(char));
-	tmp = getcwd(tmp, d->pwd_len);
-	tmp = ft_strjoin(tmp, "/");
-	tmp = ft_strjoin(tmp, arg[1]);
+	tmp = getcwd(tmp, 42000);
+	tmp = ft_strjoin_free(tmp, "/", 1);
+	tmp = ft_strjoin_free(tmp, arg[1], 1);
 	if (chdir(tmp) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", arg[1]);
