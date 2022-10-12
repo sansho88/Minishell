@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/10 21:49:28 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 19:06:02 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	is_already_set(t_argmode *args, t_args *d, char	*arg)
 	{
 		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
 		{
+			printf("hello\n");
+			free_all(d->env);
 			d->env[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
 			d->env[i] = arg;
 			return (1);

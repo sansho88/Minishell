@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/10 22:34:26 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/11 18:41:48 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ int	set_pwd(t_args *d)
 	if (i < len)
 	{
 		d->env[i] = ft_calloc(ft_strlen(d->pwd) + 5, sizeof(char));
-		d->env[i] = ft_strjoin(d->env[i], "PWD=");
-		d->env[i] = ft_strjoin(d->env[i], d->pwd);
+		d->env[i] = ft_strjoin_free(d->env[i], "PWD=", 1);
+		d->env[i] = ft_strjoin_free(d->env[i], d->pwd, 1);
 	}
 	return (0);
 }

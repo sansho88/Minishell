@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:50:11 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/08 19:25:17 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/12 13:50:29 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	path_is_set(t_args *d, int pos)
 {
 	int	len;
 	int	i;
-
+	
 	i = 0;
 	len = 0;
 	while (d->env[pos][i])
@@ -25,12 +25,12 @@ void	path_is_set(t_args *d, int pos)
 			len++;
 		i++;
 	}
-	d->path = ft_calloc(len + 1, sizeof(char **));
-	d->path = ft_split(&d->env[pos][5], ':');
+//	d->path = ft_calloc(len + 1, sizeof(char **));
+	d->path = ft_split(&d->env[pos][5], ':'); //leaks ici
 	i = 0;
-	while (d->path[i])
+	while (i < len)
 	{
-		d->path[i] = ft_strjoin(d->path[i], "/");
+		d->path[i] = ft_strjoin_free(d->path[i], "/", 1);
 		i++;
 	}
 }
