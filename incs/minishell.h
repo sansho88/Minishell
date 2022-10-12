@@ -175,6 +175,7 @@ void	process_pipe_built_in(t_args *d, t_argmode *argv);
 int		print_env(t_args *d);
 int		echo_hub(char *arg, t_args *d, t_argmode *args);
 void	free_all(char **str);
+
 // COLORS
 # define BBLU	"\033[1;34m"
 # define BGREEN	"\033[1;32m"
