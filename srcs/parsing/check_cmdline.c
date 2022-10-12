@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:02:34 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/06 21:48:11 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:13:28 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 		free(testcmd);
 		return (false);
 	}
+	free(*cmdline);
+	*cmdline = testcmd;
+	//free(testcmd);
 	if (!are_quotes_closed(*cmdline))
 		return (false);
 	if (is_chars_orgy(*cmdline))
@@ -83,7 +86,8 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 		return (false);
 	}
 	if (ft_strchr(*cmdline, '$'))
-		*cmdline = replace_dollars(*cmdline, env);
+		*cmdline = replace_dollars(*cmdline, env); //LEAKS !
+		//printf("%s replace_dollars leak?\n", __func__ );
 	return (true);
 }
 

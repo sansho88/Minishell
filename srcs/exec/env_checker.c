@@ -16,7 +16,7 @@ void	path_is_set(t_args *d, int pos)
 {
 	int	len;
 	int	i;
-	
+
 	i = 0;
 	len = 0;
 	while (d->env[pos][i])
@@ -57,5 +57,5 @@ void	path_hub(t_args *d)
 	{
 		d->path = ft_calloc(1, sizeof(char **));
 		d->is_path_set = false;
-	}	
+	}
 }

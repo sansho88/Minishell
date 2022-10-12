@@ -41,7 +41,6 @@ void	ft_exit(t_args *d, t_argmode *argv)
 {
 	int		nb_args;
 	char	**args;
-	int 	argc;
 
 	d->is_built_in = true;
 	args = ft_split(argv->arg, ' ');
