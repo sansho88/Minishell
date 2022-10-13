@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/11 16:09:06 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:19:07 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,15 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	char	*tmp;
 	int		j;
 
-	//printf("go in process pipe\n");
 	tmp = NULL;
 	j = 0;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	j = 0;
 	tmp = resolve_path(d, args);
-	if (d->acutal_arg == 0 && argv[d->acutal_arg].mode == 5)
+	if (d->acutal_arg == 0 && args[0] == NULL)
+	{
 		exit(127);
+	}
 	if (d->argc == 1)
 	{
 		//printf("one arg\n");
@@ -116,14 +117,17 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	}
 	else if (d->acutal_arg == 0)
 	{
-		//printf("hello\n");
+		printf("pipe_rebuild first\n");
 		pipe_rebuild_first(d, argv);
 	}
 	else if (d->acutal_arg != 0)
+	{
+		printf("pipe_rebuild_else\n");
 		pipe_rebuild_else(d, argv);
+	}
 	if (access(args[0], F_OK | X_OK) == 0)
 	{
-		//printf("execute2\n");
+		printf("execute2\n");
 		execve(args[0], args, d->env);
 	}
 	else if (d->is_built_in == false)
@@ -131,6 +135,6 @@ void	process_pipe(t_args *d, t_argmode *argv)
 		//printf("execute1\n");
 		execute(d, args, d->acutal_arg);
 	}
-	//printf("exit\n");
+	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }

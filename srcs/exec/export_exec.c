@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/11 19:06:02 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/13 20:59:20 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,19 @@
 
 int	add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
 {
-	int	len;
 	int	i;
 
 	i = 0;
-	len = 0;
-	while (d->env[len])
-		len++;
-	env_copy = ft_calloc(len + 2, sizeof(char **));
-	while (i < len)
+	env_copy = ft_calloc(d->env_len + 2, sizeof(char **));
+	while (i < d->env_len)
 	{
 		env_copy[i] = d->env[i];
 		i++;
 	}
-	env_copy[len] = arg;
-	d->env = ft_calloc(len + 2, sizeof(char **));
-	i = 0;
-	while (env_copy[i])
-	{
-		d->env[i] = env_copy[i];
-		i++;
-	}
+	env_copy[d->env_len] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+	ft_strlcpy(env_copy[d->env_len], arg, ft_strlen(arg) + 1);
+	free(d->env);
+	d->env = env_copy;
 	return (0);
 }
 
@@ -45,37 +37,36 @@ int	is_valid(t_argmode *args, t_args *d, char	*arg)
 	i = 0;
 	while (arg[i])
 	{
-		d->needle[i] = arg[i];
 		if (arg[i] == '=')
 		{
 			if (i == 0)
 			{
 				printf("export: `%s': not a valid identifier\n", arg);
-				return (1);
+				return (- 1);
 			}	
 			break ;
 		}
 		i++;
 	}
-	return (0);
+	return (i);
 }
 
 int	is_already_set(t_argmode *args, t_args *d, char	*arg)
 {
 	int	i;
+	int	nb;
 
 	i = 0;
-	d->needle = ft_calloc(ft_strlen(arg), sizeof(char));
-	if (is_valid(args, d, arg) == 1)
+	nb = is_valid(args, d, arg);
+	if (nb < 0)
 		return (1);
 	while (d->env[i])
 	{
-		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
+		if (ft_strncmp(d->env[i], arg, nb) == 0)
 		{
-			printf("hello\n");
-			free_all(d->env);
+			free(d->env[i]);
 			d->env[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
-			d->env[i] = arg;
+			ft_strlcpy(d->env[i], arg, ft_strlen(arg) + 1);
 			return (1);
 		}
 		i++;
@@ -117,5 +108,6 @@ int	export_hub(t_argmode *args, t_args *d)
 	check_arg(args, d, arg);
 	if (!arg[1])
 		sort_export(args, d);
+	free_all(arg);
 	return (0);
 }
