@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:58 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/05 09:41:17 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:56:39 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,38 @@ char	*ft_new_heredocname(int *nb_created)
 {
 	char		*filename;
 	char		*str_nb;
-	const char	*ext = ".txt";
 
-	filename = ft_strdup("/tmp/.heredoc");
 	str_nb = ft_itoa((*nb_created)++);
+	filename = ft_strdup("/tmp/.heredoc");
 	if (!filename || !str_nb)
 		perror(HEREDOC_ERROR);
-	filename = ft_strjoin_free(filename, str_nb, 2);
-	filename = ft_strjoin_free(filename, (char *)ext, 1);
+	filename = ft_strjoin_free(filename, str_nb, 1);
+	filename = ft_strjoin_free(filename, ".txt", 1);
+	free(str_nb);
+	str_nb = NULL;
 	return (filename);
 }
 
 char	*ft_heredoc(char *stop)
 {
+	static int	nb_heredocs = 0;
 	char		*filename;
 	char		*input;
 	int			fd;
-	static int	nb_heredocs = 0;
 
 	if (!stop || !*stop)
 		return (NULL);
-	input = ft_strdup("");
 	filename = ft_new_heredocname(&nb_heredocs);
 	fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0 || !filename)
 		perror(HEREDOC_ERROR);
 	printf("STOP is [%s]\n", stop);
+	input = ft_strdup("");
 	while (ft_strncmp(input, stop, ft_strlen(stop) + 1) != 0)
 	{
 		free(input);
 		input = readline("> ");
-		if (!input)
+		if (!input || ft_strncmp(input, stop, ft_strlen(stop) + 1) == 0)
 			break ;
 		ft_putendl_fd(input, fd);
 	}
