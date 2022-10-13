@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/10 13:43:17 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:37:36 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char	*env[])
 		if (!commandline)
 			break ;
 		add_history(commandline);
-		rl_redisplay();
+		//rl_redisplay();
 		if (*commandline && is_cmdline_ok(&commandline, data.env))
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1;
@@ -45,10 +45,10 @@ int	main(int argc, char *argv[], char	*env[])
 			//debug_t_argmode(args, nb_args);
 			if (are_args_ok(args, nb_args))
 				exec_home(args, nb_args, &data);
+			free_t_argmode(args, nb_args);
 		}
-		//free_t_argmode(args, nb_args);
 		free(commandline);
 	}
-	free_env(nb_args, data);
+	//free_env(nb_args, data);
 	clear_history();
 }

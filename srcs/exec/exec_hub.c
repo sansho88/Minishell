@@ -65,7 +65,8 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	i = 0;
 	while (i < d->argc)
 	{
-		waitpid(d->pid[i], &errno, 0);		
+		waitpid(d->pid[i], &errno, 0);
+		free(d->pid);
 		i++;
 	}
 	free(d->pid);

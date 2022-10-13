@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:01:37 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/21 12:08:05 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:12:57 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_write_arg_if_valid(char **arg)
 t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args)
 {
 	size_t	i;
+	char	*stop;
 
 	i = 0;
 	while (i < nb_args)
@@ -63,7 +64,10 @@ t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args)
 		if (args[i].mode == HEREDOC)
 		{
 			ft_write_arg_if_valid(&args[i].arg);
-			args[i + 1].arg = ft_heredoc(get_stop_word(&args[i + 1].arg));
+			stop = get_stop_word(&args[i + 1].arg);
+			free(args[i + 1].arg);
+			args[i + 1].arg = ft_heredoc(stop);
+			free(stop);
 			if (!args[i].arg)
 			{
 				free_t_argmode(args, nb_args);
