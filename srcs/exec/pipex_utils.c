@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:03 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/11 16:30:32 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/13 17:30:58 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,12 @@ char	**sort_tab_exec(char	**sort_tab, int len)
 	j = 0;
 	while (sort_tab[i])
 	{
+		
 		while (j < len - 1 - i)
 		{
 			if (strcmp(sort_tab[j], sort_tab[j + 1]) > 0)
 			{
-				tmp = ft_calloc(ft_strlen(sort_tab[j]), sizeof(char));
-				tmp = ft_strdup(sort_tab[j]);
+				tmp = sort_tab[j];
 				sort_tab[j] = sort_tab[j + 1];
 				sort_tab[j + 1] = tmp;
 			}
