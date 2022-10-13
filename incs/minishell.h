@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/13 16:34:17 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/14 00:15:01 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ char	**sort_tab_exec(char	**sort_tab, int len);
 char	*resolve_path(t_args *d, char **args);
 int		is_built_in(t_args *d, t_argmode *argv);
 void	make_fork_built_in(t_args *d, t_argmode *argv);
+int		pwd_hub(t_argmode *args, t_args *d);
+void	ft_pwd(void);
 //REBUILD
 void	path(t_args *d, char	**env);
 void	execute(t_args *p, char **args, int nb);

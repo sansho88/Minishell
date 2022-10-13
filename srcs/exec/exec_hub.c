@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/13 18:27:46 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/14 01:07:02 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	data_initialize(t_args *d, int argc)
 	d->is_built_in = false;
 	d->pid = malloc(sizeof(int) * argc - 3);
 	d->is_redirect = false;
-	tmp = ft_calloc(42000, sizeof(char));
-	getcwd(tmp, 42000);
+	tmp = ft_calloc(4200, sizeof(char));
+	getcwd(tmp, 4200);
 	d->pwd = tmp;
 	free(tmp);
 	path_hub(d);
@@ -66,7 +66,6 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	while (i < d->argc)
 	{
 		waitpid(d->pid[i], &errno, 0);
-		free(d->pid);
 		i++;
 	}
 	free(d->pid);
