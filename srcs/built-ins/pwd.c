@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 17:39:00 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/11 15:51:42 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/14 00:13:40 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define BUF_SIZE 4200
 
-void	pwd(void)
+void	ft_pwd(void)
 {
 	char	stored_path[BUF_SIZE];
 
@@ -24,4 +24,17 @@ void	pwd(void)
 		return ;
 	}
 	printf("%s\n", stored_path);
+}
+
+int	pwd_hub(t_argmode *args, t_args *d)
+{
+	d->is_built_in = true;
+	if (d->append_pos != 0 || d->stdout_pos != 0)
+	{
+		d->is_redirect = true;
+		make_fork_built_in(d, args);
+		return (0);
+	}
+	ft_pwd();
+	return (0);
 }
