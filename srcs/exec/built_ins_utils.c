@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/13 18:47:54 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/14 01:10:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,20 @@ void	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy)
 int	set_old_path(t_args *d)
 {
 	int	j;
-	int	len;
 
 	j = 0;
-	len = 0;
-	while (d->env[len])
-		len++;
 	while (d->env[j])
 	{
 		if (ft_strncmp("OLDPWD=", d->env[j], 7) == 0)
 			break ;
 		j++;
 	}
-	if (j < len)
+	if (j < d->env_len)
 	{
+		free(d->env[j]);
 		d->env[j] = ft_calloc(ft_strlen(d->pwd) + 8, sizeof(char));
-		d->env[j] = ft_strjoin(d->env[j], "OLDPWD=");
-		d->env[j] = ft_strjoin(d->env[j], d->pwd);
+		d->env[j] = ft_strjoin_free(d->env[j], "OLDPWD=", 1);
+		d->env[j] = ft_strjoin_free(d->env[j], d->pwd, 1);
 	}
 	return (0);
 }
@@ -104,7 +101,6 @@ int	cd_args_count(t_argmode *args, t_args *d, char **arg)
 	int	arg_nbr;
 
 	arg_nbr = 0;
-	arg = ft_split(args->arg, ' ');
 	while (arg[arg_nbr])
 		arg_nbr++;
 	if (arg_nbr >= 4)
