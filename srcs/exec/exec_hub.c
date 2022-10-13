@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/12 13:51:23 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/12 14:28:17 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 		free(d->pid);
 		i++;
 	}
+	free(d->pid);
 	rm_heredoc();
 	//free_all(d->env);
 	//free(d->pwd);
