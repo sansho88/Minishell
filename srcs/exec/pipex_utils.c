@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:03 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/13 17:30:58 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/14 11:26:08 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char	**sort_tab_exec(char	**sort_tab, int len)
 			}
 			j++;
 		}
+			//printf("sort_tab : %s\n", sort_tab[i]);
 		j = 0;
 		i++;
 	}
