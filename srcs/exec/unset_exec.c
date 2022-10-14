@@ -6,48 +6,62 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/14 01:32:52 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/14 20:14:19 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-char	**ft_env_copy(t_args *d, int i, int j, char *arg)
+char	**ft_env_copy(t_args *d, char *arg)
 {
 	char	**env_copy;
+	int	i;
+	int	j;
+	int f;
 
-	env_copy = ft_calloc(d->env_len + 2, sizeof(char **));
+	i = 0;
+	j = 0;
+	f = 0;
+	env_copy = ft_calloc(d->env_len + 5, sizeof(char **));
 	while (j < d->env_len)
 	{
-		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
+		if (ft_strncmp(d->env[j], d->needle, ft_strlen(d->needle)) == 0)
 		{
+			printf("valeur de env[j] needle: %s\n", d->env[j]);
 			free(d->env[j]);
+			f++;
 			j++;
 		}
-		else if (ft_strncmp(d->env[i], arg, ft_strlen(d->env[i])) == 0)
+		else if (ft_strncmp(d->env[j], arg, ft_strlen(arg)) == 0 && !d->env[ft_strlen(arg)])
 		{
-			free(d->env[j]);
+			printf("valeur de env[j] : %s\n", d->env[j]);
+			//free(d->env[j]);
+			f++;
 			j++;
 		}
 		else
 		{
+			//free(env_copy[i]);
 			env_copy[i] = d->env[j];
 			i++;
 			j++;
 		}
 	}
-	free(d->env);
+	printf("valeur de arg : %s\n", arg);
+	printf("valeur needle : %s\n", d->needle);
+	printf("valeur de f : %d\n", f);
+	//printf("taille needle : %d\n", ft_strlen(d->needle));
+	//free(d->env);
+	//free(arg);
+	//free(d->needle);
 	return (env_copy);
 }
 
 int	unset_set_value(t_argmode *args, t_args	*d, char	*arg)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	d->env = ft_env_copy(d, i, j, arg);
+	//free_all(d->env);
+	d->env = ft_env_copy(d, arg);
+	//free_all(d->env);
 	return (0);
 }
 
@@ -94,8 +108,8 @@ int	unset_hub(t_argmode *args, t_args *d)
 	arg = ft_split(args->arg, ' ');
 	while (arg[i])
 	{
-		if (ft_strncmp("PWD", arg[i], 3) == 0)
-			path_backup(d);
+		//if (ft_strncmp("PWD", arg[i], 3) == 0)
+		//	path_backup(d);
 		check_if_set(args, d, arg[i]);
 		i++;
 	}

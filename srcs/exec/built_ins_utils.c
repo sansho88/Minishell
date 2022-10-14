@@ -6,25 +6,50 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/14 11:26:24 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/14 20:36:28 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
+void	sort_export_tab(t_args *d)
+{
+	int		i;
+	
+	i = 0;
+	d->sort_env = ft_calloc(d->env_len + 1, sizeof(char **));
+	while (d->env[i])
+	{
+		d->sort_env[i] = ft_calloc(ft_strlen(d->env[i]) + 1, sizeof(char));
+		d->sort_env[i] = ft_strdup(d->env[i]);
+	//	printf("declare -x %s\n", sort_tab[i]);
+		i++;
+	}
+	sort_tab_exec(d);
+	i = 0;
+	while (d->sort_env[i])
+	{
+		printf("declare -x %s\n", d->sort_env[i]);
+		//free(d->sort_env[i]);
+		i++;
+	}
+	free_all(d->sort_env);
+}
+
 void	sort_export(t_argmode *args, t_args *d)
 {
-	char	**sort_tab;
+	/*char	**sort_tab;
 	int		i;
 
 	sort_tab = d->env;
-	sort_tab = sort_tab_exec(sort_tab, d->env_len);
-	i = 0;
+	sort_tab = sort_tab_exec(d);*/
+	sort_export_tab(d);
+	/*i = 0;
 	while (i < d->env_len)
 	{
 		printf("declare -x %s\n", d->env[i]);
 		i++;
-	}
+	}*/
 }
 
 void	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy)
@@ -91,7 +116,7 @@ int	set_pwd(t_args *d)
 		d->env[i] = ft_strdup("PWD=");
 		d->env[i] = ft_strjoin_free(d->env[i], d->pwd, 1);
 	}
-	free(d->pwd);
+	//free(d->pwd);
 	return (0);
 }
 
