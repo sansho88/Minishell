@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/14 20:34:21 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/15 22:53:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	bwd_to_directory(t_argmode *args, t_args *d, char **arg)
 		printf("bcw not fond\n");
 		return (1);
 	}
-//	free(d->pwd);
+	free(d->pwd);
 	free_all(pwd_copy);
 	return (0);
 }
@@ -49,12 +49,14 @@ int	fwd_to_directory(t_argmode *args, t_args *d, char **arg)
 	if (chdir(tmp) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", arg[1]);
+		free(tmp);
 		return (1);
 	}
 	else
 	{
 		set_old_path(d);
 		d->pwd = tmp;
+		free(tmp);
 	}
 	return (0);
 }
@@ -77,7 +79,7 @@ int	only_cd(t_argmode *args, t_args *d, char **arg)
 	}
 	if (chdir(d->pwd) == -1)
 		return (1);
-	//free(d->pwd);
+	free(d->pwd);
 	free_all(pwd_copy);
 	return (0);
 }
@@ -113,7 +115,8 @@ int	cd_hub(t_argmode *args, t_args *d)
 		fwd_to_directory(args, d, arg);
 	else if (args_nbr == 2 && ft_strncmp("..", arg[1], 3) == 0)
 		bwd_to_directory(args, d, arg);
-	else if (args_nbr == 1 && ft_strncmp("cd", arg[0], 2) == 0)
+	else if (ft_strncmp("cd", arg[0], 2) == 0 &&
+		ft_strncmp("/Users/robingeral", d->pwd, 18) != 0)
 		only_cd(args, d, arg);
 	set_pwd(d);
 	//free(d->pwd);
