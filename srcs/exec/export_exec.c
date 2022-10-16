@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/15 12:36:23 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/16 12:19:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
 	int	i;
 
 	i = 0;
-	env_copy = ft_calloc(d->env_len + 2, sizeof(char **));
+	env_copy = ft_calloc(d->env_len + 2, sizeof(char *));
 	while (i < d->env_len)
 	{
 		env_copy[i] = d->env[i];
@@ -85,7 +85,6 @@ int	check_arg(t_argmode *args, t_args *d, char **arg)
 	j = 0;
 	while (arg[i])
 	{
-		printf("valeur de arg : %s\n", arg[i]);
 		if (is_already_set(args, d, arg[i]) == 0)
 			add_value(args, d, arg[i], env_copy);
 		i++;

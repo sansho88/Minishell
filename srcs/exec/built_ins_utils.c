@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/15 12:19:40 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/16 12:03:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,43 @@
 
 void	sort_export_tab(t_args *d)
 {
-	int		i;
-	
+	int	i;
+	int	j;
+	char	*tmp;
+
 	i = 0;
-	d->sort_env = ft_calloc(d->env_len + 1, sizeof(char **));
+	j = 0 ;
+	d->sort_env = ft_calloc(d->env_len + 1, sizeof(char *));
 	while (d->env[i])
 	{
-		d->sort_env[i] = ft_strdup(d->env[i]);
+		d->sort_env[i] = d->env[i];
 		i++;
 	}
-	sort_tab_exec(d);
 	i = 0;
-	while (d->env[i])
+	while (d->sort_env[i])
 	{
-		printf("declare -x %s\n", d->env[i]);
+		
+		while (j < d->env_len - 1 - i)
+		{
+			if (strcmp(d->sort_env[j], d->sort_env[j + 1]) > 0)
+			{
+				tmp = d->sort_env[j];
+				d->sort_env[j] = d->sort_env[j + 1];
+				d->sort_env[j + 1] = tmp;
+			}
+			j++;
+		}
+			//printf("sort_tab : %s\n", sort_tab[i]);
+		j = 0;
 		i++;
 	}
-	free_all(d->sort_env);
+	i = 0;
+	while (d->sort_env[i])
+	{
+		printf("declare -x %s\n", d->sort_env[i]);
+		i++;
+	}
+	free(d->sort_env);
 }
 
 void	sort_export(t_argmode *args, t_args *d)
