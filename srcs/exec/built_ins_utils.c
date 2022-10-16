@@ -6,25 +6,67 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/14 01:10:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/16 12:03:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
+void	sort_export_tab(t_args *d)
+{
+	int	i;
+	int	j;
+	char	*tmp;
+
+	i = 0;
+	j = 0 ;
+	d->sort_env = ft_calloc(d->env_len + 1, sizeof(char *));
+	while (d->env[i])
+	{
+		d->sort_env[i] = d->env[i];
+		i++;
+	}
+	i = 0;
+	while (d->sort_env[i])
+	{
+		
+		while (j < d->env_len - 1 - i)
+		{
+			if (strcmp(d->sort_env[j], d->sort_env[j + 1]) > 0)
+			{
+				tmp = d->sort_env[j];
+				d->sort_env[j] = d->sort_env[j + 1];
+				d->sort_env[j + 1] = tmp;
+			}
+			j++;
+		}
+			//printf("sort_tab : %s\n", sort_tab[i]);
+		j = 0;
+		i++;
+	}
+	i = 0;
+	while (d->sort_env[i])
+	{
+		printf("declare -x %s\n", d->sort_env[i]);
+		i++;
+	}
+	free(d->sort_env);
+}
+
 void	sort_export(t_argmode *args, t_args *d)
 {
-	char	**sort_tab;
+	/*char	**sort_tab;
 	int		i;
 
 	sort_tab = d->env;
-	sort_tab = sort_tab_exec(sort_tab, d->env_len);
-	i = 0;
+	sort_tab = sort_tab_exec(d);*/
+	sort_export_tab(d);
+	/*i = 0;
 	while (i < d->env_len)
 	{
-		printf("declare -x %s\n", sort_tab[i]);
+		printf("declare -x %s\n", d->env[i]);
 		i++;
-	}
+	}*/
 }
 
 void	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy)
@@ -39,13 +81,12 @@ void	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy)
 	}
 	else
 	{
-		d->pwd = ft_calloc(ft_strlen(d->pwd), sizeof(char));
-		d->pwd = ft_strjoin(d->pwd, "/");
+		d->pwd = ft_strdup("/");
 		while (i < len)
 		{
-			d->pwd = ft_strjoin(d->pwd, pwd_copy[i]);
-			if (i < len - 1)
-				d->pwd = ft_strjoin(d->pwd, "/");
+			d->pwd = ft_strjoin_free(d->pwd, pwd_copy[i], 1);
+			if (i < len)
+				d->pwd = ft_strjoin_free(d->pwd, "/", 1);
 			i++;
 		}
 	}
@@ -65,8 +106,7 @@ int	set_old_path(t_args *d)
 	if (j < d->env_len)
 	{
 		free(d->env[j]);
-		d->env[j] = ft_calloc(ft_strlen(d->pwd) + 8, sizeof(char));
-		d->env[j] = ft_strjoin_free(d->env[j], "OLDPWD=", 1);
+		d->env[j] = ft_strdup("OLDPWD=");
 		d->env[j] = ft_strjoin_free(d->env[j], d->pwd, 1);
 	}
 	return (0);
@@ -89,8 +129,8 @@ int	set_pwd(t_args *d)
 	}
 	if (i < len)
 	{
-		d->env[i] = ft_calloc(ft_strlen(d->pwd) + 5, sizeof(char));
-		d->env[i] = ft_strjoin_free(d->env[i], "PWD=", 1);
+		free(d->env[i]);
+		d->env[i] = ft_strdup("PWD=");
 		d->env[i] = ft_strjoin_free(d->env[i], d->pwd, 1);
 	}
 	return (0);

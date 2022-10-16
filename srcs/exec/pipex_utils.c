@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:03 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/13 17:30:58 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/14 19:14:50 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_dup2(int a, int b)
 	return (fd);
 }
 
-char	**sort_tab_exec(char	**sort_tab, int len)
+void	sort_tab_exec(t_args *d)
 {
 	int		i;
 	int		j;
@@ -100,21 +100,45 @@ char	**sort_tab_exec(char	**sort_tab, int len)
 
 	i = 0;
 	j = 0;
-	while (sort_tab[i])
+	/*while (d->sort_env[i])
 	{
 		
-		while (j < len - 1 - i)
+		while (j < d->env_len - 1 - i)
 		{
-			if (strcmp(sort_tab[j], sort_tab[j + 1]) > 0)
+			if (strcmp(d->sort_env[j], d->sort_env[j + 1]) > 0)
 			{
-				tmp = sort_tab[j];
-				sort_tab[j] = sort_tab[j + 1];
-				sort_tab[j + 1] = tmp;
+				tmp = d->sort_env[j];
+				d->sort_env[j] = d->sort_env[j + 1];
+				d->sort_env[j + 1] = tmp;
 			}
 			j++;
 		}
+			//printf("sort_tab : %s\n", sort_tab[i]);
 		j = 0;
 		i++;
 	}
-	return (sort_tab);
+}*/
+	while (d->sort_env[i])
+	{
+		
+		while (j < d->env_len - 1 - i)
+		{
+			if (strcmp(d->sort_env[j], d->sort_env[j + 1]) > 0)
+			{
+				tmp = ft_strdup(d->sort_env[j]);
+				free(d->sort_env[j]);
+				d->sort_env[j] = ft_strdup(d->sort_env[j + 1]);
+				free(d->sort_env[j + 1]);
+				d->sort_env[j + 1] = ft_strdup(tmp);
+				free(tmp);
+				/*strcpy(tmp, d->sort_env[j]);
+       	 		strcpy(d->sort_env[j], d->sort_env[j+1]);
+        		strcpy(d->sort_env[j+1], tmp);*/
+			}
+			j++;
+		}
+			//printf("sort_tab : %s\n", sort_tab[i]);
+		j = 0;
+		i++;
+	}
 }

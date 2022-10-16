@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/14 00:15:01 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/15 23:07:53 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef struct s_arguments
 	bool	is_path_set;
 	bool	is_built_in;
 	bool	is_redirect;
+	char	**sort_env;
+	bool	is_unset;
 }				t_args;
 
 // UTILS
@@ -159,7 +161,7 @@ int		set_pwd(t_args *d);
 int		set_old_path(t_args *d);
 void	path_hub(t_args *d);
 void	ft_echo(char *arg, t_args *d);
-char	**sort_tab_exec(char	**sort_tab, int len);
+void	sort_tab_exec(t_args *d);
 char	*resolve_path(t_args *d, char **args);
 int		is_built_in(t_args *d, t_argmode *argv);
 void	make_fork_built_in(t_args *d, t_argmode *argv);
@@ -177,6 +179,7 @@ void	process_pipe_built_in(t_args *d, t_argmode *argv);
 int		print_env(t_args *d);
 int		echo_hub(char *arg, t_args *d, t_argmode *args);
 void	free_all(char **str);
+//char	**ft_env_copy(t_args *d, char *arg);
 
 // COLORS
 # define BBLU	"\033[1;34m"

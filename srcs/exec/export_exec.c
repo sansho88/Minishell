@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/13 20:59:20 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/16 12:19:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ int	add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
 	int	i;
 
 	i = 0;
-	env_copy = ft_calloc(d->env_len + 2, sizeof(char **));
+	env_copy = ft_calloc(d->env_len + 2, sizeof(char *));
 	while (i < d->env_len)
 	{
 		env_copy[i] = d->env[i];
 		i++;
 	}
-	env_copy[d->env_len] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
-	ft_strlcpy(env_copy[d->env_len], arg, ft_strlen(arg) + 1);
+	env_copy[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+	ft_strlcpy(env_copy[i], arg, ft_strlen(arg) + 1);
 	free(d->env);
+	d->env_len++;
 	d->env = env_copy;
 	return (0);
 }
