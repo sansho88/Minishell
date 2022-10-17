@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:02:34 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/12 15:13:28 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/17 13:57:31 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ bool	is_cmdline_ok(char **cmdline, char **env)
  * @param nb_args
  * @return False if something went wrong
  */
-bool	are_args_ok(t_argmode	*args, size_t	nb_args)
+bool	are_args_ok(t_argmode	*args, size_t *nb_args)
 {
 	size_t	i;
 
-	if (args == NULL || nb_args == 0)
+	if (args == NULL || *nb_args == 0)
 		return (false);
 	i = 0;
-	while (i < nb_args)
+	while (i < *nb_args)
 	{
 		if (!args[i].arg)
 		{

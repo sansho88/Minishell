@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/11 14:53:45 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:02:03 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_echo(char *arg, t_args *d)
 			result = ft_strjoin_free(result, " ", 1);
 	}
 	free_args(split_arg, nb_args + 1);
-	free(arg);
+	printf("%s: %p\n", __func__, arg);
 	if (n == false)
 		printf("%s\n", result);
 	else
