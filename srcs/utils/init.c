@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:58 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/05 11:59:47 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:52:02 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**init_env(char	**env)
 	if (!env)
 		return (NULL);
 	size_env = ft_tabstrlen(env);
-	new_env = ft_calloc(size_env, sizeof(env));
+	new_env = ft_calloc(size_env + 1, sizeof(env));
 	i = 0;
 	while (i < size_env)
 	{
