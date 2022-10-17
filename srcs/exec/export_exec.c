@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/16 12:19:15 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 17:55:12 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ int	export_hub(t_argmode *args, t_args *d)
 	int		i;
 
 	d->is_built_in = true;
-	if (d->append_pos != 0 || d->stdout_pos != 0)
+	if (d->append_pos != 0 || d->stdout_pos != 0 || args[d->acutal_arg].mode == 1)
 	{
+		printf("export-fork\n\n");
 		d->is_redirect = true;
 		make_fork_built_in(d, args);
 		return (0);

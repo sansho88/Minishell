@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 17:39:00 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/14 00:13:40 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 17:23:09 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	ft_pwd(void)
 int	pwd_hub(t_argmode *args, t_args *d)
 {
 	d->is_built_in = true;
-	if (d->append_pos != 0 || d->stdout_pos != 0)
+	if (d->append_pos != 0 || d->stdout_pos != 0 || args[d->acutal_arg].mode == 1)
 	{
+		printf("here\n");
 		d->is_redirect = true;
 		make_fork_built_in(d, args);
 		return (0);

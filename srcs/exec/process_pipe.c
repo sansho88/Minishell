@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/17 15:41:44 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 15:54:03 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	char	*tmp;
 	int		j;
 
-	//printf("valeur de is_last : %d\n", d->is_last);
+	printf("valeur de is_last : %d\n", d->is_last);
 	tmp = NULL;
 	j = 0;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
