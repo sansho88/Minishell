@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:33:32 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/10 22:53:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 15:22:54 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	print_env(t_args *d)
 int	env_hub(t_argmode *args, t_args *d)
 {
 	d->is_built_in = true;
-	if (d->append_pos != 0 || d->stdout_pos != 0)
+	printf("valeur de argc : %d\n", d->argc);
+	if (d->append_pos != 0 || d->stdout_pos != 0 || d->argc < 1)
 	{
+		printf("forktime\n");
 		d->is_redirect = true;
 		make_fork_built_in(d, args);
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/14 00:12:40 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 15:18:46 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,23 @@
 
 int	is_built_in(t_args *d, t_argmode *argv)
 {
-	if (ft_strncmp(&argv->arg[d->acutal_arg], "cd", 2) == 0 && d->argc == 1)
+	if (ft_strncmp(&argv->arg[d->acutal_arg], "cd ", 3) == 0 && d->argc == 1)
 		cd_hub(argv, d);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "export", 6) == 0)
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "export ", 7) == 0 || ft_strncmp(&argv->arg[d->acutal_arg], "export", 7) == 0)
 		export_hub(argv, d);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "env", 3) == 0
-		&& d->argc == 1)
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "env", 4) == 0)
+	{
+		printf("env\n\n");
 		env_hub(argv, d);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "unset", 5) == 0
+	}
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "unset ", 6) == 0
 		&& d->argc == 1)
 		unset_hub(argv, d);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "exit", 4) == 0)
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "exit ", 5) == 0)
 		ft_exit(d, argv);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "echo", 4) == 0)
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "echo ", 5) == 0)
 		echo_hub(argv[0].arg, d, argv);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "pwd", 3) == 0)
+	else if (ft_strncmp(&argv->arg[d->acutal_arg], "pwd ", 4) == 0)
 		pwd_hub(argv, d);
 	else
 		return (0);
