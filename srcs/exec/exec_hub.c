@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_hub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/15 22:42:43 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 15:41:13 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ void	rm_heredoc(void)
 	free(tmp);
 }
 
+void	pwd_set(t_args *d)
+{
+	int	i;
+
+	i = 0;
+	while (d->env[i])
+	{
+		if (ft_strncmp(d->env[i], "PWD=", 4) == 0)
+		{
+			free(d->env[i]);
+			d->env[i] = ft_strdup("PWD=");
+			d->env[i] = ft_strjoin_free(d->env[i], d->pwd, 1);
+		}
+		i++;
+	}
+}
 void	data_initialize(t_args *d, int argc)
 {
 	char	*tmp;
@@ -48,10 +64,11 @@ void	data_initialize(t_args *d, int argc)
 	d->pid = malloc(sizeof(int) * argc - 3);
 	d->is_redirect = false;
 	d->is_unset = false;
-	tmp = ft_calloc(4200, sizeof(char));
-	getcwd(tmp, 4200);
+	tmp = ft_calloc(BUFFER_SIZE, sizeof(char));
+	getcwd(tmp, BUFFER_SIZE);
 	d->pwd = tmp;
 	free(tmp);
+	pwd_set(d);
 	path_hub(d);
 }
 
@@ -62,6 +79,7 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 
 	i = 0;
 	data_initialize(d, argc);
+	//printf("hello\n");
 	sorting_hub(d, argv);
 	i = 0;
 	while (i < d->argc)

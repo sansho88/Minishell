@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe_built_in.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/14 00:18:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 15:41:01 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ void	process_pipe_built_in(t_args *d, t_argmode *argv)
 	int		i;
 	int		argc;
 
+	d->is_built_in = false;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	if (d->acutal_arg == 0)
 		pipe_rebuild_first(d, argv);
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
+	//printf("valeur de is_last : %d\n", d->is_last);
     if (ft_strncmp(&argv->arg[d->acutal_arg], "export", 6) == 0)
 		sort_export(argv, d);
     else if (ft_strncmp(&argv->arg[d->acutal_arg], "env", 3) == 0)

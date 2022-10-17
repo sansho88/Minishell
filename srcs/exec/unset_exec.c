@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/16 12:11:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 13:53:42 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ int	check_if_set(t_argmode	*args, t_args	*d, char	*arg)
 	int	i;
 
 	i = 0;
+	//if (d->needle)
+	//	free(d->needle);
 	d->needle = ft_strjoin(arg, "=");
 	while (d->env[i])
 	{
 		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
 			d->env = ft_env_copy(d, arg);
-		else if (ft_strncmp(d->env[i], arg, ft_strlen(arg)) == 0)
+		else if (ft_strncmp(d->env[i], arg, ft_strlen(arg)) == 0 && !d->env[i][ft_strlen(arg)])
 			d->env = ft_env_copy(d, arg);
 		i++;
 	}

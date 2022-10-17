@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/15 22:53:39 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 14:34:45 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	bwd_to_directory(t_argmode *args, t_args *d, char **arg)
 
 	i = 0;
 	len = 0;
-	//pwd_copy = ft_calloc(ft_strlen(d->pwd), sizeof(char));
 	pwd_copy = ft_split(d->pwd, '/');
 	while (pwd_copy[len])
 		len++;
@@ -42,8 +41,8 @@ int	fwd_to_directory(t_argmode *args, t_args *d, char **arg)
 	char	*tmp;
 	int		i;
 
-	tmp = ft_calloc(d->pwd_len + ft_strlen(arg[1]), sizeof(char));
-	tmp = getcwd(tmp, 4200);
+	tmp = ft_calloc(d->pwd_len + ft_strlen(arg[1]) + BUFFER_SIZE, sizeof(char));
+	tmp = getcwd(tmp, BUFFER_SIZE);
 	tmp = ft_strjoin_free(tmp, "/", 1);
 	tmp = ft_strjoin_free(tmp, arg[1], 1);
 	if (chdir(tmp) == -1)
@@ -103,10 +102,8 @@ int	cd_hub(t_argmode *args, t_args *d)
 {
 	char	**arg;
 	int		args_nbr;
-	int		i;
 
 	d->is_built_in = true;
-	i = 0;
 	arg = ft_split(args->arg, ' ');
 	args_nbr = cd_args_count(args, d, arg);
 	if (args_nbr == 2 && ft_strncmp("/", arg[1], 1) == 0)
@@ -115,11 +112,10 @@ int	cd_hub(t_argmode *args, t_args *d)
 		fwd_to_directory(args, d, arg);
 	else if (args_nbr == 2 && ft_strncmp("..", arg[1], 3) == 0)
 		bwd_to_directory(args, d, arg);
-	else if (ft_strncmp("cd", arg[0], 2) == 0 &&
+	/*else if (ft_strncmp("cd", arg[0], 2) == 0 &&
 		ft_strncmp("/Users/robingeral", d->pwd, 18) != 0)
-		only_cd(args, d, arg);
+		only_cd(args, d, arg);*/
 	set_pwd(d);
-	//free(d->pwd);
 	free_all(arg);
 	return (0);
 }
