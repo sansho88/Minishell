@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/12 18:01:11 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:19:47 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	debug_t_argmode(t_argmode *args, int nb_arg)
 		dprintf(2, "[%s]The struct is NULL.\n", __func__);
 		return ;
 	}
-	dprintf(2, "t_argmode addr=%p\n", args);
+	//dprintf(2, "t_argmode addr=%p\n", args);
 	while (i < nb_arg)
 	{
 		dprintf(1, "[%s]t_argmode->arg=%s__ t_argmode->mode=%d|addr=%p\n",
@@ -31,23 +31,23 @@ void	debug_t_argmode(t_argmode *args, int nb_arg)
 	}
 }
 
-void	free_t_argmode(t_argmode *args, size_t nb_args)
+void	free_t_argmode(t_argmode *args, size_t *nb_args)
 {
 	size_t	i;
 
 	i = 0;
-	printf("Number of args %zu\n", nb_args);
-	while (i < nb_args && args && args[i].arg )
+	//printf("[%s]Number of args %zu\n",__func__, *nb_args);
+	while (i < *nb_args && args && args[i].arg)
 	{
-		//printf("Going to free: (%s:%u)%p\n", args[i].arg, ft_strlen(args[i].arg), args[i].arg);
-		//if (ft_strlen(args[i].arg) > 0)
-			free(args[i].arg);
+		free(args[i].arg);
 		args[i].arg = NULL;
 		args[i].mode = 0;
 		i++;
 	}
-	printf("Going to free t_argmode: %p\n", args);
-	free(args);
+	//printf("Going to free t_argmode: %p\n", args);
+	if (*nb_args > 0)
+		free(args);
+	*nb_args = 0;
 }
 
 char	*ft_strstrchr(char *target, char **tab, size_t len_target)
@@ -58,7 +58,7 @@ char	*ft_strstrchr(char *target, char **tab, size_t len_target)
 
 	i = 0;
 	result = ft_strdup("");
-	while (tab[i] && env_vars)
+	while (tab[i])
 	{
 		env_vars = ft_split(tab[i], '=');
 		if (env_vars[0] && ft_strncmp(env_vars[0], target, len_target) == 0)
@@ -68,9 +68,9 @@ char	*ft_strstrchr(char *target, char **tab, size_t len_target)
 			free(env_vars);
 			return (result);
 		}
-		//if (env_vars[0] && *env_vars[0])
+		if (env_vars[0] && *env_vars[0])
 			free(env_vars[0]);
-		//if (env_vars[1])
+		if (env_vars[1])
 			free(env_vars[1]);
 		free(env_vars);
 		i++;
@@ -97,6 +97,7 @@ char	*ft_strreplace(char *str, char *to_insert, int pos, int len_to_replace)
 			+ len_to_replace, size);
 	}
 	free(str);
+	str = NULL;
 	return (result);
 }
 

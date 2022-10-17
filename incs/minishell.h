@@ -93,7 +93,7 @@ typedef struct s_arguments
 
 // UTILS
 void		debug_t_argmode(t_argmode *args, int nb_arg);
-void		free_t_argmode(t_argmode *args, size_t nb_args);
+void		free_t_argmode(t_argmode *args, size_t *nb_args);
 char		*ft_strreplace(char *str, char *to_insert, int pos, \
 int len_to_replace);
 
@@ -109,7 +109,7 @@ void		rl_replace_line(char *str, int idk);
 
 //CHECK_CMDLINE
 bool		is_cmdline_ok(char **cmdline, char **env);
-bool		are_args_ok(t_argmode	*args, size_t	nb_args);
+bool		are_args_ok(t_argmode	*args, size_t *nb_args);
 
 //QUOTES
 size_t		get_nb_quote(char *str, char quote);

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/13 18:37:36 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:19:47 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char *argv[], char	*env[])
 {
 	char		*commandline;
 	t_argmode	*args;
-	int			nb_args;
+	size_t		nb_args;
 	t_args		data;
 
 	get_signals();
@@ -42,13 +42,17 @@ int	main(int argc, char *argv[], char	*env[])
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1;
 			args = create_targmode_array(commandline);
-			//debug_t_argmode(args, nb_args);
-			if (are_args_ok(args, nb_args))
-				exec_home(args, nb_args, &data);
-			free_t_argmode(args, nb_args);
+			//debug_t_argmode(args, (int)nb_args);
+			if (are_args_ok(args, &nb_args))
+				exec_home(args, (int)nb_args, &data);
+			free_t_argmode(args, &nb_args);
+			free(commandline);
+			commandline = NULL;
 		}
 		free(commandline);
+		commandline = NULL;
 	}
-	//free_env(nb_args, data);
+	puts("END OF CONCHITO");
+	free_env(nb_args, data);
 	clear_history();
 }

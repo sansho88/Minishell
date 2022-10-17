@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:38:25 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/13 19:32:04 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:35:38 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -71,11 +71,11 @@ char	*update_cmdline(char **cmd, char *env_var, int offset, int len)
 	char	*next_d;
 	char	*tmp;
 
-	tmp = *cmd;
+	tmp = ft_strdup(*cmd);
 	free(*cmd);
 	*cmd = ft_strreplace(tmp, env_var, offset, len);
 	next_d = ft_strchr(*cmd + offset + ft_strlen(env_var), '$');
-	//free(env_var);
+	free(env_var);
 	return (next_d);
 }
 
@@ -87,7 +87,7 @@ char	*update_cmdline(char **cmd, char *env_var, int offset, int len)
  * @return
  */
 char	*replace_dollars(char *cmd, char **env) //Find leaks there
-{ //fixme
+{
 	char	*env_var;
 	char	*next_d;
 	char	*next_sep;
