@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/17 17:55:12 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 20:03:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,52 @@ int	add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
 int	is_valid(t_argmode *args, t_args *d, char	*arg)
 {
 	int	i;
+	int	j;
 
-	i = 0;
+	j = 0;
+	if (arg[0] == '=')
+		return ( -1);
+	while (arg[j] && arg[j] != '=')
+	{
+		if (ft_isalpha(arg[0]) == 0 && arg[0] != '_')
+			return( -1);
+		if (ft_isalnum(arg[j]) == 0 && arg[j] != '_')
+			return ( -1);
+		j++;
+	}
+	i = j;
+	if (arg[i] == '=')
+		i++;
 	while (arg[i])
 	{
-		if (arg[i] == '=')
-		{
-			if (i == 0)
-			{
-				printf("export: `%s': not a valid identifier\n", arg);
-				return (- 1);
-			}	
-			break ;
-		}
+		if (ft_isalnum(arg[i]) == 0 && arg[i] != '_')
+			return ( -1);
 		i++;
 	}
-	return (i);
+	if (j == 0)
+		j = i;
+	return (j);
+}
+int	check_if_already_set (t_argmode *args, t_args *d, char	*arg, int	nb)
+{
+	int		i;
+	int		len;
+	char	*tmp;
+
+	tmp = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+	i = 0;
+	while (len < nb)
+	{
+		tmp[i] = arg[i];
+		len++;
+	}
+	printf("valeur de tmp : %s\n", tmp);
+	i = 0;
+	while (d->env[i])
+	{
+		i++;
+	}
+	return (0);
 }
 
 int	is_already_set(t_argmode *args, t_args *d, char	*arg)
@@ -60,10 +90,14 @@ int	is_already_set(t_argmode *args, t_args *d, char	*arg)
 	i = 0;
 	nb = is_valid(args, d, arg);
 	if (nb < 0)
+	{
+		printf("%s : not a valid identifier\n", arg);
 		return (1);
+	}
+	check_if_already_set(args, d, arg, nb);
 	while (d->env[i])
 	{
-		if (ft_strncmp(d->env[i], arg, nb) == 0)
+		if (ft_strncmp(d->env[i], arg, nb + 1) == 0 && ft_strncmp(d->env[i], arg, nb) == 0)
 		{
 			free(d->env[i]);
 			d->env[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
