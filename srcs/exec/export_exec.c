@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/17 20:03:15 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/17 21:20:03 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,66 @@ int	is_valid(t_argmode *args, t_args *d, char	*arg)
 }
 int	check_if_already_set (t_argmode *args, t_args *d, char	*arg, int	nb)
 {
-	int		i;
+	int 	i;
+	char	*tmp;
+	bool	value = false;
+
+	i = 0;
+	tmp = ft_calloc(ft_strlen(arg)+ 1, sizeof(char));
+	if (nb < ft_strlen(arg))
+	{
+		value = true;
+		while (i <= nb)
+		{
+			tmp[i] = arg[i];
+			i++;
+		}
+	}
+	while (d->env[i])
+	{
+		if (ft_strncmp(d->env[i], tmp, ft_strlen(tmp)) == 0 && value == true)
+		{
+			printf("valeur trouvée TMP\n");
+		}
+			
+		else if (ft_strncmp(d->env[i], arg, ft_strlen(arg)) == 0 && !d->env[i][ft_strlen(arg)])
+			printf("valeur trouvée ARG\n");
+		i++;
+	}
+	d->env_len++;
+	printf("valeur de tmp : %s\n", tmp);
+	printf("valeur de arg : %s\n", arg);
+	printf("valeur de nb : %d\n", nb);
+
+
+	/*int		i;
 	int		len;
 	char	*tmp;
+	char	*tmp2;
 
 	tmp = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
 	i = 0;
+	len = 0;
 	while (len < nb)
 	{
-		tmp[i] = arg[i];
+		tmp[len] = arg[len];
 		len++;
 	}
+	if (len == 0)
+		tmp = strdup(arg);
+	tmp2 = ft_strjoin(tmp, "=");
 	printf("valeur de tmp : %s\n", tmp);
+	printf("valeur de tmp2 : %s\n", tmp2);
 	i = 0;
 	while (d->env[i])
 	{
+		if (ft_strncmp(d->env[i], tmp2, ft_strlen(tmp2)) == 0)
+			printf("je rentre dans la condition 1\n");
+		else if (ft_strncmp(d->env[i], tmp, len) == 0)
+			printf("je rentre dans la condition 2\n");
 		i++;
 	}
-	return (0);
+	return (0);*/
 }
 
 int	is_already_set(t_argmode *args, t_args *d, char	*arg)
@@ -95,9 +137,10 @@ int	is_already_set(t_argmode *args, t_args *d, char	*arg)
 		return (1);
 	}
 	check_if_already_set(args, d, arg, nb);
-	while (d->env[i])
+	/*while (d->env[i])
 	{
-		if (ft_strncmp(d->env[i], arg, nb + 1) == 0 && ft_strncmp(d->env[i], arg, nb) == 0)
+		//if (ft_strncmp(d->env[i], arg, nb + 1) == 0 && ft_strncmp(d->env[i], arg, nb) == 0)
+		if (check_if_already_set(args, d, arg, nb) == 0)
 		{
 			free(d->env[i]);
 			d->env[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
@@ -105,7 +148,7 @@ int	is_already_set(t_argmode *args, t_args *d, char	*arg)
 			return (1);
 		}
 		i++;
-	}
+	}*/
 	return (0);
 }
 
