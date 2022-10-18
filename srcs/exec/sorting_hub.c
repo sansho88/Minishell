@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 16:43:05 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:17:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,7 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		d->redir_count = 0;
 		if (ft_stdin(d, argv) == 1 || ft_stdout(d, argv) == 1
 			|| ft_append(d, argv) == 1 || ft_here_doc(d, argv) == 1)
-		{
-			printf("ça break ici\n");
 			break ;
-		}
 		check_if_last(d, argv);
 		is_append_or_heredoc(d);
 		fork_process(d, argv);
@@ -106,4 +103,6 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		d->acutal_arg++;
 		d->j++;
 	}
+	//close(d->tube[0]);
+	//close(d->tube[1]);
 }

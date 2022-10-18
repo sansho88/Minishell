@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 10:48:33 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 22:19:09 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	process_pipe_built_in(t_args *d, t_argmode *argv)
         ft_echo(argv[0].arg, d);
 	else if (ft_strncmp(&argv->arg[d->acutal_arg], "pwd", 3) == 0)
 		ft_pwd();
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "exit", 4) == 0)
-		ft_exit(d, argv);
+	//else if (ft_strncmp(&argv->arg[d->acutal_arg], "exit", 4) == 0)
+		//ft_exit(d, argv);
 	exit(EXIT_SUCCESS);
 }

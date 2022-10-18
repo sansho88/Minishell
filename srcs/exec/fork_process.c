@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 16:41:58 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 23:47:56 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ void	make_fork(t_args *d, t_argmode *argv)
 	}
 	else if (d->pid[d->j] == 0)
 	{
-		printf("entre dans le fork\n");
 		process_pipe(d, argv);
 	}
-	if (d->acutal_arg > 0)
+	if (d->j > 0)
 	{
 		close(d->temp_tube[0]);
 		close(d->temp_tube[1]);

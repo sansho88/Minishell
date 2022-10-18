@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 17:37:10 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:14:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	pwd_set(t_args *d)
 }
 void	data_initialize(t_args *d, int argc)
 {
-	char	*tmp;
-
 	d->count = 0;
 	d->argc = argc;
 	d->next_mode = 0;
@@ -59,16 +57,15 @@ void	data_initialize(t_args *d, int argc)
 	d->heredoc_pos = 0;
 	d->env_len = 0;
 	d->pwd_len = 0;
-	d->is_path_set = true;
 	d->is_built_in = false;
-	d->pid = malloc(sizeof(int) * (argc + 1));
 	d->is_redirect = false;
 	d->is_unset = false;
-	tmp = ft_calloc(BUFFER_SIZE, sizeof(char));
-	getcwd(tmp, BUFFER_SIZE);
-	d->pwd = strdup(tmp);
-	printf("pwd de base : %s\n\n", d->pwd);
-	free(tmp);
+	d->is_path_set = true;
+	d->pid = ft_calloc((argc + 1), sizeof(int));
+	d->pwd = ft_calloc(BUFFER_SIZE, sizeof(char));
+	/* TODO unprotected malloc */
+	getcwd(d->pwd, BUFFER_SIZE);
+	//printf("pwd de base : %s\n\n", d->pwd);
 	pwd_set(d);
 	path_hub(d);
 }
@@ -90,11 +87,11 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	}
 	free(d->pid);
 	rm_heredoc();
-	close(d->tube[0]);
-	close(d->tube[1]);
-	//free(d->pwd);
+	free(d->pwd);
 	//d->pwd = NULL;
 	ft_dup2(rl_stdin, 0);
+	//close(d->tube[0]);
+	//close(d->tube[1]);
 	free_all(d->path);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 16:45:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:19:22 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	ft_forward(t_args *d, t_argmode *argv)
 	if (file == -1)
 	{
 		perror("bad outfile");
-		//exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
+	printf("dup2 du FWD\n");
 	ft_dup2(file, 1);
 	close(file);
 }
@@ -35,28 +36,39 @@ void	ft_backward(t_args *d, t_argmode *argv)
 {
 	int	file2;
 
-	file2 = open(argv[d->stdin_pos].arg, 0644);
+	file2 = open(argv[d->stdin_pos].arg, O_RDONLY);
 	if (file2 == -1)
 	{
 		perror("bad outfile");
+		exit(EXIT_FAILURE);
 	}
+	printf("dup2 du BWD\n");
 	ft_dup2(file2, STDIN_FILENO);
 	close(file2);
 }
 
 void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 {
+/*	int fd[2];
+
+	pipe(fd);
+	ft_dup2(fd[0], STDOUT_FILENO);
+	ft_dup2(fd[1], STDIN_FILENO);
+	close(fd[0]);
+	close(fd[1]);*/
 	if (d->stdin_pos != 0)
 	{
+		printf("back\n");
 		ft_backward(d, argv);
 	}
 	if (d->stdout_pos != 0)
 	{
-	//	printf("forward\n");
+		printf("FWD\n");
 		ft_forward(d, argv);
 	}
 	else if (d->is_last == 1)
 	{
+		printf("heyo\n");
 		ft_dup2(d->tube[1], STDOUT_FILENO);
 	}
 	close(d->tube[1]);
@@ -67,6 +79,7 @@ void	pipe_rebuild_else(t_args *d, t_argmode *argv)
 {
 	if (d->stdin_pos != 0)
 	{
+		printf("entre dans Backward\n");
 		ft_backward(d, argv);
 	}
 	else
@@ -95,18 +108,22 @@ void	process_pipe(t_args *d, t_argmode *argv)
 
 	tmp = NULL;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
-	printf("valeur de arg : %s\n", args[0]);
-	if (access(args[0], F_OK | X_OK) == 0)
-		execve(args[0], args, d->env);
 	tmp = resolve_path(d, args);
-	if (d->acutal_arg == 0 && args[0] == NULL)
+	if (!tmp && access(args[0], F_OK | X_OK) != 0)
 	{
-		printf("exit\n");
+		printf("%s: command not found\n", args[0]);
 		exit(127);
 	}
-	if (d->argc == 1)
-		execute(d, args, d->acutal_arg);
-	if (!tmp && d->is_built_in == false)
+	if (d->acutal_arg == 0 && args[0] == NULL)
+		exit(127);
+	if (d->acutal_arg == 0)
+	{
+		pipe_rebuild_first(d, argv);
+	}
+	else if (d->acutal_arg != 0)
+		pipe_rebuild_else(d, argv);
+	execve(tmp, args, d->env);
+	/*if (!tmp && access(args[0], F_OK | X_OK) != 0)
 	{
 		printf("%s: command not found\n", args[0]);
 		exit(127);
@@ -118,7 +135,7 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	if (access(args[0], F_OK | X_OK) == 0)
 		execve(args[0], args, d->env);
 	else if (d->is_built_in == false)
-		execute(d, args, d->acutal_arg);
-	printf("exit\n");
+		execute(d, args, d->acutal_arg);*/
+
 	exit(EXIT_SUCCESS);
 }
