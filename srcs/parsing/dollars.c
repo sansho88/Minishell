@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:38:25 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 15:35:38 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:07:14 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -44,23 +44,18 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 
 	if (!env)
 		return (ft_strdup(""));
-	tmp = ft_strstrchr((char *)start, env, len_end - 1);
 	if (!is_str_in_quotes(cmd, start, start + len_end, '\''))
 	{
 		if (start[0] == '?' && len_end == 1)
-		{
-			free(tmp);
 			return (ft_itoa(errno));
-		}
-		else if (start[0] != '?' && ft_strlen(start) == 1)
-		{
-			free(tmp);
+		else if (start[0] != '?' && len_end == 1)
 			return (ft_strdup(""));
-		}
-		else if ((tmp && ft_strlen(start) > 0))
+		tmp = ft_strstrchr((char *)start, env, len_end - 1);
+		if ((tmp && ft_strlen(start) > 0))
 			return (tmp);
+		free(tmp);
 	}
-	else if (tmp)
+	else if (len_end)
 		return (ft_strndup((char *)start - 1,
 				get_next_valid_sep((char *)start + 1) - start + 1));
 	return (ft_strdup(""));
@@ -68,14 +63,16 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 
 char	*update_cmdline(char **cmd, char *env_var, int offset, int len)
 {
-	char	*next_d;
-	char	*tmp;
+	char			*next_d;
+	char			*tmp;
+	const size_t	env_var_len = ft_strlen(env_var);
 
 	tmp = ft_strdup(*cmd);
 	free(*cmd);
 	*cmd = ft_strreplace(tmp, env_var, offset, len);
-	next_d = ft_strchr(*cmd + offset + ft_strlen(env_var), '$');
+	next_d = ft_strchr(*cmd + offset + env_var_len, '$');
 	free(env_var);
+	env_var = NULL;
 	return (next_d);
 }
 
@@ -86,7 +83,7 @@ char	*update_cmdline(char **cmd, char *env_var, int offset, int len)
  * @param env
  * @return
  */
-char	*replace_dollars(char *cmd, char **env) //Find leaks there
+char	*replace_dollars(char *cmd, char **env)
 {
 	char	*env_var;
 	char	*next_d;

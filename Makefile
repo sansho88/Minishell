@@ -1,10 +1,10 @@
 NAME := minishell
 LIBFT_PATH := ./libft/
-LIBFT := $(LIBFT_PATH)libft.a -lreadline
-READLINE_LIB :=  -L /Users/$(USER)/.brew/opt/readline/lib#-L $(shell brew --prefix readline)/lib -lreadline#-L .brew/opt/readline/lib and -I .brew/opt/readline/include
+LIBFT = $(LIBFT_PATH)libft.a
+READLINE_LIB :=  -L /Users/$(USER)/.brew/opt/readline/lib -lreadline#-L $(shell brew --prefix readline)/lib -lreadline#-L .brew/opt/readline/lib and -I .brew/opt/readline/include
 READLINE_INC := -I /Users/$(USER)/.brew/opt/readline/include#-I $(shell brew --prefix readline)/include
-FLAGS := -Wall -Werror -Wextra 
-FLAGS += #-fsanitize=address -g3
+FLAGS := #-Wall -Werror -Wextra#
+#FLAGS += -fsanitize=address -g3
 
 SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/parse_redirecs.c \
@@ -41,11 +41,11 @@ OBJS := $(SRCS:.c=.o)
 
 all: libftmake $(NAME)
 
-%.o:%.c minishell.h Makefile $(LIBFT)
+%.o: %.c incs/minishell.h Makefile $(LIBFT)
 	gcc -c $< $(FLAGS) -o $@
 
 $(NAME): $(OBJS) Makefile
-	gcc $(LIBFT) $(READLINE_LIB) $(FLAGS) $(READLINE_INC) $(OBJS) -L libft -lft -o $(NAME)
+	gcc $(LIBFT) $(READLINE_LIB) $(FLAGS) $(READLINE_INC) $(OBJS) -L $(LIBFT_PATH) -lft -o $(NAME)
 
 clean:
 	rm $(OBJS)

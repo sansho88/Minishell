@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 11:52:02 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:12:33 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_trim_args(t_argmode *argmode, size_t nb_args)
 	while (i < nb_args)
 	{
 		tmp = ft_strdup(argmode[i].arg);
-		if (argmode[i].arg && *argmode[i].arg)
+		if (argmode[i].arg)
 			free(argmode[i].arg);
 		argmode[i].arg = ft_strtrim(tmp, " ");
 		if (are_quotes_closed(argmode[i].arg))
@@ -81,7 +81,7 @@ void	ft_trim_args(t_argmode *argmode, size_t nb_args)
 
 void	end_fill_split(t_argmode	*res, int num_part, char *cmdline, int j)
 {
-	if (res[num_part].arg != NULL && *res[num_part].arg)
+	if (res[num_part].arg != NULL)
 		free(res[num_part].arg);
 	res[num_part].arg = ft_strtrim(cmdline + j, " ");
 	res[num_part].mode = 0;
@@ -97,7 +97,7 @@ t_argmode	*create_targmode_array(char *cmdline)
 {
 	int			i;
 	int			j;
-	int			num_part;
+	size_t		num_part;
 	t_argmode	*res;
 
 	i = -1;
@@ -118,6 +118,6 @@ t_argmode	*create_targmode_array(char *cmdline)
 		}
 	}
 	if (num_part == get_nb_seps(cmdline))
-		end_fill_split(res, num_part, cmdline, j);
+		end_fill_split(res, (int)num_part, cmdline, j);
 	return (replace_heredocs(res, num_part));
 }

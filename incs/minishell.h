@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 12:42:28 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 15:27:53 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 # define BUFFER_SIZE 4200
+# define DBUG(VAR_TO_DEBUG) dprintf(2, "[%s]%s:%p\n", __func__, VAR_TO_DEBUG, VAR_TO_DEBUG);
 
 
 
