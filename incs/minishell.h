@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 15:27:53 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 21:30:13 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void		rl_replace_line(char *str, int idk);
 //CHECK_CMDLINE
 bool		is_cmdline_ok(char **cmdline, char **env);
 bool		are_args_ok(t_argmode	*args, size_t *nb_args);
+int			ft_check_redir(const char *chars, const char	*cmdline);
 
 //QUOTES
 size_t		get_nb_quote(char *str, char quote);
@@ -123,6 +124,9 @@ char		**init_env(char	**env);
 char		*get_next_valid_sep(char *str);
 char		*replace_dollars(char *cmd, char **env);
 char		*ft_strstrchr(char *target, char **tab, size_t len_target);
+
+//UTILS_CHECK_CMDLINE
+bool		is_char_inquotes(char *cmdline, char target);
 
 //UTILS_HEREDOC
 t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);

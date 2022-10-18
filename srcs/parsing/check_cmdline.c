@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:02:34 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 13:57:31 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 23:02:49 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,50 @@
  * Check if there are many "wrongs" characters in a caterpillar form
  * @param cmdline
  * @param testchar
+ * @param len = how any of this char can throws a chenille chars
  * @return True if everything is okay
  */
-static bool	check_chenille_char(char *cmdline, char testchar)
+static bool	check_chenille_char(char *cmdline, char testchar, size_t len)
 {
-	char	*charpos;
+	char		*charpos;
+	size_t		count;
 
 	charpos = ft_strchr(cmdline, testchar);
-	if (charpos)
+	while (charpos)
 	{
-		if (!is_str_in_quotes(cmdline, charpos, get_next_valid_sep(charpos + 1),
-				'"') && *(charpos + 1) == testchar)
-			return (false);
+		count = 0;
+		while (charpos && !is_str_in_quotes(cmdline, charpos,
+				get_next_valid_sep((char *)charpos + 1), '"'))
+		{
+			while (*charpos == ' ' && *(charpos + 1))
+				charpos++;
+			if (*(charpos) == testchar && count < len)
+				count++;
+			if (count >= len)
+				return (false);
+			if (*(++charpos) != testchar)
+				break ;
+		}
+		if (charpos && charpos + 1)
+			charpos = ft_strchr(charpos + 1, testchar);
 	}
 	return (true);
 }
 
 static bool	is_chars_orgy(char *cmdline)
 {
-	char	*trgt;
-
-	if (!check_chenille_char(cmdline, '|'))
+	if (!check_chenille_char(cmdline, '|', 2))
 	{
 		printf("[hug of pipes]");
 		return (true);
 	}
-	trgt = ft_strchr(cmdline, '\\');
-	while (trgt)
-	{
-		if (!is_str_in_quotes(cmdline, trgt, get_next_valid_sep(trgt + 1), '"'))
-			return (true);
-		trgt = ft_strchr(cmdline, '\\');
-	}
-	trgt = ft_strchr(cmdline, ';');
-	while (trgt)
-	{
-		if (!is_str_in_quotes(cmdline, trgt, get_next_valid_sep(trgt + 1), '"'))
-			return (true);
-		trgt = ft_strchr(cmdline, ';');
-	}
+	if (!check_chenille_char(cmdline, '>', 3)
+		|| !check_chenille_char(cmdline, '<', 3))
+		return (true);
+	if (is_char_inquotes(cmdline, '\\'))
+		return (true);
+	if (is_char_inquotes(cmdline, ';'))
+		return (true);
 	return (false);
 }
 
@@ -77,7 +82,6 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 	}
 	free(*cmdline);
 	*cmdline = testcmd;
-	//free(testcmd);
 	if (!are_quotes_closed(*cmdline))
 		return (false);
 	if (is_chars_orgy(*cmdline))
@@ -86,8 +90,7 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 		return (false);
 	}
 	if (ft_strchr(*cmdline, '$'))
-		*cmdline = replace_dollars(*cmdline, env); //LEAKS !
-		//printf("%s replace_dollars leak?\n", __func__ );
+		*cmdline = replace_dollars(*cmdline, env);
 	return (true);
 }
 
@@ -106,7 +109,8 @@ bool	are_args_ok(t_argmode	*args, size_t *nb_args)
 	i = 0;
 	while (i < *nb_args)
 	{
-		if (!args[i].arg)
+		if (!args[i].arg || (!*args[i].arg && args[i].mode == 1)
+			|| ft_check_redir(args[i].arg, args[i].arg))
 		{
 			ft_putendl_fd(ERR_SYNTAX, 2);
 			free_t_argmode(args, nb_args);

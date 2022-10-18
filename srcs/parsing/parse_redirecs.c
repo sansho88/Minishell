@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 17:12:33 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 22:59:01 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@
  * @param chars = A pointer to the first char to check
  * @return The "mode" (check minishell.h)
  */
-static int	ft_check_redir(const char *chars, const char	*cmdline)
+int	ft_check_redir(const char *chars, const char	*cmdline)
 {
 	const bool	in_quotes = (is_str_in_quotes(cmdline, chars, chars + 1, '"')
 			|| is_str_in_quotes(cmdline, chars, chars + 1, '\''));
 
-	if (!chars || !*(chars + 1))
-		return (NOT_REDIR);
-	if (in_quotes)
+	if (!chars || !*(chars + 1) || in_quotes)
 		return (NOT_REDIR);
 	if (*chars == '|')
 		return (PIPE);
@@ -51,9 +49,7 @@ size_t	get_nb_seps(const char *cmdline)
 	while (cmdline[++i])
 	{
 		redir = ft_check_redir(&cmdline[i], cmdline);
-		nb_seps += (redir != 0);
-		if (redir == 3 || redir == 5)
-			nb_seps--;
+		nb_seps += (redir != 0 && !(redir == 3 || redir == 5));
 		if (i > 0 && (cmdline[i - 1] == '>' || cmdline[i - 1] == '<'))
 				i++;
 	}
