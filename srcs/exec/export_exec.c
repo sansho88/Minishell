@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 10:40:04 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 15:10:34 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,43 +63,43 @@ int	is_valid(t_argmode *args, t_args *d, char	*arg)
 		j = i;
 	return (j);
 }
-int	erase_or_not (char	*env, char	*tmp, char	*arg, bool	value)
+int	erase_or_not (char	**env, char	*tmp, char	*arg, bool	value)
 {
 	char	*tmp2;
 
 	tmp2 = ft_strjoin(tmp, "=");
-	/*if (ft_strncmp(env, tmp, ft_strlen(tmp)) == 0)
+	if (ft_strncmp(*env, tmp, ft_strlen(tmp)) == 0)
 	{
 		printf("valeur de TMP : %s\n", tmp);
 		printf("valeur de TMP2 : %s\n", tmp2);
-		printf("valeur de env : %s\n", env);
+		printf("valeur de env : %s\n", *env);
 		printf("valeur de arg : %s\n", arg);
 		free(tmp2);
 		printf("enter TMP\n");
 		if (value == true)
 		{
-			free(env);
-			env = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
-			ft_strlcpy(env, arg, ft_strlen(arg) + 1);
+			free(*env);
+			*env = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+			ft_strlcpy(*env, arg, ft_strlen(arg) + 1);
 			//free(arg);
 			return (1);
 		}
 		else
 			return (1);
 	}
-	else if (ft_strncmp(env, tmp2, ft_strlen(arg)) == 0 && !env[ft_strlen(arg)])
+	else if (ft_strncmp(*env, tmp2, ft_strlen(arg)) == 0 && !(*env)[ft_strlen(arg)])
 	{
 		printf("enter tmp2\n");
 		printf("valeur de TMP : %s\n", tmp);
 		printf("valeur de TMP2 : %s\n", tmp2);
-		printf("valeur de env : %s\n", env);
+		printf("valeur de env : %s\n", *env);
 		printf("valeur de arg : %s\n", arg);
 		free(tmp2);
 		if (value == true)
 		{
-			free(env);
-			env = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
-			ft_strlcpy(env, arg, ft_strlen(arg) + 1);
+			free(*env);
+			*env = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+			ft_strlcpy(*env, arg, ft_strlen(arg) + 1);
 			//free(arg);
 			return (1);
 		}
@@ -107,35 +107,35 @@ int	erase_or_not (char	*env, char	*tmp, char	*arg, bool	value)
 			return(1);
 	}
 	free(tmp2);
-	return (0);*/
-	
+	return (0);
 }
 int	check_if_already_set (t_argmode *args, t_args *d, char	*arg, int	nb)
 {
 	int		i;
 	char	*tmp;
-	char	*tmp2;
 	bool	value = false;
 
 	i = 0;
-	tmp = ft_calloc(ft_strlen(arg)+ 1, sizeof(char));
+	tmp = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
 	while (i < nb)
 	{
 		tmp[i] = arg[i];
 		i++;
 	}
-	tmp2 = ft_strjoin(tmp, "=");
 	if (nb < ft_strlen(arg))
 		value = true;
 	while (d->env[i])
 	{
-		/*if (erase_or_not(d->env[i], tmp, arg, value))
+		if (d->env_len == 0)
+			break;
+		//printf("enter here\n");
+		if (erase_or_not(&d->env[i], tmp, arg, value))
 		{
 			//free(arg);
 			free(tmp);
 			return (1);
-		}*/
-		if (ft_strncmp(d->env[i], tmp, ft_strlen(tmp)) == 0)
+		}
+		/*if (ft_strncmp(d->env[i], tmp, ft_strlen(tmp)) == 0)
 		{
 			free(tmp);
 			free(tmp2);
@@ -162,11 +162,10 @@ int	check_if_already_set (t_argmode *args, t_args *d, char	*arg, int	nb)
 			}
 			else
 				return(1);
-		}
+		}*/
 		i++;
 	}
 	free(tmp);
-	free(tmp2);
 	return (0);
 }
 
@@ -215,7 +214,6 @@ int	export_hub(t_argmode *args, t_args *d)
 	d->is_built_in = true;
 	if (d->append_pos != 0 || d->stdout_pos != 0 || args[d->acutal_arg].mode == 1)
 	{
-		printf("export-fork\n\n");
 		d->is_redirect = true;
 		make_fork_built_in(d, args);
 		return (0);

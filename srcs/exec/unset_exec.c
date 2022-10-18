@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/17 20:14:36 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 14:27:19 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int	check_if_set(t_argmode	*args, t_args	*d, char	*arg)
 	int	i;
 
 	i = 0;
-	if (d->needle)
-		free(d->needle);
 	d->needle = ft_strjoin(arg, "=");
 	while (d->env[i])
 	{
@@ -63,6 +61,24 @@ int	check_if_set(t_argmode	*args, t_args	*d, char	*arg)
 		else if (ft_strncmp(d->env[i], arg, ft_strlen(arg)) == 0 && !d->env[i][ft_strlen(arg)])
 			d->env = ft_env_copy(d, arg);
 		i++;
+	}
+	return (0);
+}
+
+int	check_unset_arg(t_args *d, char	*arg)
+{
+	int	j;
+
+	j = 0;
+	if (arg[0] == '=')
+		return (1);
+	while (arg[j] && arg[j] != '=')
+	{
+		if (ft_isalpha(arg[0]) == 0 && arg[0] != '_')
+			return(1);
+		if (ft_isalnum(arg[j]) == 0 && arg[j] != '_')
+			return (1);
+		j++;
 	}
 	return (0);
 }
@@ -77,7 +93,10 @@ int	unset_hub(t_argmode *args, t_args *d)
 	arg = ft_split(args->arg, ' ');
 	while (arg[i])
 	{
-		check_if_set(args, d, arg[i]);
+		if (check_unset_arg(d, arg[i]) == 0)
+			check_if_set(args, d, arg[i]);
+		else
+			printf("%s : not a valid identifier\n", arg[i]);
 		i++;
 	}
 	free_all(arg);

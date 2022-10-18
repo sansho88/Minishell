@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 10:50:35 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 16:41:58 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,23 @@ int	is_built_in(t_args *d, t_argmode *argv)
 
 void	make_fork(t_args *d, t_argmode *argv)
 {
-	if (d->is_path_set == true)
+	d->pid[d->j] = fork();
+	if (d->pid[d->j] == -1)
 	{
-		d->pid[d->j] = fork();
-		if (d->pid[d->j] == -1)
-		{
-			perror("fork");
-		}
-		else if (d->pid[d->j] == 0)
-			process_pipe(d, argv);
-		if (d->acutal_arg > 0)
-		{
-			close(d->temp_tube[0]);
-			close(d->temp_tube[1]);
-		}
-		d->temp_tube[0] = d->tube[0];
-		d->temp_tube[1] = d->tube[1];
+		perror("fork");
 	}
-	else if (d->is_path_set == false)
-		printf("%s :No such file or directory\n", argv[d->acutal_arg].arg);
+	else if (d->pid[d->j] == 0)
+	{
+		printf("entre dans le fork\n");
+		process_pipe(d, argv);
+	}
+	if (d->acutal_arg > 0)
+	{
+		close(d->temp_tube[0]);
+		close(d->temp_tube[1]);
+	}
+	d->temp_tube[0] = d->tube[0];
+	d->temp_tube[1] = d->tube[1];
 }
 
 void	make_fork_built_in(t_args *d, t_argmode *argv)

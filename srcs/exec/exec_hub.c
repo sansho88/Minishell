@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/17 15:41:13 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 17:37:10 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ void	data_initialize(t_args *d, int argc)
 	d->pwd_len = 0;
 	d->is_path_set = true;
 	d->is_built_in = false;
-	d->pid = malloc(sizeof(int) * argc - 3);
+	d->pid = malloc(sizeof(int) * (argc + 1));
 	d->is_redirect = false;
 	d->is_unset = false;
 	tmp = ft_calloc(BUFFER_SIZE, sizeof(char));
 	getcwd(tmp, BUFFER_SIZE);
-	d->pwd = tmp;
+	d->pwd = strdup(tmp);
+	printf("pwd de base : %s\n\n", d->pwd);
 	free(tmp);
 	pwd_set(d);
 	path_hub(d);
@@ -75,11 +76,11 @@ void	data_initialize(t_args *d, int argc)
 int	exec_home(t_argmode *argv, int argc, t_args *d)
 {
 	int	i;
-	int	status;
+	int	rl_stdin;
 
+	rl_stdin = dup(0);
 	i = 0;
 	data_initialize(d, argc);
-	//printf("hello\n");
 	sorting_hub(d, argv);
 	i = 0;
 	while (i < d->argc)
@@ -89,8 +90,11 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	}
 	free(d->pid);
 	rm_heredoc();
-	//free(d->env);
+	close(d->tube[0]);
+	close(d->tube[1]);
 	//free(d->pwd);
+	//d->pwd = NULL;
+	ft_dup2(rl_stdin, 0);
 	free_all(d->path);
 	return (1);
 }

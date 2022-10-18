@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/17 14:34:45 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 17:31:05 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	bwd_to_directory(t_argmode *args, t_args *d, char **arg)
 
 	i = 0;
 	len = 0;
+	printf("hello\n");
+	printf("valeur de pwd : %s\n", d->pwd);
 	pwd_copy = ft_split(d->pwd, '/');
 	while (pwd_copy[len])
 		len++;
@@ -45,6 +47,8 @@ int	fwd_to_directory(t_argmode *args, t_args *d, char **arg)
 	tmp = getcwd(tmp, BUFFER_SIZE);
 	tmp = ft_strjoin_free(tmp, "/", 1);
 	tmp = ft_strjoin_free(tmp, arg[1], 1);
+	printf("valeur de tmp : %s\n", tmp);
+	printf("valeur de PWD : %s\n", d->pwd);
 	if (chdir(tmp) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", arg[1]);
@@ -111,7 +115,9 @@ int	cd_hub(t_argmode *args, t_args *d)
 	else if (args_nbr == 2 && ft_strncmp("..", arg[1], 3) != 0)
 		fwd_to_directory(args, d, arg);
 	else if (args_nbr == 2 && ft_strncmp("..", arg[1], 3) == 0)
+	{
 		bwd_to_directory(args, d, arg);
+	}
 	/*else if (ft_strncmp("cd", arg[0], 2) == 0 &&
 		ft_strncmp("/Users/robingeral", d->pwd, 18) != 0)
 		only_cd(args, d, arg);*/

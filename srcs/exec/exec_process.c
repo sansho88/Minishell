@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/11 17:17:27 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 16:43:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	execute(t_args *d, char **args, int nb)
 	}
 	else
 		printf("%s: command not found\n", args[0]);
-	exit(127);
+	//exit(127);
 }
 
 // pour chqaue commqnde du pipe

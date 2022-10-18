@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 10:51:50 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 17:05:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_exit(t_args *d, t_argmode *argv)
 	char	**args;
 
 	d->is_built_in = true;
-	args = ft_split(argv->arg, ' ');
+	args = ft_split_len(argv->arg, ' ', &nb_args);
 	while (args[nb_args])
 		nb_args++;
 	if (!args || nb_args <= 1)

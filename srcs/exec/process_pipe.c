@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/17 18:17:29 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 16:45:11 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_forward(t_args *d, t_argmode *argv)
 				| O_CREAT | O_APPEND, 0644);
 	if (file == -1)
 	{
-	//	perror("bad outfile");
-		exit(EXIT_FAILURE);
+		perror("bad outfile");
+		//exit(EXIT_FAILURE);
 	}
 	ft_dup2(file, 1);
 	close(file);
@@ -95,11 +95,15 @@ void	process_pipe(t_args *d, t_argmode *argv)
 
 	tmp = NULL;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
+	printf("valeur de arg : %s\n", args[0]);
 	if (access(args[0], F_OK | X_OK) == 0)
 		execve(args[0], args, d->env);
 	tmp = resolve_path(d, args);
 	if (d->acutal_arg == 0 && args[0] == NULL)
+	{
+		printf("exit\n");
 		exit(127);
+	}
 	if (d->argc == 1)
 		execute(d, args, d->acutal_arg);
 	if (!tmp && d->is_built_in == false)
@@ -115,5 +119,6 @@ void	process_pipe(t_args *d, t_argmode *argv)
 		execve(args[0], args, d->env);
 	else if (d->is_built_in == false)
 		execute(d, args, d->acutal_arg);
+	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }
