@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/17 15:18:46 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 23:47:56 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 int	is_built_in(t_args *d, t_argmode *argv)
 {
-	if (ft_strncmp(&argv->arg[d->acutal_arg], "cd ", 3) == 0 && d->argc == 1)
+	//printf("l'arg : %s\n", argv[d->acutal_arg].arg);
+	if (ft_strncmp(argv[d->acutal_arg].arg, "cd ", 3) == 0 && d->argc == 1)
 		cd_hub(argv, d);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "export ", 7) == 0 || ft_strncmp(&argv->arg[d->acutal_arg], "export", 7) == 0)
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "export ", 7) == 0 ||
+	ft_strncmp( argv[d->acutal_arg].arg, "export", 7) == 0)
 		export_hub(argv, d);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "env", 4) == 0)
-	{
-		printf("env\n\n");
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "env", 4) == 0)
 		env_hub(argv, d);
-	}
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "unset ", 6) == 0
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "unset ", 6) == 0
 		&& d->argc == 1)
 		unset_hub(argv, d);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "exit ", 5) == 0)
-		ft_exit(d, argv);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "echo ", 5) == 0)
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "exit ", 5) == 0 ||
+		ft_strncmp( argv[d->acutal_arg].arg, "exit", 6) == 0)
+		exit_hub(d, argv);
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "echo ", 5) == 0)
 		echo_hub(argv[0].arg, d, argv);
-	else if (ft_strncmp(&argv->arg[d->acutal_arg], "pwd ", 4) == 0)
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "pwd ", 4) == 0 ||
+		ft_strncmp(argv[d->acutal_arg].arg, "pwd", 4) == 0)
 		pwd_hub(argv, d);
 	else
 		return (0);
@@ -39,25 +40,22 @@ int	is_built_in(t_args *d, t_argmode *argv)
 
 void	make_fork(t_args *d, t_argmode *argv)
 {
-	if (d->is_path_set == true)
+	d->pid[d->j] = fork();
+	if (d->pid[d->j] == -1)
 	{
-		d->pid[d->j] = fork();
-		if (d->pid[d->j] == -1)
-		{
-			perror("fork");
-		}
-		else if (d->pid[d->j] == 0)
-			process_pipe(d, argv);
-		if (d->acutal_arg > 0)
-		{
-			close(d->temp_tube[0]);
-			close(d->temp_tube[1]);
-		}
-		d->temp_tube[0] = d->tube[0];
-		d->temp_tube[1] = d->tube[1];
+		perror("fork");
 	}
-	else if (d->is_path_set == false)
-		printf("%s :No such file or directory\n", argv[d->acutal_arg].arg);
+	else if (d->pid[d->j] == 0)
+	{
+		process_pipe(d, argv);
+	}
+	if (d->j > 0)
+	{
+		close(d->temp_tube[0]);
+		close(d->temp_tube[1]);
+	}
+	d->temp_tube[0] = d->tube[0];
+	d->temp_tube[1] = d->tube[1];
 }
 
 void	make_fork_built_in(t_args *d, t_argmode *argv)

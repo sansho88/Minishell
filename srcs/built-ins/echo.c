@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 15:02:03 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 11:23:38 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_echo(char *arg, t_args *d)
 int	echo_hub(char *arg, t_args *d, t_argmode *args)
 {
 	d->is_built_in = true;
-	if (d->append_pos != 0 || d->stdout_pos != 0)
+	if (d->append_pos != 0 || d->stdout_pos != 0 || args[d->acutal_arg].mode == 1)
 	{
 		d->is_redirect = true;
 		make_fork_built_in(d, args);

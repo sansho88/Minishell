@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 21:30:13 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:19:35 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void	process_pipe_built_in(t_args *d, t_argmode *argv);
 int		print_env(t_args *d);
 int		echo_hub(char *arg, t_args *d, t_argmode *args);
 void	free_all(char **str);
+int		exit_hub(t_args *d, t_argmode *argv);
 //char	**ft_env_copy(t_args *d, char *arg);
 
 // COLORS

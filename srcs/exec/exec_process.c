@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/11 17:17:27 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 19:45:01 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ char	*resolve_path(t_args *d, char **args)
 
 	j = 0;
 	tmp = NULL;
+	if (access(args[0], F_OK | X_OK) == 0)
+	{
+		return (args[0]);
+	}
 	if (d->is_path_set == true)
 	{
 		while (d->path[j])
@@ -40,7 +44,6 @@ void	execute(t_args *d, char **args, int nb)
 	tmp = NULL;
 	if (d->is_path_set)
 		tmp = resolve_path(d, args);
-	//free_all(d->path);
 	if (tmp && d->is_path_set == true)
 	{
 		args[0] = tmp;

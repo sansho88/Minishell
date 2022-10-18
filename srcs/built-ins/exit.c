@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/07 20:33:18 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 22:21:35 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_exit(t_args *d, t_argmode *argv)
 	char	**args;
 
 	d->is_built_in = true;
-	args = ft_split(argv->arg, ' ');
+	args = ft_split_len(argv->arg, ' ', &nb_args);
 	while (args[nb_args])
 		nb_args++;
 	if (!args || nb_args <= 1)
@@ -52,4 +52,17 @@ void	ft_exit(t_args *d, t_argmode *argv)
 	{
 		exit (ft_atoi(args[1]) % 256);
 	}
+}
+
+int	exit_hub(t_args *d, t_argmode *argv)
+{
+	d->is_built_in = true;
+	if (argv[d->acutal_arg].mode == 1)
+	{
+		d->is_redirect = true;
+		make_fork_built_in(d, argv);
+		return (0);
+	}
+	ft_exit(d, argv);
+	return (0);
 }

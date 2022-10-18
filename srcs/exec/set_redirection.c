@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 23:35:48 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/08 19:18:21 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 13:24:14 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	set_fwd(t_args *d, t_argmode *argv, int i, int file2)
 			d->stdout_pos = i;
 			d->redir_count++;
 			d->is_append = i;
+			close(file2);
 		}
 		else
 			i++;
