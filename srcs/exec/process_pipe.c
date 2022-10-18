@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 00:19:22 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 01:01:16 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_forward(t_args *d, t_argmode *argv)
 		perror("bad outfile");
 		exit(EXIT_FAILURE);
 	}
-	printf("dup2 du FWD\n");
 	ft_dup2(file, 1);
 	close(file);
 }
@@ -42,7 +41,6 @@ void	ft_backward(t_args *d, t_argmode *argv)
 		perror("bad outfile");
 		exit(EXIT_FAILURE);
 	}
-	printf("dup2 du BWD\n");
 	ft_dup2(file2, STDIN_FILENO);
 	close(file2);
 }
@@ -58,28 +56,25 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 	close(fd[1]);*/
 	if (d->stdin_pos != 0)
 	{
-		printf("back\n");
 		ft_backward(d, argv);
 	}
 	if (d->stdout_pos != 0)
 	{
-		printf("FWD\n");
 		ft_forward(d, argv);
 	}
 	else if (d->is_last == 1)
 	{
-		printf("heyo\n");
 		ft_dup2(d->tube[1], STDOUT_FILENO);
 	}
-	close(d->tube[1]);
+	/*close(d->tube[1]);
 	close(d->tube[0]);
+	vu en debug avec abucia, ne semble pas necessaire*/
 }
 
 void	pipe_rebuild_else(t_args *d, t_argmode *argv)
 {
 	if (d->stdin_pos != 0)
 	{
-		printf("entre dans Backward\n");
 		ft_backward(d, argv);
 	}
 	else
