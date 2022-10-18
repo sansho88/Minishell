@@ -14,6 +14,7 @@ SRCS := srcs/parsing/nigga-tests.c \
 		srcs/parsing/quotes.c \
 		srcs/parsing/dollars.c \
 		srcs/parsing/check_cmdline.c \
+		srcs/parsing/utils_check_cmdline.c \
 		srcs/signals/signal_handler.c \
 		srcs/exec/exec_hub.c \
 		srcs/exec/ft_split.c \

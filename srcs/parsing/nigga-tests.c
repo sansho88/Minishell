@@ -44,7 +44,7 @@ int	main(int argc, char *argv[], char	*env[])
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1;
 			args = create_targmode_array(commandline);
-			//debug_t_argmode(args, (int)nb_args);
+			debug_t_argmode(args, (int)nb_args);
 			if (are_args_ok(args, &nb_args))
 				exec_home(args, (int)nb_args, &data);
 			free_t_argmode(args, &nb_args);
