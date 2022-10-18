@@ -60,7 +60,6 @@ void	ft_echo(char *arg, t_args *d)
 			result = ft_strjoin_free(result, " ", 1);
 	}
 	free_args(split_arg, nb_args + 1);
-	printf("%s: %p\n", __func__, arg);
 	if (n == false)
 		printf("%s\n", result);
 	else

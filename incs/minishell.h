@@ -43,6 +43,7 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 # define BUFFER_SIZE 4200
+# define DBUG(VAR_TO_DEBUG) dprintf(2, "[%s]%s:%p\n", __func__, VAR_TO_DEBUG, VAR_TO_DEBUG);
 
 
 
@@ -110,6 +111,7 @@ void		rl_replace_line(char *str, int idk);
 //CHECK_CMDLINE
 bool		is_cmdline_ok(char **cmdline, char **env);
 bool		are_args_ok(t_argmode	*args, size_t *nb_args);
+int			ft_check_redir(const char *chars, const char	*cmdline);
 
 //QUOTES
 size_t		get_nb_quote(char *str, char quote);
@@ -122,6 +124,9 @@ char		**init_env(char	**env);
 char		*get_next_valid_sep(char *str);
 char		*replace_dollars(char *cmd, char **env);
 char		*ft_strstrchr(char *target, char **tab, size_t len_target);
+
+//UTILS_CHECK_CMDLINE
+bool		is_char_inquotes(char *cmdline, char target);
 
 //UTILS_HEREDOC
 t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);

@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:58 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 11:52:02 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:22:50 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ char	*ft_new_heredocname(int *nb_created)
 	filename = ft_strdup("/tmp/.heredoc");
 	if (!filename || !str_nb)
 		perror(HEREDOC_ERROR);
-	filename = ft_strjoin_free(filename, str_nb, 1);
+	filename = ft_strjoin_free(filename, str_nb, 3);
 	filename = ft_strjoin_free(filename, ".txt", 1);
-	free(str_nb);
 	str_nb = NULL;
 	return (filename);
 }
