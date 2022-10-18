@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 00:14:51 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:45:31 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	data_initialize(t_args *d, int argc)
 	d->stdout_pos = 0;
 	d->acutal_arg = 0;
 	d->j = 0;
+	d->tube[1] = -1;
+	d->tube[0] = -1;
 	d->is_append = 0;
 	d->append_pos = 0;
 	d->heredoc_pos = 0;

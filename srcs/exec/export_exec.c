@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 15:10:34 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 00:55:44 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ int	is_already_set(t_argmode *args, t_args *d, char	*arg)
 	int	i;
 	int	nb;
 
+	printf("is already set\n\n");
 	i = 0;
 	nb = is_valid(args, d, arg);
 	if (nb < 0)
@@ -214,6 +215,7 @@ int	export_hub(t_argmode *args, t_args *d)
 	d->is_built_in = true;
 	if (d->append_pos != 0 || d->stdout_pos != 0 || args[d->acutal_arg].mode == 1)
 	{
+		printf("helo\n");
 		d->is_redirect = true;
 		make_fork_built_in(d, args);
 		return (0);
