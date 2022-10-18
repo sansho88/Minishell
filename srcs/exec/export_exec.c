@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 10:36:16 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/18 10:40:04 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	erase_or_not (char	*env, char	*tmp, char	*arg, bool	value)
 	char	*tmp2;
 
 	tmp2 = ft_strjoin(tmp, "=");
-	if (ft_strncmp(env, tmp, ft_strlen(tmp)) == 0)
+	/*if (ft_strncmp(env, tmp, ft_strlen(tmp)) == 0)
 	{
 		printf("valeur de TMP : %s\n", tmp);
 		printf("valeur de TMP2 : %s\n", tmp2);
@@ -107,7 +107,7 @@ int	erase_or_not (char	*env, char	*tmp, char	*arg, bool	value)
 			return(1);
 	}
 	free(tmp2);
-	return (0);
+	return (0);*/
 	
 }
 int	check_if_already_set (t_argmode *args, t_args *d, char	*arg, int	nb)
