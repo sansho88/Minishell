@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 14:19:47 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:18:58 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	debug_t_argmode(t_argmode *args, int nb_arg)
 		dprintf(2, "[%s]The struct is NULL.\n", __func__);
 		return ;
 	}
-	//dprintf(2, "t_argmode addr=%p\n", args);
 	while (i < nb_arg)
 	{
 		dprintf(1, "[%s]t_argmode->arg=%s__ t_argmode->mode=%d|addr=%p\n",
@@ -36,7 +35,6 @@ void	free_t_argmode(t_argmode *args, size_t *nb_args)
 	size_t	i;
 
 	i = 0;
-	//printf("[%s]Number of args %zu\n",__func__, *nb_args);
 	while (i < *nb_args && args && args[i].arg)
 	{
 		free(args[i].arg);
@@ -44,7 +42,6 @@ void	free_t_argmode(t_argmode *args, size_t *nb_args)
 		args[i].mode = 0;
 		i++;
 	}
-	//printf("Going to free t_argmode: %p\n", args);
 	if (*nb_args > 0)
 		free(args);
 	*nb_args = 0;
@@ -100,5 +97,3 @@ char	*ft_strreplace(char *str, char *to_insert, int pos, int len_to_replace)
 	str = NULL;
 	return (result);
 }
-
-//j'ai pas trouvé le leak mais j'ai une piste: "$A" leak le PATH pour des raisons très obscures, ça à l'air très instable

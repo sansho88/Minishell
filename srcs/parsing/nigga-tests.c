@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 14:19:47 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:22:09 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(int argc, char *argv[], char	*env[])
 	size_t		nb_args;
 	t_args		data;
 
+	(void)argc;
+	(void)argv;
 	get_signals();
 	data.env = init_env(env);
 	while (true)
