@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 13:57:40 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 15:49:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 	{
 		ft_dup2(d->tube[1], STDOUT_FILENO);
 	}
-	/*close(d->tube[1]);
-	close(d->tube[0]);
-	vu en debug avec abucia, ne semble pas necessaire*/
 }
 
 void	pipe_rebuild_else(t_args *d, t_argmode *argv)
@@ -114,6 +111,5 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
 	execve(tmp, args, d->env);
-
 	exit(EXIT_SUCCESS);
 }

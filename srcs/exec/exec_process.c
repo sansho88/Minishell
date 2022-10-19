@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 09:09:30 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 14:57:17 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*resolve_path(t_args *d, char **args)
 {
 	char	*tmp;
-	int j;
+	int		j;
 
 	j = 0;
 	tmp = NULL;
@@ -53,6 +53,3 @@ void	execute(t_args *d, char **args)
 		printf("%s: command not found\n", args[0]);
 	exit(127);
 }
-
-// pour chqaue commqnde du pipe
-// 	fork -> cherche le path de la cmd (ls -> /bin/ls) -> dup2 et redir -> exec

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:50:11 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/14 01:28:08 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 14:56:06 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	path_is_set(t_args *d, int pos)
 			len++;
 		i++;
 	}
-//	d->path = ft_calloc(len + 1, sizeof(char **));
-	d->path = ft_split(&d->env[pos][5], ':'); //leaks ici
+	d->path = ft_split(&d->env[pos][5], ':');
 	i = 0;
 	while (i < len)
 	{

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 09:29:05 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 14:54:45 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	only_cd(t_args *d)
 
 int	direct_path(char	**arg)
 {
-
 	if (chdir(arg[1]) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", arg[1]);
@@ -73,6 +72,7 @@ int	direct_path(char	**arg)
 	}
 	return (0);
 }
+
 int	cd_hub(t_argmode *args, t_args *d)
 {
 	char	**arg;
@@ -87,20 +87,6 @@ int	cd_hub(t_argmode *args, t_args *d)
 		fwd_to_directory(d, arg);
 	else if (args_nbr == 2 && ft_strncmp("..", arg[1], 3) == 0)
 		bwd_to_directory(d, arg);
-	/*else if (ft_strncmp("cd", arg[0], 2) == 0 &&
-		ft_strncmp("/Users/robingeral", d->pwd, 18) != 0)
-		only_cd(args, d, arg);*/
-	//set_pwd(d);
-	//char *oldpwd = getcwd(NULL, MAXPATHLEN);
-	/*if (chdir(arg[1]) < 0)
-	{
-		perror("cd");
-	}
-	else
-	{
-		printf("Old pwd : %s\n", oldpwd);
-	}
-	free(oldpwd);*/
 	free_all(arg);
 	return (0);
 }

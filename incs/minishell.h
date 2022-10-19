@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 13:34:58 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 15:45:45 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,8 @@ int			pwd_hub(t_argmode *args, t_args *d);
 void		sort_export_tab(t_args *d);
 void		sort_tab_exec(t_args *d);
 int			export_hub(t_argmode *args, t_args *d);
+int			is_valid(char	*arg);
+int			add_value(t_args *d, char	*arg, char	**env_copy);
 /*==================*/
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
