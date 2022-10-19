@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 15:45:28 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 18:54:59 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	erase_or_not(char	**env, char	*tmp, char	*arg, bool	value)
 		{
 			free(*env);
 			*env = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+			if (!*env)
+				return (0);
 			ft_strlcpy(*env, arg, ft_strlen(arg) + 1);
 			return (1);
 		}
@@ -46,6 +48,8 @@ int	check_if_already_set(t_args *d, char *arg, int nb)
 	value = false;
 	i = -1;
 	tmp = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+	if (!tmp)
+		return (0);
 	while (++i < nb)
 		tmp[i] = arg[i];
 	if (nb < (int)ft_strlen(arg))
@@ -108,7 +112,7 @@ int	export_hub(t_argmode *args, t_args *d)
 
 	d->is_built_in = true;
 	if (d->append_pos != 0 || d->stdout_pos != 0 || \
-		args[d->acutal_arg].mode == 1)
+		args[d->acutal_arg].mode == 1 || d->is_piped == true)
 	{
 		d->is_redirect = true;
 		make_fork_built_in(d, args);

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:50:11 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 14:56:06 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 19:08:35 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	path_hub(t_args *d)
 	else
 	{
 		d->path = ft_calloc(1, sizeof(char **));
+		if (!d->path)
+			exit(EXIT_FAILURE);
 		d->is_path_set = false;
 	}
 }

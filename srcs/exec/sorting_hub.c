@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 15:51:49 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 19:19:57 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ft_here_doc(t_args *d, t_argmode *argv)
 
 void	sorting_hub(t_args *d, t_argmode *argv)
 {
+	d->stdin_pos = 0;
+	d->stdout_pos = 0;
 	while (d->acutal_arg < d->argc)
 	{
 		d->redir_count = 0;

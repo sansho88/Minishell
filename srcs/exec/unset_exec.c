@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 15:53:02 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 19:09:53 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	**ft_env_copy(t_args *d, char *arg)
 	i = 0;
 	j = 0;
 	env_copy = ft_calloc(d->env_len + 2, sizeof(char *));
+	if (!env_copy)
+		exit(EXIT_FAILURE);
 	while (j < d->env_len + 1)
 	{
 		if (ft_strncmp(d->env[j], d->needle, ft_strlen(d->needle)) == 0)

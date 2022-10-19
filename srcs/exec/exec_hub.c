@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 14:56:38 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 19:20:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	data_initialize(t_args *d, int argc)
 	d->count = 0;
 	d->argc = argc;
 	d->next_mode = 0;
-	d->stdin_pos = 0;
-	d->stdout_pos = 0;
 	d->acutal_arg = 0;
 	d->j = 0;
 	d->tube[1] = -1;
@@ -66,10 +64,12 @@ void	data_initialize(t_args *d, int argc)
 	d->is_unset = false;
 	d->is_path_set = true;
 	d->pid = ft_calloc((argc + 1), sizeof(int));
+	if (!d->pid)
+		exit(EXIT_FAILURE);
 	d->pwd = ft_calloc(BUFFER_SIZE, sizeof(char));
+	if (!d->pwd)
+		exit(EXIT_FAILURE);
 	getcwd(d->pwd, BUFFER_SIZE);
-	pwd_set(d);
-	path_hub(d);
 }
 
 int	exec_home(t_argmode *argv, int argc, t_args *d)
@@ -80,6 +80,8 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	rl_stdin = dup(0);
 	i = 0;
 	data_initialize(d, argc);
+	pwd_set(d);
+	path_hub(d);
 	sorting_hub(d, argv);
 	i = 0;
 	while (i < d->argc)
