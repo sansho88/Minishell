@@ -126,7 +126,7 @@ char		*replace_dollars(char *cmd, char **env);
 char		*ft_strstrchr(char *target, char **tab, size_t len_target);
 
 //UTILS_CHECK_CMDLINE
-bool		is_char_inquotes(char *cmdline, char target);
+bool		is_char_inquotes(const char *cmdline, const char *target);
 
 //UTILS_HEREDOC
 t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);
