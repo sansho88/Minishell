@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:28:43 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/17 11:52:02 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/19 21:21:32 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,6 @@ bool	are_quotes_closed(const char *cmdline)
 	if (nb_single_quotes % 2 == 1)
 		ft_putendl_fd("Single-Quotes not closed", 2);
 	return (nb_single_quotes % 2 == 0 && nb_double_quotes % 2 == 0);
-}
-
-bool	is_envar_in_sngl_quotes(const char *str, size_t lenstr, bool is_env_var)
-{
-	if (!(str - is_env_var) || *(str - is_env_var) != '\'')
-		return (false);
-	return (str[lenstr] + 1 && str[lenstr] + 1 == '\'');
 }
 
 /**

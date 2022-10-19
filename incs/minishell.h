@@ -115,8 +115,6 @@ int			ft_check_redir(const char *chars, const char	*cmdline);
 
 //QUOTES
 size_t		get_nb_quote(char *str, char quote);
-bool		is_envar_in_sngl_quotes(const char *str, \
-			size_t lenstr, bool is_env_var);
 bool		is_str_in_quotes(const char *str, \
 			const char	*start, \
 			const char	*end, char quote);
