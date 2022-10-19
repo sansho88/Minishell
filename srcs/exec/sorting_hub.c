@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 10:01:25 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 15:51:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		d->acutal_arg++;
 		d->j++;
 	}
-	close(d->tube[0]); /* Faire du test voir si je ne close pas la STDIN*/
+	close(d->tube[0]);
 	close(d->tube[1]);
 }
