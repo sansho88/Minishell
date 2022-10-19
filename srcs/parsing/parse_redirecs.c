@@ -103,7 +103,7 @@ t_argmode	*create_targmode_array(char *cmdline)
 	res = ft_calloc(sizeof(t_argmode), get_nb_seps(cmdline) + 1);
 	if (!res)
 		return (NULL);
-	while (++i < ft_strlen(cmdline) && num_part != get_nb_seps(cmdline))
+	while (++i < (int)ft_strlen(cmdline) && num_part != get_nb_seps(cmdline))
 	{
 		if (ft_check_redir(&cmdline[i], cmdline) != 0)
 		{
