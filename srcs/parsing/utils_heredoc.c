@@ -68,12 +68,6 @@ t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args)
 			free(args[i + 1].arg);
 			args[i + 1].arg = ft_heredoc(stop);
 			free(stop);
-			if (!args[i].arg)
-			{
-				free_t_argmode(args, &nb_args);
-				ft_putendl_fd("heredoc: stop word invalid. Aborted.", 2);
-				return (NULL);
-			}
 		}
 		i++;
 	}
