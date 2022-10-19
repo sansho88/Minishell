@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 17:19:35 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 16:12:54 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ char		*replace_dollars(char *cmd, char **env);
 char		*ft_strstrchr(char *target, char **tab, size_t len_target);
 
 //UTILS_CHECK_CMDLINE
-bool		is_char_inquotes(char *cmdline, char target);
+bool		is_char_inquotes(const char *cmdline, const char *target);
 
 //UTILS_HEREDOC
 t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);
