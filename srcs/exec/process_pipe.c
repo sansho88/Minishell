@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 09:58:04 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 13:57:40 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	tmp = NULL;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	tmp = resolve_path(d, args);
+	if (!args[0])
+		exit(127);
 	if (!tmp && access(args[0], F_OK | X_OK) != 0)
 	{
 		printf("%s: command not found\n", args[0]);
