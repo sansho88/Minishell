@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:48:16 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 15:43:08 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 18:52:11 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,29 +74,6 @@ int	cd_args_count(char **arg)
 		return (0);
 	}
 	return (arg_nbr);
-}
-
-void	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy)
-{
-	int	i;
-
-	i = 0;
-	if (ft_strncmp(d->pwd, "PWD=/Users", ft_strlen(d->pwd)) == 0)
-	{
-		d->pwd = ft_calloc(ft_strlen(d->pwd), sizeof(char));
-		d->pwd = "PWD=/";
-	}
-	else
-	{
-		d->pwd = ft_strdup("/");
-		while (i < len)
-		{
-			d->pwd = ft_strjoin_free(d->pwd, pwd_copy[i], 1);
-			if (i < len)
-				d->pwd = ft_strjoin_free(d->pwd, "/", 1);
-			i++;
-		}
-	}
 }
 
 int	is_valid(char	*arg)

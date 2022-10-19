@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirecs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 14:34:50 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:24:17 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_argmode	*create_targmode_array(char *cmdline)
 	res = ft_calloc(sizeof(t_argmode), get_nb_seps(cmdline) + 1);
 	if (!res)
 		return (NULL);
-	while (++i < ft_strlen(cmdline) && num_part != get_nb_seps(cmdline))
+	while (++i < (int)ft_strlen(cmdline) && num_part != get_nb_seps(cmdline))
 	{
 		if (ft_check_redir(&cmdline[i], cmdline) != 0)
 		{

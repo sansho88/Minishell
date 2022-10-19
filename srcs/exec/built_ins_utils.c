@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 15:45:38 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 19:10:45 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,13 @@ void	sort_export_tab(t_args *d)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0 ;
 	d->sort_env = ft_calloc(d->env_len + 1, sizeof(char *));
-	while (d->env[i])
-	{
+	if (!d->sort_env)
+		return ;
+	while (d->env[++i])
 		d->sort_env[i] = d->env[i];
-		i++;
-	}
 	i = 0;
 	while (d->sort_env[i])
 	{
@@ -84,12 +83,16 @@ int	add_value(t_args *d, char	*arg, char	**env_copy)
 
 	i = 0;
 	env_copy = ft_calloc(d->env_len + 2, sizeof(char *));
+	if (!env_copy)
+		return (1);
 	while (i < d->env_len)
 	{
 		env_copy[i] = d->env[i];
 		i++;
 	}
 	env_copy[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
+	if (!env_copy)
+		return (1);
 	ft_strlcpy(env_copy[i], arg, ft_strlen(arg) + 1);
 	free(d->env);
 	d->env_len++;
