@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_ins_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/16 12:03:39 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 09:28:23 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	sort_export_tab(t_args *d)
 	free(d->sort_env);
 }
 
-void	sort_export(t_argmode *args, t_args *d)
+void	sort_export(t_args *d)
 {
 	/*char	**sort_tab;
 	int		i;
@@ -136,7 +136,7 @@ int	set_pwd(t_args *d)
 	return (0);
 }
 
-int	cd_args_count(t_argmode *args, t_args *d, char **arg)
+int	cd_args_count(char **arg)
 {
 	int	arg_nbr;
 

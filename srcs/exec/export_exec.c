@@ -6,18 +6,17 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 00:55:44 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 12:18:12 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int	add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
+int	add_value(t_args *d, char	*arg, char	**env_copy)
 {
 	int	i;
 
 	i = 0;
-	printf("add value // valeur de arg : %s\n", arg);
 	env_copy = ft_calloc(d->env_len + 2, sizeof(char *));
 	while (i < d->env_len)
 	{
@@ -26,15 +25,13 @@ int	add_value(t_argmode *args, t_args *d, char	*arg, char	**env_copy)
 	}
 	env_copy[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
 	ft_strlcpy(env_copy[i], arg, ft_strlen(arg) + 1);
-	printf("add value // valeur de env_copy : %s\n", env_copy[i]);
 	free(d->env);
 	d->env_len++;
 	d->env = env_copy;
-	printf("add value // valeur de env : %s\n", d->env[i]);
 	return (0);
 }
 
-int	is_valid(t_argmode *args, t_args *d, char	*arg)
+int	is_valid(char	*arg)
 {
 	int	i;
 	int	j;
@@ -55,7 +52,7 @@ int	is_valid(t_argmode *args, t_args *d, char	*arg)
 		i++;
 	while (arg[i])
 	{
-		if (ft_isalnum(arg[i]) == 0 && arg[i] != '_')
+		if (ft_isalnum(arg[i]) == 0 && arg[i] != '_' && arg[i] != '=')
 			return ( -1);
 		i++;
 	}
@@ -68,20 +65,14 @@ int	erase_or_not (char	**env, char	*tmp, char	*arg, bool	value)
 	char	*tmp2;
 
 	tmp2 = ft_strjoin(tmp, "=");
-	if (ft_strncmp(*env, tmp, ft_strlen(tmp)) == 0)
+	if (ft_strncmp(*env, tmp, ft_strlen(tmp)) == 0 && ((*env)[ft_strlen(tmp)] == '=' || !(*env)[ft_strlen(tmp)]))
 	{
-		printf("valeur de TMP : %s\n", tmp);
-		printf("valeur de TMP2 : %s\n", tmp2);
-		printf("valeur de env : %s\n", *env);
-		printf("valeur de arg : %s\n", arg);
 		free(tmp2);
-		printf("enter TMP\n");
 		if (value == true)
 		{
 			free(*env);
 			*env = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
 			ft_strlcpy(*env, arg, ft_strlen(arg) + 1);
-			//free(arg);
 			return (1);
 		}
 		else
@@ -89,18 +80,12 @@ int	erase_or_not (char	**env, char	*tmp, char	*arg, bool	value)
 	}
 	else if (ft_strncmp(*env, tmp2, ft_strlen(arg)) == 0 && !(*env)[ft_strlen(arg)])
 	{
-		printf("enter tmp2\n");
-		printf("valeur de TMP : %s\n", tmp);
-		printf("valeur de TMP2 : %s\n", tmp2);
-		printf("valeur de env : %s\n", *env);
-		printf("valeur de arg : %s\n", arg);
 		free(tmp2);
 		if (value == true)
 		{
 			free(*env);
 			*env = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
 			ft_strlcpy(*env, arg, ft_strlen(arg) + 1);
-			//free(arg);
 			return (1);
 		}
 		else
@@ -109,7 +94,7 @@ int	erase_or_not (char	**env, char	*tmp, char	*arg, bool	value)
 	free(tmp2);
 	return (0);
 }
-int	check_if_already_set (t_argmode *args, t_args *d, char	*arg, int	nb)
+int	check_if_already_set (t_args *d, char	*arg, int	nb)
 {
 	int		i;
 	char	*tmp;
@@ -122,72 +107,42 @@ int	check_if_already_set (t_argmode *args, t_args *d, char	*arg, int	nb)
 		tmp[i] = arg[i];
 		i++;
 	}
-	if (nb < ft_strlen(arg))
+	if (nb < (int)ft_strlen(arg))
 		value = true;
+	i = 0;
 	while (d->env[i])
 	{
 		if (d->env_len == 0)
 			break;
-		//printf("enter here\n");
 		if (erase_or_not(&d->env[i], tmp, arg, value))
 		{
-			//free(arg);
 			free(tmp);
 			return (1);
 		}
-		/*if (ft_strncmp(d->env[i], tmp, ft_strlen(tmp)) == 0)
-		{
-			free(tmp);
-			free(tmp2);
-			if (value == true)
-			{
-				free(d->env[i]);
-				d->env[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
-				ft_strlcpy(d->env[i], arg, ft_strlen(arg) + 1);
-				return (1);
-			}
-			else
-				return (1);
-		}
-		else if (ft_strncmp(d->env[i], tmp2, ft_strlen(arg)) == 0 && !d->env[i][ft_strlen(arg)])
-		{
-			free(tmp);
-			free(tmp2);
-			if (value == true)
-			{
-				free(d->env[i]);
-				d->env[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
-				ft_strlcpy(d->env[i], arg, ft_strlen(arg) + 1);
-				return (1);
-			}
-			else
-				return(1);
-		}*/
 		i++;
 	}
 	free(tmp);
 	return (0);
 }
 
-int	is_already_set(t_argmode *args, t_args *d, char	*arg)
+int	is_already_set(t_args *d, char	*arg)
 {
 	int	i;
 	int	nb;
 
-	printf("is already set\n\n");
 	i = 0;
-	nb = is_valid(args, d, arg);
+	nb = is_valid(arg);
 	if (nb < 0)
 	{
 		printf("%s : not a valid identifier\n", arg);
 		return (1);
 	}
-	if (check_if_already_set(args, d, arg, nb))
+	if (check_if_already_set(d, arg, nb))
 		return (1);
 	return (0);
 }
 
-int	check_arg(t_argmode *args, t_args *d, char **arg)
+int	check_arg(t_args *d, char **arg)
 {
 	int		i;
 	int		j;
@@ -195,12 +150,12 @@ int	check_arg(t_argmode *args, t_args *d, char **arg)
 
 	i = 1;
 	j = 0;
+	env_copy = NULL;
 	while (arg[i])
 	{
-		if (is_already_set(args, d, arg[i]) == 0)
+		if (is_already_set(d, arg[i]) == 0)
 		{
-			printf("go in add value\n");
-			add_value(args, d, arg[i], env_copy);
+			add_value(d, arg[i], env_copy);
 		}
 		i++;
 	}
@@ -215,16 +170,15 @@ int	export_hub(t_argmode *args, t_args *d)
 	d->is_built_in = true;
 	if (d->append_pos != 0 || d->stdout_pos != 0 || args[d->acutal_arg].mode == 1)
 	{
-		printf("helo\n");
 		d->is_redirect = true;
 		make_fork_built_in(d, args);
 		return (0);
 	}
 	i = 0;
 	arg = ft_split(args->arg, ' ');
-	check_arg(args, d, arg);
+	check_arg(d, arg);
 	if (!arg[1])
-		sort_export(args, d);
+		sort_export(d);
 	free_all(arg);
 	return (0);
 }

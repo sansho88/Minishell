@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 17:19:35 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 09:53:35 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 # define BUFFER_SIZE 4200
-# define DBUG(VAR_TO_DEBUG) dprintf(2, "[%s]%s:%p\n", __func__, VAR_TO_DEBUG, VAR_TO_DEBUG);
-
-
+# define DBUG(VAR_TO_DEBUG) dprintf(2, "[%s]%s:%p\n"\
+, __func__, VAR_TO_DEBUG, VAR_TO_DEBUG);
 
 # define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
 # define ERR_SYNTAX "Conchito: syntax error"
@@ -69,7 +68,7 @@ typedef struct s_arguments
 	int		mod;
 	int		tube[2];
 	int		temp_tube[2];
-	int 	redir_bck;
+	int		redir_bck;
 	int		redir_fwd;
 	int		count;
 	int		next_mode;
@@ -115,9 +114,11 @@ int			ft_check_redir(const char *chars, const char	*cmdline);
 
 //QUOTES
 size_t		get_nb_quote(char *str, char quote);
-bool		is_envar_in_sngl_quotes(const char *str, size_t lenstr, bool is_env_var);
-bool		is_str_in_quotes(const char *str, const char	*start, const char	*end, char quote);
-
+bool		is_envar_in_sngl_quotes(const char *str, \
+			size_t lenstr, bool is_env_var);
+bool		is_str_in_quotes(const char *str, \
+			const char	*start, \
+			const char	*end, char quote);
 
 //UTILS
 char		**init_env(char	**env);
@@ -136,57 +137,72 @@ void		signal_handler(int signum);
 void		get_signals(void);
 void		sign_chars_manager(bool turn_on_save);
 
-//FUNCTIONS EXEC (Have to make it clean)
-char	**ft_split(char const *s, char c);
-char	*ft_substr(const char *s, unsigned int start, size_t len);
-char	*ft_strjoin(const char *s1, char const *s2);
-int		ft_memcmp(const void	*po1, const void	*po2, size_t	size);
-char	*ft_strdup(const char *src);
-void    process_pipe(t_args *d, t_argmode *argv);
-void	fork_process(t_args *d, t_argmode *argv);
-int		export_hub(t_argmode *args, t_args *d);
-int 	env_hub(t_argmode *args, t_args *d);
-void	sorting_hub(t_args *d, t_argmode *argv);
-int 	unset_hub(t_argmode *args, t_args *d);
-int		ft_dup2(int a, int b);
-int		ft_strcmp(const char	*first, const char	*second);
-int		exec_home(t_argmode *argv, int argc, t_args *d);
-int 	cd_hub(t_argmode *args, t_args *d);
-void    sort_export(t_argmode *args, t_args *d);
-int		set_back(t_args *d, t_argmode *argv, int i, int file);
-int		set_fwd(t_args *d, t_argmode *argv, int i, int file2);
-int		set_append(t_args *d, t_argmode *argv, int i, int file);
-int		set_heredoc(t_args *d, t_argmode *argv, int i, int file);
-void	is_append_or_heredoc(t_args *d);
-void	check_if_last(t_args *d, t_argmode *argv);
-void	one_arg(t_args *d, t_argmode *argv);
-void 	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy);
-void	ft_exit(t_args *d, t_argmode *argv);
-int		cd_args_count(t_argmode *args, t_args *d, char **arg);
-int		set_pwd(t_args *d);
-int		set_old_path(t_args *d);
-void	path_hub(t_args *d);
-void	ft_echo(char *arg, t_args *d);
-void	sort_tab_exec(t_args *d);
-char	*resolve_path(t_args *d, char **args);
-int		is_built_in(t_args *d, t_argmode *argv);
-void	make_fork_built_in(t_args *d, t_argmode *argv);
-int		pwd_hub(t_argmode *args, t_args *d);
-void	ft_pwd(void);
-//REBUILD
-void	path(t_args *d, char	**env);
-void	execute(t_args *p, char **args, int nb);
-//void	fork_process(t_args *d, t_argmode *argv);
-void	pipe_rebuild_else(t_args *d, t_argmode *argv);
-void	pipe_rebuild_first(t_args *d, t_argmode *argv);
-void	ft_backward(t_args *d, t_argmode *argv);
-void	ft_forward(t_args *d, t_argmode *argv);
-void	process_pipe_built_in(t_args *d, t_argmode *argv);
-int		print_env(t_args *d);
-int		echo_hub(char *arg, t_args *d, t_argmode *args);
-void	free_all(char **str);
-int		exit_hub(t_args *d, t_argmode *argv);
-//char	**ft_env_copy(t_args *d, char *arg);
+//FUNCTIONS EXEC
+/*					Minishell Execution	                          */
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*			Minishell Core Exec	                          */
+void		process_pipe(t_args *d, t_argmode *argv);
+void		fork_process(t_args *d, t_argmode *argv);
+void		sorting_hub(t_args *d, t_argmode *argv);
+int			unset_hub(t_argmode *args, t_args *d);
+int			exec_home(t_argmode *argv, int argc, t_args *d);
+void		path_hub(t_args *d);
+int			set_old_path(t_args *d);
+char		*resolve_path(t_args *d, char **args);
+/*********************************************************/
+/*			Set Redirections Core                        */
+int			set_back(t_args *d, t_argmode *argv, int i, int file);
+int			set_fwd(t_args *d, t_argmode *argv, int i, int file2);
+int			set_append(t_args *d, t_argmode *argv, int i, int file);
+int			is_built_in(t_args *d, t_argmode *argv);
+int			set_heredoc(t_args *d, t_argmode *argv, int i, int file);
+void		is_append_or_heredoc(t_args *d);
+void		check_if_last(t_args *d, t_argmode *argv);
+/*********************************************************/
+/*			Pipe Redirection Core						 */
+void		ft_backward(t_args *d, t_argmode *argv);
+void		ft_forward(t_args *d, t_argmode *argv);
+void		one_arg(t_args *d, t_argmode *argv);
+void		pipe_rebuild_first(t_args *d, t_argmode *argv);
+void		process_pipe_built_in(t_args *d, t_argmode *argv);
+void		pipe_rebuild_else(t_args *d, t_argmode *argv);
+/*********************************************************/
+/*			Utils						 				 */
+int			ft_dup2(int a, int b);
+void		free_all(char **str);
+/*********************************************************/
+/*			Built-ins Core								 */
+void		make_fork_built_in(t_args *d, t_argmode *argv);
+/*	Env Command		*/
+int			env_hub(t_argmode *args, t_args *d);
+int			print_env(t_args *d);
+/*==================*/
+/*	Cd Command		*/
+int			cd_hub(t_argmode *args, t_args *d);
+int			cd_args_count(char **arg);
+void		cd_back_sort_pwd(t_args *d, int len, char **pwd_copy);
+/*==================*/
+/*	Exit Command	*/
+void		ft_exit(t_args *d, t_argmode *argv);
+int			exit_hub(t_args *d, t_argmode *argv);
+/*==================*/
+/*	Echo Command	*/
+void		ft_echo(char *arg, t_args *d);
+int			echo_hub(char *arg, t_args *d, t_argmode *args);
+/*==================*/
+/*	Pwd Command		*/
+int			set_pwd(t_args *d);
+void		ft_pwd(void);
+int			pwd_hub(t_argmode *args, t_args *d);
+/*==================*/
+/*	Export Command	*/
+void		sort_export(t_args *d);
+void		sort_tab_exec(t_args *d);
+int			export_hub(t_argmode *args, t_args *d);
+/*==================*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 // COLORS
 # define BBLU	"\033[1;34m"
@@ -197,6 +213,5 @@ int		exit_hub(t_args *d, t_argmode *argv);
 # define RED	"\033[0;31m"
 # define RST	"\033[0m"
 # define YLW	"\033[93m"
-
 
 #endif
