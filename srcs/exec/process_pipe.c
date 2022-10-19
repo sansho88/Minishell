@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 01:01:16 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 15:49:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_forward(t_args *d, t_argmode *argv)
 {
 	int	file;
 
+	file = 0;
 	if (d->is_append == 0)
 		file = open(argv[d->stdout_pos].arg, O_WRONLY
 				| O_TRUNC | O_CREAT, 0644);
@@ -47,13 +48,6 @@ void	ft_backward(t_args *d, t_argmode *argv)
 
 void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 {
-/*	int fd[2];
-
-	pipe(fd);
-	ft_dup2(fd[0], STDOUT_FILENO);
-	ft_dup2(fd[1], STDIN_FILENO);
-	close(fd[0]);
-	close(fd[1]);*/
 	if (d->stdin_pos != 0)
 	{
 		ft_backward(d, argv);
@@ -66,9 +60,6 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 	{
 		ft_dup2(d->tube[1], STDOUT_FILENO);
 	}
-	/*close(d->tube[1]);
-	close(d->tube[0]);
-	vu en debug avec abucia, ne semble pas necessaire*/
 }
 
 void	pipe_rebuild_else(t_args *d, t_argmode *argv)
@@ -104,6 +95,8 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	tmp = NULL;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
 	tmp = resolve_path(d, args);
+	if (!args[0])
+		exit(127);
 	if (!tmp && access(args[0], F_OK | X_OK) != 0)
 	{
 		printf("%s: command not found\n", args[0]);
@@ -118,19 +111,5 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
 	execve(tmp, args, d->env);
-	/*if (!tmp && access(args[0], F_OK | X_OK) != 0)
-	{
-		printf("%s: command not found\n", args[0]);
-		exit(127);
-	}
-	else if (d->acutal_arg == 0)
-		pipe_rebuild_first(d, argv);
-	else if (d->acutal_arg != 0)
-		pipe_rebuild_else(d, argv);
-	if (access(args[0], F_OK | X_OK) == 0)
-		execve(args[0], args, d->env);
-	else if (d->is_built_in == false)
-		execute(d, args, d->acutal_arg);*/
-
 	exit(EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 22:21:35 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 15:58:09 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static bool	ft_check_all_args(char **args, size_t nb_args)
 	return (true);
 }
 
-
 void	ft_exit(t_args *d, t_argmode *argv)
 {
 	int		nb_args;
@@ -57,7 +56,7 @@ void	ft_exit(t_args *d, t_argmode *argv)
 int	exit_hub(t_args *d, t_argmode *argv)
 {
 	d->is_built_in = true;
-	if (argv[d->acutal_arg].mode == 1)
+	if (argv[d->acutal_arg].mode == 1 || d->is_piped == true)
 	{
 		d->is_redirect = true;
 		make_fork_built_in(d, argv);

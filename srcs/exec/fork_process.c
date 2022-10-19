@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 23:47:56 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 15:48:30 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 
 int	is_built_in(t_args *d, t_argmode *argv)
 {
-	//printf("l'arg : %s\n", argv[d->acutal_arg].arg);
 	if (ft_strncmp(argv[d->acutal_arg].arg, "cd ", 3) == 0 && d->argc == 1)
 		cd_hub(argv, d);
-	else if (ft_strncmp(argv[d->acutal_arg].arg, "export ", 7) == 0 ||
-	ft_strncmp( argv[d->acutal_arg].arg, "export", 7) == 0)
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "export ", 7) == 0 || \
+	ft_strncmp(argv[d->acutal_arg].arg, "export", 7) == 0)
 		export_hub(argv, d);
 	else if (ft_strncmp(argv[d->acutal_arg].arg, "env", 4) == 0)
 		env_hub(argv, d);
 	else if (ft_strncmp(argv[d->acutal_arg].arg, "unset ", 6) == 0
 		&& d->argc == 1)
 		unset_hub(argv, d);
-	else if (ft_strncmp(argv[d->acutal_arg].arg, "exit ", 5) == 0 ||
-		ft_strncmp( argv[d->acutal_arg].arg, "exit", 6) == 0)
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "exit ", 5) == 0 || \
+		ft_strncmp(argv[d->acutal_arg].arg, "exit", 6) == 0)
 		exit_hub(d, argv);
 	else if (ft_strncmp(argv[d->acutal_arg].arg, "echo ", 5) == 0)
 		echo_hub(argv[0].arg, d, argv);
-	else if (ft_strncmp(argv[d->acutal_arg].arg, "pwd ", 4) == 0 ||
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "pwd ", 4) == 0 || \
 		ft_strncmp(argv[d->acutal_arg].arg, "pwd", 4) == 0)
 		pwd_hub(argv, d);
 	else
@@ -75,6 +74,7 @@ void	make_fork_built_in(t_args *d, t_argmode *argv)
 	d->temp_tube[0] = d->tube[0];
 	d->temp_tube[1] = d->tube[1];
 }
+
 void	fork_process(t_args *d, t_argmode *argv)
 {
 	int	i;
