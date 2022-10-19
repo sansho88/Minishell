@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:38:25 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 19:09:46 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/19 21:43:04 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -58,6 +58,8 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 		if ((tmp && ft_strlen(start) > 0))
 			return (tmp);
 		free(tmp);
+		/*if (*start == '$' && len_end == 0)
+			ft_strdup("$");*/
 	}
 	else if (len_end)
 		return (ft_strndup((char *)start - 1,
@@ -75,6 +77,8 @@ char	*update_cmdline(char **cmd, char *env_var, int offset, int len)
 	free(*cmd);
 	*cmd = ft_strreplace(tmp, env_var, offset, len);
 	next_d = ft_strchr(*cmd + offset + env_var_len, '$');
+	if (len < 2)
+		next_d = NULL;
 	free(env_var);
 	env_var = NULL;
 	return (next_d);

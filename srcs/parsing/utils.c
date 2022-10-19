@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 17:18:58 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/19 21:38:15 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,13 @@ char	*ft_strreplace(char *str, char *to_insert, int pos, int len_to_replace)
 	const size_t	size = ft_strlen(str) - len_to_replace \
 													+ ft_strlen(to_insert) + 1;
 
+	if (str && ft_strlen(str) == 1 && *str == '$')
+		return (str);
 	result = malloc(size);
 	if (!result)
 		return (NULL);
 	(void)ft_strlcpy(result, str, pos + 1);
-	if (is_envar_in_sngl_quotes(to_insert, len_to_replace + 1, true))
+	if (is_str_in_quotes(str, str + pos, &str[pos + len_to_replace], '\''))
 		result = ft_strjoin_free(result, str + pos, 1);
 	else
 	{
