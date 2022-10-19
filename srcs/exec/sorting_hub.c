@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:57:33 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 00:17:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 15:51:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_stdin(t_args *d, t_argmode *argv)
 	int	i;
 	int	file;
 
+	file = 0;
 	i = d->acutal_arg;
 	if (set_back(d, argv, i, file) == 1)
 		return (1);
@@ -33,6 +34,7 @@ int	ft_stdout(t_args *d, t_argmode *argv)
 	int	i;
 	int	file2;
 
+	file2 = 0;
 	i = d->acutal_arg;
 	if (set_fwd(d, argv, i, file2) == 1)
 		return (1);
@@ -51,6 +53,7 @@ int	ft_append(t_args *d, t_argmode *argv)
 	int	i;
 	int	file;
 
+	file = 0;
 	i = d->acutal_arg;
 	if (set_append(d, argv, i, file) == 1)
 		return (1);
@@ -69,6 +72,7 @@ int	ft_here_doc(t_args *d, t_argmode *argv)
 	int	i;
 	int	file;
 
+	file = 0;
 	i = d->acutal_arg;
 	if (set_heredoc(d, argv, i, file) == 1)
 		return (1);
@@ -103,6 +107,6 @@ void	sorting_hub(t_args *d, t_argmode *argv)
 		d->acutal_arg++;
 		d->j++;
 	}
-	//close(d->tube[0]);
-	//close(d->tube[1]);
+	close(d->tube[0]);
+	close(d->tube[1]);
 }
