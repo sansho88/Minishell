@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:38:25 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 17:07:14 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:09:46 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -18,10 +18,14 @@
  */
 char	*get_next_valid_sep(char *str)
 {
-	size_t	i;
+	size_t			i;
+	size_t			len;
 
 	i = 0;
-	while (str[i])
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	while (i < len)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '?' && str[i] != '_')
 			return (&str[i]);

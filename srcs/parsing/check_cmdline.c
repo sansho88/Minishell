@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:02:34 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 15:43:38 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:07:47 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static bool	is_chars_orgy(char *cmdline)
 	if (!check_chenille_char(cmdline, '>', 3)
 		|| !check_chenille_char(cmdline, '<', 3))
 		return (true);
-	if (is_char_inquotes(cmdline, "\\;/!"))
+	if (is_char_inquotes(cmdline, ";!"))
 		return (true);
 	return (false);
 }
@@ -80,7 +80,7 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 	}
 	free(*cmdline);
 	*cmdline = testcmd;
-	if (!are_quotes_closed(*cmdline))
+	if (!are_quotes_closed(*cmdline) || !are_slashs_ok(*cmdline))
 		return (false);
 	if (is_chars_orgy(*cmdline))
 	{
