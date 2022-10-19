@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 11:03:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 13:36:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	data_initialize(t_args *d, int argc)
 	d->heredoc_pos = 0;
 	d->env_len = 0;
 	d->pwd_len = 0;
+	d->is_piped = false;
 	d->is_built_in = false;
 	d->is_redirect = false;
 	d->is_unset = false;
@@ -90,8 +91,6 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	free(d->pwd);
 	//d->pwd = NULL;
 	ft_dup2(rl_stdin, 0);
-	//close(d->tube[0]);
-	//close(d->tube[1]);
 	free_all(d->path);
 	return (1);
 }

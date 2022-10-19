@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 12:18:12 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 13:08:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int	export_hub(t_argmode *args, t_args *d)
 	arg = ft_split(args->arg, ' ');
 	check_arg(d, arg);
 	if (!arg[1])
-		sort_export(d);
+		sort_export_tab(d);
 	free_all(arg);
 	return (0);
 }

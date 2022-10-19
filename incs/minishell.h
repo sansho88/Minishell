@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 09:53:35 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 13:34:58 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_arguments
 	bool	is_redirect;
 	char	**sort_env;
 	bool	is_unset;
+	bool	is_piped;
 }				t_args;
 
 // UTILS
@@ -197,7 +198,7 @@ void		ft_pwd(void);
 int			pwd_hub(t_argmode *args, t_args *d);
 /*==================*/
 /*	Export Command	*/
-void		sort_export(t_args *d);
+void		sort_export_tab(t_args *d);
 void		sort_tab_exec(t_args *d);
 int			export_hub(t_argmode *args, t_args *d);
 /*==================*/

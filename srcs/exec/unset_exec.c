@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 11:56:42 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 13:31:56 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	**ft_env_copy(t_args *d, char *arg)
 		}
 	}
 	free(d->env);
-	free(d->needle);
 	return (env_copy);
 }
 

@@ -6,12 +6,41 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 09:28:23 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 13:44:12 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+void	print_export(t_args *d)
+{
+	int		i;
+	int		j;
+	bool	set;
 
+	set = false;
+	i = 0;
+	j = 0;
+	while (d->sort_env[i])
+	{
+		printf("declare -x ");
+		while (d->sort_env[i][j])
+		{
+			printf("%c", d->sort_env[i][j]);
+			if (d->sort_env[i][j] == '=' && set == false)
+			{
+				printf("\"");
+				set = true;
+			}
+			j++;
+		}
+		if (set == true)
+			printf("\"");
+		set = false;
+		j = 0;
+		printf("\n");
+		i++;
+	}
+}
 void	sort_export_tab(t_args *d)
 {
 	int	i;
@@ -40,33 +69,11 @@ void	sort_export_tab(t_args *d)
 			}
 			j++;
 		}
-			//printf("sort_tab : %s\n", sort_tab[i]);
 		j = 0;
 		i++;
 	}
-	i = 0;
-	while (d->sort_env[i])
-	{
-		printf("declare -x %s\n", d->sort_env[i]);
-		i++;
-	}
+	print_export(d);
 	free(d->sort_env);
-}
-
-void	sort_export(t_args *d)
-{
-	/*char	**sort_tab;
-	int		i;
-
-	sort_tab = d->env;
-	sort_tab = sort_tab_exec(d);*/
-	sort_export_tab(d);
-	/*i = 0;
-	while (i < d->env_len)
-	{
-		printf("declare -x %s\n", d->env[i]);
-		i++;
-	}*/
 }
 
 void	cd_back_sort_pwd(t_args *d, int len, char **pwd_copy)
