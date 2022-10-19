@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 00:45:31 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 13:36:41 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,14 @@ void	data_initialize(t_args *d, int argc)
 	d->heredoc_pos = 0;
 	d->env_len = 0;
 	d->pwd_len = 0;
+	d->is_piped = false;
 	d->is_built_in = false;
 	d->is_redirect = false;
 	d->is_unset = false;
 	d->is_path_set = true;
 	d->pid = ft_calloc((argc + 1), sizeof(int));
 	d->pwd = ft_calloc(BUFFER_SIZE, sizeof(char));
-	/* TODO unprotected malloc */
 	getcwd(d->pwd, BUFFER_SIZE);
-	//printf("pwd de base : %s\n\n", d->pwd);
 	pwd_set(d);
 	path_hub(d);
 }
@@ -92,8 +91,6 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	free(d->pwd);
 	//d->pwd = NULL;
 	ft_dup2(rl_stdin, 0);
-	//close(d->tube[0]);
-	//close(d->tube[1]);
 	free_all(d->path);
 	return (1);
 }

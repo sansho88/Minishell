@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 00:49:42 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/08 19:25:31 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 13:40:20 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,16 @@
 void	check_if_last(t_args *d, t_argmode *argv)
 {
 	int	i;
-
+	i = 0;
+	while (argv[i].mode)
+	{
+		if (argv[i].mode == 1)
+		{
+			d->is_piped = true;
+			break ;
+		}
+		i++;
+	}
 	i = d->acutal_arg;
 	while (i < d->argc)
 	{

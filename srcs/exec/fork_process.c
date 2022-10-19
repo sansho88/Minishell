@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 23:47:56 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 11:00:30 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	is_built_in(t_args *d, t_argmode *argv)
 {
-	//printf("l'arg : %s\n", argv[d->acutal_arg].arg);
 	if (ft_strncmp(argv[d->acutal_arg].arg, "cd ", 3) == 0 && d->argc == 1)
 		cd_hub(argv, d);
 	else if (ft_strncmp(argv[d->acutal_arg].arg, "export ", 7) == 0 ||

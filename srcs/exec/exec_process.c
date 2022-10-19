@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 19:45:01 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/19 09:09:30 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*resolve_path(t_args *d, char **args)
 	return (NULL);
 }
 
-void	execute(t_args *d, char **args, int nb)
+void	execute(t_args *d, char **args)
 {
 	char	*tmp;
 
