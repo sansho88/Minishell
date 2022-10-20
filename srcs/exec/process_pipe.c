@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/20 09:11:29 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 14:44:48 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	pipe_rebuild_first(t_args *d, t_argmode *argv)
 	{
 		ft_dup2(d->tube[1], STDOUT_FILENO);
 	}
+	close(d->tube[1]);
+	close(d->tube[0]);
 }
 
 void	pipe_rebuild_else(t_args *d, t_argmode *argv)

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 19:20:15 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 14:04:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	data_initialize(d, argc);
 	pwd_set(d);
 	path_hub(d);
+	is_piped(d, argv);
 	sorting_hub(d, argv);
 	i = 0;
 	while (i < d->argc)
