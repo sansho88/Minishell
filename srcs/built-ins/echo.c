@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 15:57:58 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 12:23:38 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_opt_valid(char *opt)
 	size_t	i;
 
 	i = 0;
-	if (!opt || opt[i] != '-')
+	if (!opt || ft_strlen(opt) < 2)
 		return (false);
 	while (opt[++i])
 		if (opt[i] != 'n')
@@ -35,6 +35,22 @@ static void	free_args(char **args, size_t nb_args)
 	free(args);
 }
 
+size_t	get_nb_opts_ok(char **all_args, size_t nb_args)
+{
+	size_t	n;
+	size_t	i;
+
+	n = 0;
+	i = 1;
+	while (i < nb_args && (i == n + 1))
+	{
+		n += is_opt_valid(all_args[i++]);
+		if (i > n + 1)
+			break ;
+	}
+	return (n);
+}
+
 /**
  * Works as the bash's "echo" built-in. The -n option works even with "-nnn"\n
  *
@@ -42,17 +58,17 @@ static void	free_args(char **args, size_t nb_args)
  */
 void	ft_echo(char *arg, t_args *d)
 {
-	bool	n;
-	char	**split_arg;
-	int		nb_args;
-	int		i;
-	char	*result;
+	size_t		n;
+	char		**split_arg;
+	int			nb_args;
+	int			i;
+	char		*result;
 
 	d->is_built_in = true;
 	split_arg = ft_split_len(arg, ' ', &nb_args);
 	result = ft_strdup("");
-	n = is_opt_valid(split_arg[1]);
-	i = n;
+	n = get_nb_opts_ok(split_arg, nb_args);
+	i = (int)n;
 	while (++i < nb_args)
 	{
 		result = ft_strjoin_free(result, split_arg[i], 1);
@@ -60,7 +76,7 @@ void	ft_echo(char *arg, t_args *d)
 			result = ft_strjoin_free(result, " ", 1);
 	}
 	free_args(split_arg, nb_args + 1);
-	if (n == false)
+	if (n == 0)
 		printf("%s\n", result);
 	else
 		printf("%s", result);

@@ -13,5 +13,6 @@ add_executable(Minishell
         srcs/parsing/utils.c
         srcs/parsing/heredoc.c
         srcs/parsing/parse_redirecs.c
+        srcs/built-ins/echo.c
         Makefile.linux
         Makefile srcs/parsing/utils_heredoc.c srcs/parsing/quotes.c srcs/parsing/dollars.c srcs/parsing/check_cmdline.c srcs/parsing/utils_check_cmdline.c)
