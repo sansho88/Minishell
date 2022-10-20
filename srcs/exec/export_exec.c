@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 18:54:59 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 09:14:32 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ int	check_if_already_set(t_args *d, char *arg, int nb)
 
 int	is_already_set(t_args *d, char	*arg)
 {
-	int	i;
 	int	nb;
 
-	i = 0;
 	nb = is_valid(arg);
 	if (nb < 0)
 	{
@@ -88,11 +86,9 @@ int	is_already_set(t_args *d, char	*arg)
 int	check_arg(t_args *d, char **arg)
 {
 	int		i;
-	int		j;
 	char	**env_copy;
 
 	i = 1;
-	j = 0;
 	env_copy = NULL;
 	while (arg[i])
 	{
@@ -108,7 +104,6 @@ int	check_arg(t_args *d, char **arg)
 int	export_hub(t_argmode *args, t_args *d)
 {
 	char	**arg;
-	int		i;
 
 	d->is_built_in = true;
 	if (d->append_pos != 0 || d->stdout_pos != 0 || \
@@ -118,7 +113,6 @@ int	export_hub(t_argmode *args, t_args *d)
 		make_fork_built_in(d, args);
 		return (0);
 	}
-	i = 0;
 	arg = ft_split(args->arg, ' ');
 	check_arg(d, arg);
 	if (!arg[1])

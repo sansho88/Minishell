@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 15:49:51 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 09:11:29 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,6 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	tmp = resolve_path(d, args);
 	if (!args[0])
 		exit(127);
-	if (!tmp && access(args[0], F_OK | X_OK) != 0)
-	{
-		printf("%s: command not found\n", args[0]);
-		exit(127);
-	}
 	if (d->acutal_arg == 0 && args[0] == NULL)
 		exit(127);
 	if (d->acutal_arg == 0)
@@ -110,6 +105,11 @@ void	process_pipe(t_args *d, t_argmode *argv)
 	}
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
+	if (!tmp && access(args[0], F_OK | X_OK) != 0)
+	{
+		printf("%s: command not found\n", args[0]);
+		exit(127);
+	}
 	execve(tmp, args, d->env);
 	exit(EXIT_SUCCESS);
 }

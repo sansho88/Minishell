@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 14:54:45 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 09:12:57 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 int	bwd_to_directory(t_args *d, char **arg)
 {
-	int		len;
-	int		i;
-
-	i = 0;
-	len = 0;
 	set_old_path(d);
 	if (chdir(arg[1]) == -1)
 	{
