@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/20 12:23:38 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/20 23:18:54 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,33 +61,25 @@ void	ft_echo(char *arg, t_args *d)
 	size_t		n;
 	char		**split_arg;
 	int			nb_args;
-	int			i;
-	char		*result;
+	char		*msg;
 
 	d->is_built_in = true;
 	split_arg = ft_split_len(arg, ' ', &nb_args);
-	result = ft_strdup("");
 	n = get_nb_opts_ok(split_arg, nb_args);
-	i = (int)n;
-	while (++i < nb_args)
-	{
-		result = ft_strjoin_free(result, split_arg[i], 1);
-		if (i != nb_args - 1)
-			result = ft_strjoin_free(result, " ", 1);
-	}
-	free_args(split_arg, nb_args + 1);
+	msg = ft_strstr(arg, split_arg[n + 1]);
+	clean_quotes(msg);
 	if (n == 0)
-		printf("%s\n", result);
+		printf("%s\n", msg);
 	else
-		printf("%s", result);
-	free(result);
+		printf("%s", msg);
+	free_args(split_arg, nb_args + 1);
 }
 
 int	echo_hub(char *arg, t_args *d, t_argmode *args)
 {
 	d->is_built_in = true;
 	if (d->append_pos != 0 || d->stdout_pos != 0 || \
-		args[d->acutal_arg].mode == 1)
+	args[d->acutal_arg].mode == 1)
 	{
 		d->is_redirect = true;
 		make_fork_built_in(d, args);
