@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 15:45:45 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 16:54:35 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 typedef struct s_argmode{
 	char	*arg;
 	int		mode;
+	char 	*pure_arg; //will stock the quotted arg
+	char	**args;
 }	t_argmode;
 
 //STRUCTS EXEC
@@ -188,7 +190,7 @@ void		ft_exit(t_args *d, t_argmode *argv);
 int			exit_hub(t_args *d, t_argmode *argv);
 /*==================*/
 /*	Echo Command	*/
-void		ft_echo(char *arg, t_args *d);
+void ft_echo(char *arg, t_args *d);
 int			echo_hub(char *arg, t_args *d, t_argmode *args);
 /*==================*/
 /*	Pwd Command		*/

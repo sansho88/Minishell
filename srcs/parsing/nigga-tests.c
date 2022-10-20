@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/18 16:22:09 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/20 19:02:17 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ int	main(int argc, char *argv[], char	*env[])
 		{
 			nb_args = (int)get_nb_seps(commandline) + 1;
 			args = create_targmode_array(commandline);
+			dprintf(2, "nb_args=%zu\n", nb_args);
+			for (nb_args = 0; args[nb_args].arg; ++nb_args)
+				;
+			dprintf(2, "nb_args=%zu\n", nb_args);
 			debug_t_argmode(args, (int)nb_args);
 			if (are_args_ok(args, &nb_args))
 				exec_home(args, (int)nb_args, &data);

@@ -33,6 +33,7 @@ SRCS = ft_memset.c \
 		ft_calloc.c \
 		ft_strdup.c \
 		ft_strndup.c \
+		ft_strstr.c \
 		ft_substr.c \
 		ft_strjoin.c \
 		ft_strjoin_free.c \
