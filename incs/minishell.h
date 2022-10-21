@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 12:30:48 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:30:45 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int len_to_replace);
 // FUNCTIONS PARSING
 t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
-void		clean_quotes(char *arg);
+char		*clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);

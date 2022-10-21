@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:01:37 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/20 21:48:53 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:30:59 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_stop_word(char **stop)
 		}
 		result[i] = '\0';
 	}
-	clean_quotes(result);
+	result = clean_quotes(result);
 	ft_strlcpy(*stop, *stop + i + 1, ft_strlen(*stop));
 	return (result);
 }

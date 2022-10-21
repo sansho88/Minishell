@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:28:43 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 21:21:32 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:45:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,27 @@ void	switch_inquotes(char c, size_t *i, bool *in_quotes, char *between)
 	}
 }
 
-void	clean_quotes(char *arg)
+char	*clean_quotes(char *arg)
 {
-	const size_t	len_arg = ft_strlen(arg);
-	size_t			i;
-	size_t			j;
-	bool			in_quotes;
-	char			between;
+	int	quote_mode;
+	int	i;
+	int	j;
 
+	quote_mode = 0;
 	i = 0;
 	j = 0;
-	in_quotes = false;
-	while (j < len_arg)
+	while (arg[i])
 	{
-		switch_inquotes(arg[j], &j, &in_quotes, &between);
-		j += (j > 0 && arg[j - 1] == between && arg[j] == between);
-		arg[i++] = arg[j++];
+		if (arg[i] == '\'' && quote_mode != 2)
+			quote_mode = 1 - quote_mode;
+		else if (arg[i] == '"' && quote_mode != 1)
+			quote_mode = 2 - quote_mode;
+		else
+			arg[j++] = arg[i];
+		++i;
 	}
-	arg[i] = '\0';
+	arg[j] = 0;
+	return (arg);
 }
 
 bool	are_quotes_closed(const char *cmdline)

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/20 23:18:54 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:31:09 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_echo(char *arg, t_args *d)
 	split_arg = ft_split_len(arg, ' ', &nb_args);
 	n = get_nb_opts_ok(split_arg, nb_args);
 	msg = ft_strstr(arg, split_arg[n + 1]);
-	clean_quotes(msg);
+	msg = clean_quotes(msg);
 	if (n == 0)
 		printf("%s\n", msg);
 	else
