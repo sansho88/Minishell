@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nigga-tests.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 14:51:29 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:12:26 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_env(size_t	nb_args, t_args data)
 	free(data.env);
 }
 
-size_t	parse_and_execute(char *commandline, t_args data)
+size_t	parse_and_execute(char *commandline, t_args *data)
 {
 	size_t		nb_args;
 	t_argmode	*args;
@@ -31,7 +31,7 @@ size_t	parse_and_execute(char *commandline, t_args data)
 		++nb_args;
 	//debug_t_argmode(args, (int)nb_args);
 	if (are_args_ok(args, &nb_args))
-		exec_home(args, (int)nb_args, &data);
+		exec_home(args, (int)nb_args, data);
 	free_t_argmode(args, &nb_args);
 	free(commandline);
 	commandline = NULL;
@@ -58,7 +58,7 @@ int	main(int argc, char *argv[], char	*env[])
 		add_history(commandline);
 		//rl_redisplay();
 		if (*commandline && is_cmdline_ok(&commandline, data.env))
-			nb_args = parse_and_execute(commandline, data);
+			nb_args = parse_and_execute(commandline, &data);
 		else
 			free(commandline);
 	}

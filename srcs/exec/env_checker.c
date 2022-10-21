@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:50:11 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 19:08:35 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/21 17:17:46 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	path_hub(t_args *d)
 	int	i;
 
 	i = 0;
+	d->env_len = 0;
 	while (d->env[d->env_len])
 		d->env_len++;
 	while (d->env[i])
