@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 15:30:45 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:56:43 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void		free_all(char **str);
 /*********************************************************/
 /*			Built-ins Core								 */
 void		make_fork_built_in(t_args *d, t_argmode *argv);
+void		is_piped(t_args *d, t_argmode *argv);
 /*	Env Command		*/
 int			env_hub(t_argmode *args, t_args *d);
 int			print_env(t_args *d);
