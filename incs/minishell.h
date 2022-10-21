@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/20 16:54:35 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:30:48 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,10 @@ char		*ft_strstrchr(char *target, char **tab, size_t len_target);
 //UTILS_CHECK_CMDLINE
 bool		is_char_inquotes(const char *cmdline, const char *target);
 bool		are_slashs_ok(char	*cmdline);
+
+//UTILS_TARGMODE_ARRAY
+char		**ft_split_quotes(const char *line);
+int			nb_seps_lui(char **args);
 
 //UTILS_HEREDOC
 t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);
