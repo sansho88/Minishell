@@ -6,17 +6,20 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:20:38 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/04 15:30:30 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:31:30 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+
+int	g_signal = 0;
 
 void	signal_handler(int signum)
 {
 	pid_t			mini_pid;
 
 	mini_pid = getpid();
+	g_signal = signum;
 	if (signum == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
