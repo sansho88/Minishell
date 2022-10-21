@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:50:20 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/09/05 11:27:40 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:57:02 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# define __STDC_LIMIT_MACROS before
 # include <stdbool.h>
 # include <stdint.h>
 # include <string.h>

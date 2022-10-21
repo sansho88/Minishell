@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/20 14:48:25 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/21 17:54:47 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_built_in(t_args *d, t_argmode *argv)
 	else if (ft_strncmp(argv[d->acutal_arg].arg, "export ", 7) == 0 || \
 	ft_strncmp(argv[d->acutal_arg].arg, "export", 7) == 0)
 		export_hub(argv, d);
-	else if (ft_strncmp(argv[d->acutal_arg].arg, "env", 4) == 0)
+	else if (ft_strncmp(argv[d->acutal_arg].arg, "env ", 4) == 0)
 		env_hub(argv, d);
 	else if (ft_strncmp(argv[d->acutal_arg].arg, "unset ", 6) == 0
 		&& d->argc == 1)
