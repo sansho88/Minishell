@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:33:32 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/20 11:49:12 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/21 17:55:26 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	env_hub(t_argmode *args, t_args *d)
 	if (d->append_pos != 0 || d->stdout_pos != 0
 		|| args[d->acutal_arg].mode == 1 || d->is_piped == true)
 	{
-		dprintf(1, "hello\n");
 		d->is_redirect = true;
 		make_fork_built_in(d, args);
 		return (0);
