@@ -66,8 +66,12 @@ void	ft_echo(char *arg, t_args *d)
 	d->is_built_in = true;
 	split_arg = ft_split_len(arg, ' ', &nb_args);
 	n = get_nb_opts_ok(split_arg, nb_args);
-	msg = ft_strstr(arg, split_arg[n + 1]);
-	msg = clean_quotes(msg);
+	msg = "";
+	if (split_arg[n + 1])
+	{
+		msg = ft_strstr(arg, split_arg[n + 1]);
+		msg = clean_quotes(msg);
+	}
 	if (n == 0)
 		printf("%s\n", msg);
 	else
