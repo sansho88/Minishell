@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 00:49:42 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 14:59:25 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 14:45:44 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	check_if_last(t_args *d, t_argmode *argv)
 {
 	int	i;
 
-	is_piped(d, argv);
 	i = d->acutal_arg;
 	while (i < d->argc)
 	{

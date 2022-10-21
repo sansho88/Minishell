@@ -34,6 +34,7 @@ int				ft_isalnum(int c);
 bool			ft_str_isalnum(char *str);
 int				ft_str_isalpha(char *str);
 int				ft_isprint(int c);
+int				ft_is_space(char c);
 int				ft_isascii(int c);
 unsigned int	ft_strlen(const char *str);
 void			*ft_memset(void *str, int c, size_t len);

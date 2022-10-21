@@ -103,7 +103,7 @@ int len_to_replace);
 // FUNCTIONS PARSING
 t_argmode	*create_targmode_array(char *cmdline);
 size_t		get_nb_seps(const char *cmdline);
-void		clean_quotes(char *arg);
+char		*clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);
@@ -130,6 +130,10 @@ char		*ft_strstrchr(char *target, char **tab, size_t len_target);
 //UTILS_CHECK_CMDLINE
 bool		is_char_inquotes(const char *cmdline, const char *target);
 bool		are_slashs_ok(char	*cmdline);
+
+//UTILS_TARGMODE_ARRAY
+char		**ft_split_quotes(const char *line);
+int			nb_seps_lui(char **args);
 
 //UTILS_HEREDOC
 t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);

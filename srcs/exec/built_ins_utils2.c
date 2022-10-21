@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:48:16 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/19 18:52:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/20 15:12:47 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,7 @@ int	is_valid(char	*arg)
 	if (arg[i] == '=')
 		i++;
 	while (arg[i])
-	{
-		if (ft_isalnum(arg[i]) == 0 && arg[i] != '_' && arg[i] != '=')
-			return (-1);
 		i++;
-	}
 	if (j == 0)
 		j = i;
 	return (j);

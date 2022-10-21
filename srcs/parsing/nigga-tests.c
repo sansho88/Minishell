@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nigga-tests.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: tgriffit <tgriffit@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/20 19:02:17 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:51:29 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,27 @@ void	free_env(size_t	nb_args, t_args data)
 	free(data.env);
 }
 
+size_t	parse_and_execute(char *commandline, t_args data)
+{
+	size_t		nb_args;
+	t_argmode	*args;
+
+	args = create_targmode_array(commandline);
+	nb_args = 0;
+	while (args[nb_args].arg)
+		++nb_args;
+	//debug_t_argmode(args, (int)nb_args);
+	if (are_args_ok(args, &nb_args))
+		exec_home(args, (int)nb_args, &data);
+	free_t_argmode(args, &nb_args);
+	free(commandline);
+	commandline = NULL;
+	return (nb_args);
+}
+
 int	main(int argc, char *argv[], char	*env[])
 {
 	char		*commandline;
-	t_argmode	*args;
 	size_t		nb_args;
 	t_args		data;
 
@@ -41,24 +58,11 @@ int	main(int argc, char *argv[], char	*env[])
 		add_history(commandline);
 		//rl_redisplay();
 		if (*commandline && is_cmdline_ok(&commandline, data.env))
-		{
-			nb_args = (int)get_nb_seps(commandline) + 1;
-			args = create_targmode_array(commandline);
-			dprintf(2, "nb_args=%zu\n", nb_args);
-			for (nb_args = 0; args[nb_args].arg; ++nb_args)
-				;
-			dprintf(2, "nb_args=%zu\n", nb_args);
-			debug_t_argmode(args, (int)nb_args);
-			if (are_args_ok(args, &nb_args))
-				exec_home(args, (int)nb_args, &data);
-			free_t_argmode(args, &nb_args);
+			nb_args = parse_and_execute(commandline, data);
+		else
 			free(commandline);
-			commandline = NULL;
-		}
-		free(commandline);
-		commandline = NULL;
 	}
-	puts("END OF CONCHITO");
+	puts("CONCHITO has exit the work place");
 	free_env(nb_args, data);
 	clear_history();
 }
