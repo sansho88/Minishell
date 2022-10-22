@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/22 18:22:15 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/22 18:48:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*resolve_path(t_args *d, char **args)
 	j = 0;
 	while (args[j])
 	{
-		clean_quotes(args[j]);
+		if (!is_str_in_quotes(args[j], args[j], args[j], '\''))
+			clean_quotes(args[j]);
 		j++;
 	}
 	j = 0;
