@@ -49,29 +49,29 @@ void	free_t_argmode(t_argmode *args, size_t *nb_args)
 	*nb_args = 0;
 }
 
-char	*ft_strstrchr(char *target, char **tab, size_t len_target)
+char	*ft_strstrchr(char *target, char **tab, size_t len)
 {
 	int		i;
-	char	**env_vars;
+	char	**envvars;
 	char	*result;
 
 	i = 0;
 	result = ft_strdup("");
 	while (tab[i])
 	{
-		env_vars = ft_split(tab[i], '=');
-		if (env_vars[0] && ft_strncmp(env_vars[0], target, len_target) == 0)
+		envvars = ft_split(tab[i], '=');
+		if (envvars && envvars[0] && ft_strncmp(envvars[0], target, len) == 0)
 		{
-			free(env_vars[0]);
-			result = ft_strjoin_free(result, env_vars[1], 3);
-			free(env_vars);
+			free(envvars[0]);
+			result = ft_strjoin_free(result, envvars[1], 3);
+			free(envvars);
 			return (result);
 		}
-		if (env_vars[0] && *env_vars[0])
-			free(env_vars[0]);
-		if (env_vars[1])
-			free(env_vars[1]);
-		free(env_vars);
+		if (envvars && envvars[0])
+			free(envvars[0]);
+		if (envvars && envvars[1])
+			free(envvars[1]);
+		free(envvars);
 		i++;
 	}
 	return (result);
