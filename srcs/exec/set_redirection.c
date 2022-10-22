@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 23:35:48 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/18 13:24:14 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/22 16:13:56 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	set_append(t_args *d, t_argmode *argv, int i, int file)
 			break ;
 		if (argv[i].mode == 3)
 		{
+			clean_quotes(argv[i + 1].arg);
 			file = open(argv[i + 1].arg, O_APPEND | O_CREAT, 0644);
 			if (file == -1)
 				return (1);
@@ -42,6 +43,7 @@ int	set_fwd(t_args *d, t_argmode *argv, int i, int file2)
 			break ;
 		if (argv[i].mode == 2)
 		{
+			clean_quotes(argv[i + 1].arg);
 			file2 = open(argv[i + 1].arg, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 			if (file2 == -1)
 				return (1);
@@ -65,6 +67,7 @@ int	set_back(t_args *d, t_argmode *argv, int i, int file)
 			break ;
 		if (argv[i].mode == 4)
 		{
+			clean_quotes(argv[i + 1].arg);
 			file = open(argv[i + 1].arg, 0666);
 			if (file == -1)
 			{
