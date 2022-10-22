@@ -71,6 +71,7 @@ static bool	is_chars_orgy(char *cmdline)
 bool	is_cmdline_ok(char **cmdline, char **env)
 {
 	char	*testcmd;
+	int		redir;
 
 	testcmd = ft_strtrim(*cmdline, " ");
 	if (!*testcmd)
@@ -80,9 +81,12 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 	}
 	free(*cmdline);
 	*cmdline = testcmd;
+	redir = ft_check_redir(*cmdline, *cmdline);
 	if (!are_quotes_closed(*cmdline) || !are_slashs_ok(*cmdline))
 		return (false);
-	if (is_chars_orgy(*cmdline))
+	if (is_chars_orgy(*cmdline) \
+	|| ((redir == 2 || redir == 4) && ft_strlen(*cmdline) < 2) \
+	|| ((redir == 3) && ft_strlen(*cmdline) < 3))
 	{
 		printf(ERR_SYNTAX"\n");
 		return (false);
