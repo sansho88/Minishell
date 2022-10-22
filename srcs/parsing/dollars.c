@@ -52,9 +52,7 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 	{
 		if (start[0] == '?' && len_end == 1)
 			return (ft_itoa(errno));
-		else if (start[0] != '?' && len_end == 1)
-			return (ft_strdup(""));
-		tmp = ft_strstrchr((char *)start, env, len_end - 1);
+		tmp = ft_strstrchr((char *)start, env, len_end);
 		if ((tmp && ft_strlen(start) > 0))
 			return (tmp);
 		free(tmp);
