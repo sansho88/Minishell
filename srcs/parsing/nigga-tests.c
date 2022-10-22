@@ -25,6 +25,7 @@ size_t	parse_and_execute(char *commandline, t_args *data)
 	size_t		nb_args;
 	t_argmode	*args;
 
+	add_history(commandline);
 	args = create_targmode_array(commandline);
 	nb_args = 0;
 	while (args[nb_args].arg)
@@ -55,14 +56,13 @@ int	main(int argc, char *argv[], char	*env[])
 		sign_chars_manager(true);
 		if (!commandline)
 			break ;
-		add_history(commandline);
 		//rl_redisplay();
 		if (*commandline && is_cmdline_ok(&commandline, data.env))
 			nb_args = parse_and_execute(commandline, &data);
 		else
 			free(commandline);
 	}
-	puts("CONCHITO has exit the work place");
+	printf("CONCHITO has exit the work place\n");
 	free_env(nb_args, data);
 	clear_history();
 }
