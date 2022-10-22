@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/21 17:18:06 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/22 16:32:04 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	add_value(t_args *d, char	*arg, char	**env_copy)
 		env_copy[i] = d->env[i];
 		i++;
 	}
+	clean_quotes(arg);
 	env_copy[i] = ft_calloc(ft_strlen(arg) + 1, sizeof(char));
 	if (!env_copy)
 		return (1);
