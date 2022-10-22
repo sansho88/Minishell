@@ -69,7 +69,7 @@ void	ft_echo(char *arg, t_args *d)
 	msg = "";
 	if (split_arg[n + 1])
 	{
-		msg = ft_strstr(arg, split_arg[n + 1]);
+		msg = ft_strstr(&arg[5], split_arg[n + 1]);
 		msg = clean_quotes(msg);
 	}
 	if (n == 0)

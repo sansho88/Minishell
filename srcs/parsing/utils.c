@@ -60,7 +60,7 @@ char	*ft_strstrchr(char *target, char **tab, size_t len)
 	while (tab[i])
 	{
 		envvars = ft_split(tab[i], '=');
-		if (envvars && envvars[0] && ft_strncmp(envvars[0], target, len) == 0)
+		if (envvars && envvars[0] && ft_strncmp(target, *envvars, len + 1) == 0)
 		{
 			free(envvars[0]);
 			result = ft_strjoin_free(result, envvars[1], 3);
