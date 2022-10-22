@@ -25,7 +25,7 @@ char	*get_stop_word(char **stop)
 	char	*result;
 
 	i = 0;
-	if (!stop || !*stop || !**stop)
+	if (!stop || !*stop || !**stop || ft_check_redir(*stop, *stop))
 		return (NULL);
 	result = ft_strdup(*stop);
 	if (!is_str_in_quotes(*stop, *stop, *stop + ft_strlen(*stop), '"') \

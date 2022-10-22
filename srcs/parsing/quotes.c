@@ -39,6 +39,8 @@ char	*clean_quotes(char *arg)
 	int	i;
 	int	j;
 
+	if (!arg)
+		return (NULL);
 	quote_mode = 0;
 	i = 0;
 	j = 0;

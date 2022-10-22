@@ -38,7 +38,7 @@ int	ft_check_redir(const char *chars, const char	*cmdline)
 		return (NOT_REDIR);
 }
 
-char	*create_first_targmode(char **args, size_t nb_args)
+char	*create_first_targmode(char **args)
 {
 	char		*base;
 	int			redir;
@@ -61,13 +61,13 @@ char	*create_first_targmode(char **args, size_t nb_args)
 			if (!base)
 				break ;
 		}
-		if ((++i > nb_args && redir) || (redir == 5 && !args[i - 1]))
+		if (++i > 1 && !args[i - 1])
 			break ;
 	}
 	return (base);
 }
 
-void	fill_targmode_array(t_argmode *res, char **args, size_t nb_args)
+void	fill_targmode_array(t_argmode *res, char **args)
 {
 	size_t	i;
 	int		j;
@@ -82,9 +82,9 @@ void	fill_targmode_array(t_argmode *res, char **args, size_t nb_args)
 		{
 			free(res[j + (mode == PIPE)].arg);
 			res[j + (mode == PIPE)].arg = create_first_targmode(
-					args + i + (mode == PIPE), nb_args);
+					args + i + (mode == PIPE));
 		}
-		if (mode >= PIPE && mode <= 5)
+		if (mode >= PIPE && mode <= HEREDOC)
 		{
 			res[j].mode = mode;
 			if (mode != PIPE && args[i + 1])
@@ -124,7 +124,7 @@ t_argmode	*create_targmode_array(char *cmdline)
 	args = ft_split_quotes(cmdline);
 	nb_seps = nb_seps_lui(args);
 	res = ft_calloc(nb_seps + 2, sizeof(t_argmode));
-	fill_targmode_array(res, args, nb_seps + 1);
+	fill_targmode_array(res, args);
 	free_array(args);
 	return (replace_heredocs(res, nb_seps + 1));
 }
