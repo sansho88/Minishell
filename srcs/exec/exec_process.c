@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 14:57:17 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/22 18:22:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@ char	*resolve_path(t_args *d, char **args)
 	int		j;
 
 	j = 0;
+	while (args[j])
+	{
+		clean_quotes(args[j]);
+		j++;
+	}
+	j = 0;
 	tmp = NULL;
 	if (access(args[0], F_OK | X_OK) == 0)
-	{
 		return (args[0]);
-	}
 	if (d->is_path_set == true)
 	{
 		while (d->path[j])
@@ -35,21 +39,4 @@ char	*resolve_path(t_args *d, char **args)
 		}
 	}
 	return (NULL);
-}
-
-void	execute(t_args *d, char **args)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	if (d->is_path_set)
-		tmp = resolve_path(d, args);
-	if (tmp && d->is_path_set == true)
-	{
-		args[0] = tmp;
-		execve(args[0], args, d->env);
-	}
-	else
-		printf("%s: command not found\n", args[0]);
-	exit(127);
 }
