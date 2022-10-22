@@ -98,7 +98,7 @@ bool	is_str_in_quotes(const char *str, const char *start, const char *end, \
 	nb_quotes = 0;
 	i = 0;
 	in_quotes = false;
-	while (str[i] && end != NULL && (&str[i] != end))
+	while (str && str[i] && end != NULL && (&str[i] != end))
 	{
 		nb_quotes += str[i] == quote;
 		if (&str[i] == start && nb_quotes % 2 == 1)

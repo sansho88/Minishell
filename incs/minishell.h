@@ -23,7 +23,7 @@
 
 //INCLUDE EXEC (i have to make it clean)
 # include <stdlib.h>
-# include <stdlib.h>
+# include <wait.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/types.h>
@@ -107,7 +107,7 @@ char		*clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);
-void		rl_replace_line(char *str, int idk);
+extern void rl_replace_line PARAMS((const char *, int));//void		rl_replace_line(char *str, int idk);
 //void	rl_clear_history(void);
 
 //CHECK_CMDLINE
@@ -125,7 +125,7 @@ bool		is_str_in_quotes(const char *str, \
 char		**init_env(char	**env);
 char		*get_next_valid_sep(char *str);
 char		*replace_dollars(char *cmd, char **env);
-char		*ft_strstrchr(char *target, char **tab, size_t len_target);
+char		*ft_strstrchr(char *target, char **tab, size_t len);
 
 //UTILS_CHECK_CMDLINE
 bool		is_char_inquotes(const char *cmdline, const char *target);
