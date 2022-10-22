@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 21:38:15 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/22 16:41:26 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_strstrchr(char *target, char **tab, size_t len)
 	while (tab[i])
 	{
 		envvars = ft_split(tab[i], '=');
-		if (envvars && envvars[0] && ft_strncmp(envvars[0], target, len) == 0)
+		if (envvars && envvars[0] && ft_strncmp(target, *envvars, len + 1) == 0)
 		{
 			free(envvars[0]);
 			result = ft_strjoin_free(result, envvars[1], 3);
