@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/23 17:41:14 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 18:19:26 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static bool	ft_check_all_args(char **args, size_t nb_args)
 	return (true);
 }
 
-void	ft_exit(t_argmode *argv)
+void	ft_exit(char	*argv)
 {
 	int		nb_args;
 	char	**args;
 
-	args = ft_split_len(argv->arg, ' ', &nb_args);
+	args = ft_split_len(argv, ' ', &nb_args);
 	while (args[nb_args])
 		nb_args++;
 	if (!args || nb_args <= 1)
@@ -59,6 +59,6 @@ int	exit_hub(t_args *d, t_argmode *argv)
 		make_fork_built_in(d, argv);
 		return (0);
 	}
-	ft_exit(argv);
+	ft_exit(argv[d->acutal_arg].arg);
 	return (0);
 }

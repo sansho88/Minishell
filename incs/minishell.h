@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/23 16:03:49 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 18:17:08 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_arguments
 int			myerrno;
 
 // UTILS
+extern unsigned long rl_readline_state;
 void		debug_t_argmode(t_argmode *args, int nb_arg);
 void		free_t_argmode(t_argmode *args, size_t *nb_args);
 char		*ft_strreplace(char *str, char *to_insert, int pos, \
@@ -196,7 +197,7 @@ int			cd_args_count(char **arg);
 void		cd_back_sort_pwd(t_args *d, int len, char **pwd_copy);
 /*==================*/
 /*	Exit Command	*/
-void		ft_exit(t_argmode *argv);
+void		ft_exit(char	*argv);
 int			exit_hub(t_args *d, t_argmode *argv);
 /*==================*/
 /*	Echo Command	*/
