@@ -21,38 +21,37 @@
 # include <readline/history.h>
 # include <signal.h>
 
-//INCLUDE EXEC (i have to make it clean)
+//INCLUDE EXEC
 # include <stdlib.h>
-//# include <wait.h>
-# include <stdio.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <string.h>
 # include <fcntl.h>
-# include <stdio.h>
+# include <wait.h>
 # include <termios.h>
-# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 //Defines
-# define NOT_REDIR 0
-# define PIPE 1
-# define REDIR_TO_OUT 2
-# define CONCAT_TO_OUT 3
-# define REDIR_TO_IN 4
-# define HEREDOC 5
 # define BUFFER_SIZE 4200
 # define CANONICAL_MODE 0x02040002
 
 # define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
 # define ERR_SYNTAX "\aConchito: syntax error"
 
+typedef enum mode {
+	NOT_REDIR,
+	PIPE,
+	REDIR_TO_OUT,
+	CONCAT_TO_OUT,
+	REDIR_TO_IN,
+	HEREDOC
+}	t_mode;
+
 //Structs PARSING
 typedef struct s_argmode{
 	char	*arg;
-	int		mode;
-	char 	*pure_arg; //will stock the quotted arg
+	t_mode	mode;
 	char	**args;
 }	t_argmode;
 
@@ -66,7 +65,6 @@ typedef struct s_arguments
 	pid_t	*pid;
 	int		j;
 	int		acutal_arg;
-	int		mod;
 	int		tube[2];
 	int		temp_tube[2];
 	int		redir_bck;
@@ -97,10 +95,10 @@ typedef struct s_arguments
  * get the last error number from the last program exited
  * @file FROM exec_hub.c -> dollars.c
  */
-int			myerrno;
+int			g_myerrno;
 
 // UTILS
-extern unsigned long rl_readline_state;
+//extern unsigned long rl_readline_state;
 void		debug_t_argmode(t_argmode *args, int nb_arg);
 void		free_t_argmode(t_argmode *args, size_t *nb_args);
 char		*ft_strreplace(char *str, char *to_insert, int pos, \
@@ -122,7 +120,6 @@ bool		are_args_ok(t_argmode	*args, size_t *nb_args);
 int			ft_check_redir(const char *chars, const char	*cmdline);
 
 //QUOTES
-size_t		get_nb_quote(char *str, char quote);
 bool		is_str_in_quotes(const char *str, \
 			const char	*start, \
 			const char	*end, char quote);
@@ -175,7 +172,6 @@ void		check_if_last(t_args *d, t_argmode *argv);
 /*			Pipe Redirection Core						 */
 void		ft_backward(t_args *d, t_argmode *argv);
 void		ft_forward(t_args *d, t_argmode *argv);
-void		one_arg(t_args *d, t_argmode *argv);
 void		pipe_rebuild_first(t_args *d, t_argmode *argv);
 void		process_pipe_built_in(t_args *d, t_argmode *argv);
 void		pipe_rebuild_else(t_args *d, t_argmode *argv);
@@ -194,10 +190,9 @@ int			print_env(t_args *d);
 /*	Cd Command		*/
 int			cd_hub(t_argmode *args, t_args *d);
 int			cd_args_count(char **arg);
-void		cd_back_sort_pwd(t_args *d, int len, char **pwd_copy);
 /*==================*/
 /*	Exit Command	*/
-void		ft_exit(char	*argv);
+void		ft_exit(char *argv);
 int			exit_hub(t_args *d, t_argmode *argv);
 /*==================*/
 /*	Echo Command	*/
@@ -205,13 +200,11 @@ void 		ft_echo(char *arg);
 int			echo_hub(char *arg, t_args *d, t_argmode *args);
 /*==================*/
 /*	Pwd Command		*/
-int			set_pwd(t_args *d);
 void		ft_pwd(void);
 int			pwd_hub(t_argmode *args, t_args *d);
 /*==================*/
 /*	Export Command	*/
 void		sort_export_tab(t_args *d);
-void		sort_tab_exec(t_args *d);
 int			export_hub(t_argmode *args, t_args *d);
 int			is_valid(char	*arg);
 int			add_value(t_args *d, char	*arg, char	**env_copy);
