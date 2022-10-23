@@ -55,7 +55,6 @@ int	main(int argc, char *argv[], char	*env[])
 		sign_chars_manager(true);
 		if (!commandline)
 			break ;
-		//rl_redisplay();
 		if (*commandline)
 			add_history(commandline);
 		if (*commandline && is_cmdline_ok(&commandline, data.env))

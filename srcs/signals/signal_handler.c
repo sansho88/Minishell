@@ -12,20 +12,26 @@
 
 #include "../../incs/minishell.h"
 
-int	g_signal = 0;
-
 void	signal_handler(int signum)
 {
 	pid_t			mini_pid;
 
 	mini_pid = getpid();
-	g_signal = signum;
 	if (signum == SIGINT)
 	{
-		ft_putstr_fd("\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		if (rl_readline_state != CANONICAL_MODE)
+		{
+			ft_putstr_fd("\n", 1);
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
+		else
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+		}
 	}
 	else if (signum == SIGABRT)
 	{
