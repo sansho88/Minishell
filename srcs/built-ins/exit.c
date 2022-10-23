@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/23 17:34:22 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 17:41:14 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ void	ft_exit(t_argmode *argv)
 	if (!args || nb_args <= 1)
 		exit(0);
 	if (ft_check_all_args(args, nb_args))
-	{
 		exit (ft_atoi(args[1]) % 256);
-	}
 }
 
 int	exit_hub(t_args *d, t_argmode *argv)

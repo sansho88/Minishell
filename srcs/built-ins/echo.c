@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/23 17:35:03 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 17:42:04 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	echo_hub(char *arg, t_args *d, t_argmode *args)
 {
 	d->is_built_in = true;
 	if (d->append_pos != 0 || d->stdout_pos != 0 || \
-	args[d->acutal_arg].mode == 1)
+	args[d->acutal_arg].mode == 1 || d->is_piped == true)
 	{
 		d->is_redirect = true;
 		make_fork_built_in(d, args);

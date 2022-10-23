@@ -43,11 +43,10 @@
 # define REDIR_TO_IN 4
 # define HEREDOC 5
 # define BUFFER_SIZE 4200
-# define DBUG(VAR_TO_DEBUG) dprintf(2, "[%s]%s:%p\n"\
-, __func__, VAR_TO_DEBUG, VAR_TO_DEBUG);
+# define CANONICAL_MODE 0x02040002
 
 # define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
-# define ERR_SYNTAX "Conchito: syntax error"
+# define ERR_SYNTAX "\aConchito: syntax error"
 
 //Structs PARSING
 typedef struct s_argmode{

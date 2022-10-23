@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/23 17:36:12 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 17:41:36 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	free_process_pipe_built_in(t_args *d)
 void	process_pipe_built_in(t_args *d, t_argmode *argv)
 {
 	char	**args;
+	int 		i;
 
+	i = 0;
 	d->is_built_in = false;
 	args = ft_split(argv[d->acutal_arg].arg, ' ');
 	if (d->acutal_arg == 0)
@@ -38,8 +40,7 @@ void	process_pipe_built_in(t_args *d, t_argmode *argv)
 		ft_echo(argv[d->acutal_arg].arg);
 	else if (ft_strncmp(args[0], "pwd", 3) == 0)
 		ft_pwd();
-	else if (ft_strncmp(args[0], "exit", 4) == 0 && \
-	d->is_piped == false)
+	else if (ft_strncmp(args[0], "exit", 4) == 0)
 		ft_exit(argv);
 	free_all(args);
 	free_process_pipe_built_in(d);
