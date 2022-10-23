@@ -54,7 +54,7 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 	if (!is_str_in_quotes(cmd, start, start + len_end, '\''))
 	{
 		if (start[0] == '?' && len_end == 1)
-			return (ft_itoa(errno));
+			return (ft_itoa((myerrno / 2) % 127));
 		target = ft_strndup(start, len_end);
 		tmp = ft_strstrchr(target, env, len_end);
 		free(target);
