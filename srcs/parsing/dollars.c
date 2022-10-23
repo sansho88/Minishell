@@ -45,6 +45,7 @@ char	*get_next_valid_sep(char *str)
 char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 {
 	char	*tmp;
+	char	*target;
 
 	if (!env)
 		return (ft_strdup(""));
@@ -52,12 +53,12 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 	{
 		if (start[0] == '?' && len_end == 1)
 			return (ft_itoa(errno));
-		tmp = ft_strstrchr((char *)start, env, len_end);
+		target = ft_strndup(start, len_end);
+		tmp = ft_strstrchr(target, env, len_end);
+		free(target);
 		if ((tmp && ft_strlen(start) > 0))
 			return (tmp);
 		free(tmp);
-		/*if (*start == '$' && len_end == 0)
-			ft_strdup("$");*/
 	}
 	else if (len_end)
 		return (ft_strndup((char *)start - 1,

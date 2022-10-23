@@ -25,7 +25,6 @@ size_t	parse_and_execute(char *commandline, t_args *data)
 	size_t		nb_args;
 	t_argmode	*args;
 
-	add_history(commandline);
 	args = create_targmode_array(commandline);
 	nb_args = 0;
 	while (args[nb_args].arg)
@@ -57,6 +56,8 @@ int	main(int argc, char *argv[], char	*env[])
 		if (!commandline)
 			break ;
 		//rl_redisplay();
+		if (*commandline)
+			add_history(commandline);
 		if (*commandline && is_cmdline_ok(&commandline, data.env))
 			nb_args = parse_and_execute(commandline, &data);
 		else
