@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/23 17:41:36 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 17:53:54 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	free_process_pipe_built_in(t_args *d)
 void	process_pipe_built_in(t_args *d, t_argmode *argv)
 {
 	char	**args;
-	int 		i;
 
-	i = 0;
 	d->is_built_in = false;
 	args = ft_split(argv[d->acutal_arg].arg, ' ');
 	if (d->acutal_arg == 0)
