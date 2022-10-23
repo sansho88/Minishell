@@ -53,9 +53,6 @@ t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args)
 	{
 		if (args[i].mode == HEREDOC)
 		{
-			if (args[i].arg[0] != '<')
-				ft_strlcpy(args[i].arg, args[i].arg, \
-					get_next_valid_sep(args[i].arg) - args[i].arg + 1);
 			stop = get_stop_word(&args[i + 1].arg);
 			free(args[i + 1].arg);
 			args[i + 1].arg = ft_heredoc(stop);
