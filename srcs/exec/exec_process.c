@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:11 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/22 18:48:51 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 11:27:18 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ char	*resolve_path(t_args *d, char **args)
 	char	*tmp;
 	int		j;
 
-	j = 0;
-	while (args[j])
+	j = -1;
+	while (args[++j])
 	{
 		if (!is_str_in_quotes(args[j], args[j], args[j], '\''))
 			clean_quotes(args[j]);
-		j++;
 	}
 	j = 0;
 	tmp = NULL;
