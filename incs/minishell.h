@@ -93,6 +93,12 @@ typedef struct s_arguments
 	bool	is_piped;
 }				t_args;
 
+/**
+ * get the last error number from the last program exited
+ * @file FROM exec_hub.c -> dollars.c
+ */
+int			myerrno;
+
 // UTILS
 void		debug_t_argmode(t_argmode *args, int nb_arg);
 void		free_t_argmode(t_argmode *args, size_t *nb_args);
