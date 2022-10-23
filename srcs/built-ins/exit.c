@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/19 15:58:09 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 17:34:22 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,11 @@ static bool	ft_check_all_args(char **args, size_t nb_args)
 	return (true);
 }
 
-void	ft_exit(t_args *d, t_argmode *argv)
+void	ft_exit(t_argmode *argv)
 {
 	int		nb_args;
 	char	**args;
 
-	d->is_built_in = true;
 	args = ft_split_len(argv->arg, ' ', &nb_args);
 	while (args[nb_args])
 		nb_args++;
@@ -62,6 +61,6 @@ int	exit_hub(t_args *d, t_argmode *argv)
 		make_fork_built_in(d, argv);
 		return (0);
 	}
-	ft_exit(d, argv);
+	ft_exit(argv);
 	return (0);
 }

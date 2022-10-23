@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 15:31:09 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/23 17:35:03 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,13 @@ size_t	get_nb_opts_ok(char **all_args, size_t nb_args)
  *
  * @param arg
  */
-void	ft_echo(char *arg, t_args *d)
+void	ft_echo(char *arg)
 {
 	size_t		n;
 	char		**split_arg;
 	int			nb_args;
 	char		*msg;
 
-	d->is_built_in = true;
 	split_arg = ft_split_len(arg, ' ', &nb_args);
 	n = get_nb_opts_ok(split_arg, nb_args);
 	msg = "";
@@ -89,6 +88,6 @@ int	echo_hub(char *arg, t_args *d, t_argmode *args)
 		make_fork_built_in(d, args);
 		return (0);
 	}
-	ft_echo(arg, d);
+	ft_echo(arg);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe_built_in.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/20 14:59:59 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/23 17:36:12 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	process_pipe_built_in(t_args *d, t_argmode *argv)
 	else if (ft_strncmp(args[0], "env", 3) == 0)
 		print_env(d);
 	else if (ft_strncmp(args[0], "echo", 4) == 0)
-		ft_echo(argv[0].arg, d);
+		ft_echo(argv[d->acutal_arg].arg);
 	else if (ft_strncmp(args[0], "pwd", 3) == 0)
 		ft_pwd();
 	else if (ft_strncmp(args[0], "exit", 4) == 0 && \
 	d->is_piped == false)
-		ft_exit(d, argv);
+		ft_exit(argv);
 	free_all(args);
 	free_process_pipe_built_in(d);
 	exit(EXIT_SUCCESS);
