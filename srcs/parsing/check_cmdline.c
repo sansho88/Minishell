@@ -86,7 +86,8 @@ bool	is_cmdline_ok(char **cmdline, char **env)
 		return (false);
 	if (is_chars_orgy(*cmdline) \
 	|| ((redir == 2 || redir == 4) && ft_strlen(*cmdline) < 2) \
-	|| ((redir == 3) && ft_strlen(*cmdline) < 3))
+	|| ((redir == 3) && ft_strlen(*cmdline) < 3) \
+	|| **cmdline == '|')
 	{
 		printf(ERR_SYNTAX"\n");
 		return (false);
