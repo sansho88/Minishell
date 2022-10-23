@@ -49,6 +49,8 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 
 	if (!env)
 		return (ft_strdup(""));
+	if (len_end == 0)
+		return (ft_strdup("$"));
 	if (!is_str_in_quotes(cmd, start, start + len_end, '\''))
 	{
 		if (start[0] == '?' && len_end == 1)
