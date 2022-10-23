@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 17:37:58 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/23 16:03:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 //INCLUDE EXEC (i have to make it clean)
 # include <stdlib.h>
-# include <wait.h>
+//# include <wait.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/types.h>
@@ -107,7 +107,7 @@ char		*clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);
-extern void rl_replace_line PARAMS((const char *, int));//void		rl_replace_line(char *str, int idk);
+/*extern void rl_replace_line PARAMS((const char *, int))*/void		rl_replace_line(char *str, int idk);
 //void	rl_clear_history(void);
 
 //CHECK_CMDLINE
@@ -191,11 +191,11 @@ int			cd_args_count(char **arg);
 void		cd_back_sort_pwd(t_args *d, int len, char **pwd_copy);
 /*==================*/
 /*	Exit Command	*/
-void		ft_exit(t_args *d, t_argmode *argv);
+void		ft_exit(t_argmode *argv);
 int			exit_hub(t_args *d, t_argmode *argv);
 /*==================*/
 /*	Echo Command	*/
-void ft_echo(char *arg, t_args *d);
+void 		ft_echo(char *arg);
 int			echo_hub(char *arg, t_args *d, t_argmode *args);
 /*==================*/
 /*	Pwd Command		*/
