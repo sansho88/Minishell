@@ -38,9 +38,7 @@ void	free_t_argmode(t_argmode *args, size_t *nb_args)
 	while (i < *nb_args && args && args[i].arg)
 	{
 		free(args[i].arg);
-		free(args[i].pure_arg);
 		args[i].arg = NULL;
-		args[i].pure_arg = NULL;
 		args[i].mode = 0;
 		i++;
 	}
