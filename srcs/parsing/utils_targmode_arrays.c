@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 12:18:04 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:02:18 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -28,7 +28,7 @@ int	wordlen(const char *line)
 
 	quote_mode = 0;
 	i = -1;
-	while (line[++i] && (quote_mode != 0 || !ft_is_space(line[i])))
+	while (line && line[++i] && (quote_mode != 0 || !ft_is_space(line[i])))
 	{
 		quote_mode = convert_quote_mode(quote_mode, line[i]);
 		redir = ft_check_redir(line + i, line);
@@ -76,7 +76,7 @@ char	**ft_split_quotes(const char *line)
 	nwords = count_words(line);
 	args = ft_calloc(sizeof(char *), nwords + 1);
 	i = 0;
-	while (i < nwords)
+	while (args && i < nwords)
 	{
 		while (ft_is_space(*line))
 			++line;
@@ -84,12 +84,12 @@ char	**ft_split_quotes(const char *line)
 		args[i] = ft_strndup(line, len);
 		line += len;
 		++i;
+		args[i] = NULL;
 	}
-	args[i] = NULL;
 	return (args);
 }
 
-int	nb_seps_lui(char **args)
+int	get_nb_seps(char **args)
 {
 	int	i;
 	int	nb;
@@ -97,7 +97,7 @@ int	nb_seps_lui(char **args)
 
 	i = 0;
 	nb = 0;
-	while (args[i])
+	while (args && args[i])
 	{
 		redir = ft_check_redir(args[i], *args);
 		nb += (redir != 0);

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:20:22 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*create_first_targmode(char **args)
 	base = ft_strdup("");
 	while (base && args && args[i])
 	{
-		redir = ft_check_redir(args[i], args[i]);
+		redir = ft_check_redir(args[i], *args);
 		if (redir == PIPE)
 			break ;
 		if (redir >= REDIR_TO_OUT && redir <= HEREDOC)
@@ -75,9 +75,9 @@ void	fill_targmode_array(t_argmode *res, char **args)
 
 	i = 0;
 	j = 0;
-	while (args[i])
+	while (args && args[i])
 	{
-		mode = ft_check_redir(args[i], args[i]);
+		mode = ft_check_redir(args[i], *args);
 		if (i == 0 || mode == PIPE)
 		{
 			free(res[j + (mode == PIPE)].arg);
@@ -105,8 +105,8 @@ void	free_array(char **args)
 		i = 0;
 		while (args[i])
 			free(args[i++]);
+		free(args);
 	}
-	free(args);
 }
 
 /**
@@ -122,8 +122,12 @@ t_argmode	*create_targmode_array(char *cmdline)
 
 	res = NULL;
 	args = ft_split_quotes(cmdline);
-	nb_seps = nb_seps_lui(args);
+	if (!args)
+		return (NULL);
+	nb_seps = get_nb_seps(args);
 	res = ft_calloc(nb_seps + 2, sizeof(t_argmode));
+	if (!res)
+		return (NULL);
 	fill_targmode_array(res, args);
 	free_array(args);
 	return (replace_heredocs(res, nb_seps + 1));

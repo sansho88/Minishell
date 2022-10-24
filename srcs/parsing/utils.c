@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:41:42 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_strstrchr(char *target, char **tab, size_t len)
 
 	i = 0;
 	result = ft_strdup("");
-	while (tab[i])
+	while (result && tab && tab[i])
 	{
 		envvars = ft_split(tab[i], '=');
 		if (envvars && envvars[0] && ft_strncmp(target, *envvars, len + 1) == 0)

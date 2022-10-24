@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:57:01 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static bool	ft_check_all_args(char **args, size_t nb_args)
 	while (i < nb_args)
 	{
 		arg_trimmed = ft_strtrim(args[i++], " ");
+		if (!arg_trimmed)
+			exit(-1);
 		if (ft_strchr(arg_trimmed, ' ') != NULL || nb_args > 2)
 		{
 			printf("[Exit] -> Too many args\n");
@@ -42,8 +44,7 @@ void	ft_exit(char *argv, t_args *data)
 	char	**args;
 
 	args = ft_split_len(argv, ' ', &nb_args);
-	(void)data;
-	while (args[nb_args])
+	while (args && args[nb_args])
 		nb_args++;
 	if (!args || nb_args <= 1)
 	{

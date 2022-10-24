@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:53:01 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	check_if_set(t_args	*d, char	*arg)
 
 	i = 0;
 	d->needle = ft_strjoin(arg, "=");
+	if (!d->needle)
+		return (0);
 	while (d->env[i])
 	{
 		if (ft_strncmp(d->env[i], d->needle, ft_strlen(d->needle)) == 0)
@@ -95,6 +97,8 @@ int	unset_hub(t_argmode *args, t_args *d)
 	d->is_built_in = true;
 	i = 1;
 	arg = ft_split(args->arg, ' ');
+	if (!arg)
+		return (0);
 	while (arg[i])
 	{
 		if (check_unset_arg(arg[i]) == 0)

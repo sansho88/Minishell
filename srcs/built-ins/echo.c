@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 15:20:21 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/23 17:43:46 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	ft_echo(char *arg)
 	char		*msg;
 
 	split_arg = ft_split_len(arg, ' ', &nb_args);
+	if (!split_arg)
+		return ;
 	n = get_nb_opts_ok(split_arg, nb_args);
 	msg = "";
 	if (split_arg[n + 1])

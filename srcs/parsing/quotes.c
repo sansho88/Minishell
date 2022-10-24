@@ -6,32 +6,11 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:28:43 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:45:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-void	switch_inquotes(char c, size_t *i, bool *in_quotes, char *between)
-{
-	if (c == *between)
-	{
-		*in_quotes = !*in_quotes;
-		(*i)++;
-	}
-	else if (c == '\"' && !*in_quotes)
-	{
-		*between = '\"';
-		*in_quotes = !*in_quotes;
-		(*i)++;
-	}
-	else if (c == '\'' && !*in_quotes)
-	{
-		*between = '\'';
-		*in_quotes = !*in_quotes;
-		(*i)++;
-	}
-}
 
 char	*clean_quotes(char *arg)
 {
@@ -67,7 +46,7 @@ bool	are_quotes_closed(const char *cmdline)
 	nb_single_quotes = 0;
 	nb_double_quotes = 0;
 	i = 0;
-	while (cmdline[i])
+	while (cmdline && cmdline[i])
 	{
 		if (cmdline[i] == '"' && nb_single_quotes % 2 == 0)
 			nb_double_quotes++;

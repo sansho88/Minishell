@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,22 @@ void	data_initialize(t_args *d, int argc)
 	getcwd(d->pwd, BUFFER_SIZE);
 }
 
+void	manage_errno(void)
+{
+	if (WIFEXITED(g_myerrno))
+		g_myerrno = WEXITSTATUS(g_myerrno);
+	else if (WIFSIGNALED(g_myerrno))
+		g_myerrno = 128 + WTERMSIG(g_myerrno);
+	else
+		g_myerrno = 0;
+}
+
 int	exec_home(t_argmode *argv, int argc, t_args *d)
 {
 	int	i;
 	int	rl_stdin;
 
 	rl_stdin = dup(0);
-	i = 0;
 	data_initialize(d, argc);
 	pwd_set(d);
 	path_hub(d);
@@ -88,6 +97,7 @@ int	exec_home(t_argmode *argv, int argc, t_args *d)
 	while (i < d->argc)
 	{
 		waitpid(d->pid[i], &g_myerrno, 0);
+		manage_errno();
 		i++;
 	}
 	free(d->pid);

@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 11:13:58 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:36:37 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	*ft_new_heredocname(int *nb_created)
 	if (!filename || !str_nb)
 		perror(HEREDOC_ERROR);
 	filename = ft_strjoin_free(filename, str_nb, 3);
-	filename = ft_strjoin_free(filename, ".txt", 1);
+	if (filename)
+		filename = ft_strjoin_free(filename, ".txt", 1);
 	str_nb = NULL;
 	return (filename);
 }
@@ -44,7 +45,7 @@ char	*ft_heredoc(char *stop)
 		perror(HEREDOC_ERROR);
 	printf("STOP is [%s]\n", stop);
 	input = ft_strdup("");
-	while (ft_strncmp(input, stop, ft_strlen(stop) + 1) != 0)
+	while (input && ft_strncmp(input, stop, ft_strlen(stop) + 1) != 0)
 	{
 		free(input);
 		input = readline("> ");
@@ -52,7 +53,8 @@ char	*ft_heredoc(char *stop)
 			break ;
 		ft_putendl_fd(input, fd);
 	}
-	free(input);
+	if (input)
+		free(input);
 	close(fd);
 	return (filename);
 }

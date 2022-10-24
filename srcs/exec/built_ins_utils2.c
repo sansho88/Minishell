@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:48:16 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ int	set_old_path(t_args *d)
 	int	j;
 
 	j = 0;
-	while (d->env[j])
+	while (d->env && d->env[j])
 	{
 		if (ft_strncmp("OLDPWD=", d->env[j], 7) == 0)
 			break ;
 		j++;
 	}
-	if (j < d->env_len)
+	if (d->env && j < d->env_len)
 	{
 		free(d->env[j]);
 		d->env[j] = ft_strdup("OLDPWD=");
-		d->env[j] = ft_strjoin_free(d->env[j], d->pwd, 1);
+		if (d->env[j])
+			d->env[j] = ft_strjoin_free(d->env[j], d->pwd, 1);
 	}
 	return (0);
 }
@@ -39,6 +40,8 @@ int	set_pwd(t_args *d)
 
 	i = 0;
 	len = 0;
+	if (!d->env)
+		return (0);
 	while (d->env[len])
 		len++;
 	while (d->env[i])
@@ -47,11 +50,12 @@ int	set_pwd(t_args *d)
 			break ;
 		i++;
 	}
-	if (i < len)
+	if (d->env && i < len)
 	{
 		free(d->env[i]);
 		d->env[i] = ft_strdup("PWD=");
-		d->env[i] = ft_strjoin_free(d->env[i], d->pwd, 1);
+		if (d->env[i])
+			d->env[i] = ft_strjoin_free(d->env[i], d->pwd, 1);
 	}
 	return (0);
 }

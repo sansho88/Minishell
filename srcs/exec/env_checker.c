@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:50:11 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ void	path_is_set(t_args *d, int pos)
 		i++;
 	}
 	d->path = ft_split(&d->env[pos][5], ':');
+	if (!d->path)
+		return ;
 	i = 0;
 	while (i < len)
 	{
 		d->path[i] = ft_strjoin_free(d->path[i], "/", 1);
+		if (!d->path)
+			return ;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 16:38:25 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:48:59 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -14,7 +14,7 @@
 /**
  *
  * @param str Start of the part of the str to test
- * @return the pos of the end's word, or the NULL terminating char
+ * @return the pos of the end's word, or the NULL terminating char [NO MALLOC]
  */
 char	*get_next_valid_sep(char *str)
 {
@@ -54,7 +54,7 @@ char	*get_env_var(char *cmd, const char *start, size_t len_end, char **env)
 	if (!is_str_in_quotes(cmd, start, start + len_end, '\''))
 	{
 		if (start[0] == '?' && len_end == 1)
-			return (ft_itoa(g_myerrno % 255));
+			return (ft_itoa(g_myerrno & 255));
 		target = ft_strndup(start, len_end);
 		tmp = ft_strstrchr(target, env, len_end);
 		free(target);
@@ -75,8 +75,12 @@ char	*update_cmdline(char **cmd, char *env_var, int offset, int len)
 	const size_t	env_var_len = ft_strlen(env_var);
 
 	tmp = ft_strdup(*cmd);
+	if (!tmp)
+		return (NULL);
 	free(*cmd);
 	*cmd = ft_strreplace(tmp, env_var, offset, len);
+	if (!*cmd)
+		return (NULL);
 	next_d = ft_strchr(*cmd + offset + env_var_len, '$');
 	if (len < 2)
 		next_d = NULL;

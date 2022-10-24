@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	erase_or_not(char	**env, char	*tmp, char	*arg, bool	value)
 	char	*tmp2;
 
 	tmp2 = ft_strjoin(tmp, "=");
-	if ((ft_strncmp(*env, tmp, ft_strlen(tmp)) == 0 \
-		&& ((*env)[ft_strlen(tmp)] == '=' || !(*env)[ft_strlen(tmp)])) || \
-		(ft_strncmp(*env, tmp2, ft_strlen(arg)) == 0 && \
+	if ((tmp2 && ft_strncmp(*env, tmp, ft_strlen(tmp)) == 0 \
+		&& ((*env)[ft_strlen(tmp)] == '=' || !(*env)[ft_strlen(tmp)]))
+		|| (ft_strncmp(*env, tmp2, ft_strlen(arg)) == 0 && \
 	!(*env)[ft_strlen(arg)]))
 	{
 		free(tmp2);
@@ -115,6 +115,8 @@ int	export_hub(t_argmode *args, t_args *d)
 		return (0);
 	}
 	arg = ft_split(args->arg, ' ');
+	if (!arg)
+		return (0);
 	check_arg(d, arg);
 	if (!arg[1])
 		sort_export_tab(d);

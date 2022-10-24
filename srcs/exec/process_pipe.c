@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,15 @@ void	process_pipe(t_args *d, t_argmode *argv)
 
 	tmp = NULL;
 	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
+	if (!args)
+		exit(EXIT_FAILURE);
 	tmp = resolve_path(d, args);
 	if (!args[0])
 		exit(127);
 	if (d->acutal_arg == 0 && args[0] == NULL)
 		exit(127);
 	if (d->acutal_arg == 0)
-	{
 		pipe_rebuild_first(d, argv);
-	}
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
 	if (!tmp && access(args[0], F_OK | X_OK) != 0)

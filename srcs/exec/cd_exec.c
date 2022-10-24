@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	cd_hub(t_argmode *args, t_args *d)
 
 	d->is_built_in = true;
 	arg = ft_split(args->arg, ' ');
+	if (!arg)
+		return (0);
 	args_nbr = cd_args_count(arg);
 	if (args_nbr == 2 && ft_strncmp("/", arg[1], 1) == 0)
 		direct_path(arg);

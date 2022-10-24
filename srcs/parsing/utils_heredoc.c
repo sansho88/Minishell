@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:01:37 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/21 15:30:59 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*get_stop_word(char **stop)
 	if (!stop || !*stop || !**stop || ft_check_redir(*stop, *stop))
 		return (NULL);
 	result = ft_strdup(*stop);
+	if (!result)
+		return (NULL);
 	if (!is_str_in_quotes(*stop, *stop, *stop + ft_strlen(*stop), '"') \
 	&& !is_str_in_quotes(*stop, *stop, *stop + ft_strlen(*stop), '\''))
 	{
@@ -49,7 +51,7 @@ t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args)
 	char	*stop;
 
 	i = 0;
-	while (i < nb_args)
+	while (args && i < nb_args)
 	{
 		if (args[i].mode == HEREDOC)
 		{
