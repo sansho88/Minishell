@@ -32,13 +32,13 @@ char	**init_env(char	**env)
 		return (NULL);
 	size_env = ft_tabstrlen(env);
 	new_env = ft_calloc(size_env + 1, sizeof(env));
-	if(!new_env)
+	if (!new_env)
 		exit(EXIT_FAILURE);
 	i = 0;
 	while (i < size_env)
 	{
 		new_env[i] = malloc(ft_strlen(env[i]) + 1);
-		if(!new_env[i])
+		if (!new_env[i])
 			exit(EXIT_FAILURE);
 		ft_strlcpy(new_env[i], env[i], ft_strlen(env[i]) + 1);
 		i++;

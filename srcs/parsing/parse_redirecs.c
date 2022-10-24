@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 14:30:14 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 11:52:46 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*create_first_targmode(char **args)
 		if (++i > 1 && !args[i - 1])
 			break ;
 	}
-	return (base);
+	return (ft_del_last_space(base));
 }
 
 void	fill_targmode_array(t_argmode *res, char **args)

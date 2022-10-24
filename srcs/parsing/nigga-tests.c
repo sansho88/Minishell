@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:08:12 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 17:12:26 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/24 13:16:44 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ size_t	parse_and_execute(char *commandline, t_args *data)
 	nb_args = 0;
 	while (args[nb_args].arg)
 		++nb_args;
-	//debug_t_argmode(args, (int)nb_args);
 	if (are_args_ok(args, &nb_args))
+	{
+		get_signals(true);
 		exec_home(args, (int)nb_args, data);
+	}
 	free_t_argmode(args, &nb_args);
 	free(commandline);
 	commandline = NULL;
@@ -46,10 +48,10 @@ int	main(int argc, char *argv[], char	*env[])
 
 	(void)argc;
 	(void)argv;
-	get_signals();
 	data.env = init_env(env);
 	while (true)
 	{
+		get_signals(false);
 		sign_chars_manager(false);
 		commandline = readline(CONCHITO);
 		sign_chars_manager(true);
