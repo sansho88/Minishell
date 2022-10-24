@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:52:03 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 16:11:29 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,17 @@ int	ft_dup2(int a, int b)
 		exit(127);
 	}
 	return (fd);
+}
+
+void	free_all(char **str)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }

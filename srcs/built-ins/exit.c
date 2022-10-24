@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:10:52 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 16:11:29 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,28 @@ static bool	ft_check_all_args(char **args, size_t nb_args)
 	return (true);
 }
 
-void	ft_exit(char	*argv)
+void	ft_exit(char *argv, t_args *data)
 {
 	int		nb_args;
 	char	**args;
 
 	args = ft_split_len(argv, ' ', &nb_args);
+	(void)data;
 	while (args[nb_args])
 		nb_args++;
 	if (!args || nb_args <= 1)
+	{
+		free_all(args);
+		if (!data->is_piped)
+			printf(BYE_CONCHITO);
 		exit(0);
+	}
 	if (ft_check_all_args(args, nb_args))
-		exit (ft_atoi(args[1]) % 256);
+	{
+		if (!data->is_piped)
+			printf(BYE_CONCHITO);
+		exit (((unsigned int)ft_atoi(args[1])) & 255);
+	}
 }
 
 int	exit_hub(t_args *d, t_argmode *argv)
@@ -59,6 +69,6 @@ int	exit_hub(t_args *d, t_argmode *argv)
 		make_fork_built_in(d, argv);
 		return (0);
 	}
-	ft_exit(argv[d->acutal_arg].arg);
+	ft_exit(argv[d->acutal_arg].arg, d);
 	return (0);
 }

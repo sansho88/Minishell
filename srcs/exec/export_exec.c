@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:03:03 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 16:11:29 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	is_already_set(t_args *d, char	*arg)
 	int	nb;
 
 	nb = is_valid(arg);
+	clean_quotes(arg);
 	if (nb < 0)
 	{
 		printf("%s : not a valid identifier\n", arg);

@@ -6,7 +6,7 @@ READLINE_INC := -I /Users/$(USER)/.brew/opt/readline/include
 FLAGS := -Wall -Werror -Wextra
 #FLAGS += -fsanitize=address -g3
 
-SRCS := srcs/parsing/main.c \
+SRCS := srcs/main.c \
 		srcs/parsing/parse_redirecs.c \
 		srcs/parsing/heredoc.c \
 		srcs/parsing/utils_heredoc.c \
@@ -18,7 +18,6 @@ SRCS := srcs/parsing/main.c \
 		srcs/signals/signal_handler.c \
 		srcs/parsing/utils_targmode_arrays.c \
 		srcs/exec/exec_hub.c \
-		srcs/exec/ft_split.c \
 		srcs/exec/env_checker.c \
 		srcs/exec/pipex_utils.c \
 		srcs/exec/exec_process.c \

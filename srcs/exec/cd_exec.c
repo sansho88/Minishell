@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 10:58:14 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 16:11:29 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,6 @@ int	fwd_to_directory(t_args *d, char **arg)
 	}
 	else
 		set_old_path(d);
-	return (0);
-}
-
-int	only_cd(t_args *d)
-{
-	char	**pwd_copy;
-	int		i;
-
-	i = 0;
-	set_old_path(d);
-	pwd_copy = ft_split(d->pwd, '/');
-	d->pwd = ft_strdup("/");
-	while (i < 2)
-	{
-		d->pwd = ft_strjoin_free(d->pwd, pwd_copy[i], 1);
-		if (i < 1)
-			d->pwd = ft_strjoin_free(d->pwd, "/", 1);
-		i++;
-	}
-	if (chdir(d->pwd) == -1)
-		return (1);
-	free(d->pwd);
-	free_all(pwd_copy);
 	return (0);
 }
 

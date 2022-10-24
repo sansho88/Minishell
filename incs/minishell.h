@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 16:11:29 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:17:37 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int			cd_hub(t_argmode *args, t_args *d);
 int			cd_args_count(char **arg);
 /*==================*/
 /*	Exit Command	*/
-void		ft_exit(char *argv);
+void ft_exit(char *argv, t_args *data);
 int			exit_hub(t_args *d, t_argmode *argv);
 /*==================*/
 /*	Echo Command	*/
