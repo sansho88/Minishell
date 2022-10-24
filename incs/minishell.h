@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/23 18:17:08 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/24 14:09:52 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <sys/types.h>
 # include <string.h>
 # include <fcntl.h>
-# include <wait.h>
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -111,7 +110,7 @@ char		*clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);
-/*extern void rl_replace_line PARAMS((const char *, int))*/void		rl_replace_line(char *str, int idk);
+void		rl_replace_line(char *str, int idk);
 //void	rl_clear_history(void);
 
 //CHECK_CMDLINE
@@ -145,6 +144,7 @@ t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);
 void		signal_handler(int signum);
 void		get_signals(void);
 void		sign_chars_manager(bool turn_on_save);
+extern unsigned long rl_readline_state;
 
 //FUNCTIONS EXEC
 /*					Minishell Execution	                          */
