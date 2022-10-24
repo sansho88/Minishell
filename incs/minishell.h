@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: tgriffit <tgriffit@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/23 18:17:08 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/24 14:48:16 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,17 @@
 
 //INCLUDE EXEC
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <string.h>
 # include <fcntl.h>
-# include <wait.h>
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 //Defines
 # define BUFFER_SIZE 4200
-# define CANONICAL_MODE 0x02040002
 
 # define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
 # define ERR_SYNTAX "\aConchito: syntax error"
@@ -80,7 +79,6 @@ typedef struct s_arguments
 	char	*pwd;
 	int		heredoc_pos;
 	char	*needle;
-	char	*path_backup;
 	int		pwd_len;
 	int		env_len;
 	bool	is_path_set;
@@ -98,21 +96,18 @@ typedef struct s_arguments
 int			g_myerrno;
 
 // UTILS
-//extern unsigned long rl_readline_state;
-void		debug_t_argmode(t_argmode *args, int nb_arg);
 void		free_t_argmode(t_argmode *args, size_t *nb_args);
 char		*ft_strreplace(char *str, char *to_insert, int pos, \
-int len_to_replace);
+			int len_to_replace);
 
 // FUNCTIONS PARSING
 t_argmode	*create_targmode_array(char *cmdline);
-size_t		get_nb_seps(const char *cmdline);
 char		*clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
 char		*ft_heredoc(char *stop);
 char		*ft_new_heredocname(int *nb_created);
-/*extern void rl_replace_line PARAMS((const char *, int))*/void		rl_replace_line(char *str, int idk);
-//void	rl_clear_history(void);
+void		rl_replace_line(char *str, int idk);
+char		*ft_del_last_space(char *str);
 
 //CHECK_CMDLINE
 bool		is_cmdline_ok(char **cmdline, char **env);
@@ -143,14 +138,15 @@ t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);
 
 //FUNCTIONS SIGNALS
 void		signal_handler(int signum);
-void		get_signals(void);
+void		get_signals(bool is_in_exec);
 void		sign_chars_manager(bool turn_on_save);
+void		signal_exec_handler(int signum);
 
 //FUNCTIONS EXEC
-/*					Minishell Execution	                          */
+/*		Minishell Execution	                          */
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/*			Minishell Core Exec	                          */
+/*		Minishell Core Exec	                         */
 void		process_pipe(t_args *d, t_argmode *argv);
 void		fork_process(t_args *d, t_argmode *argv);
 void		sorting_hub(t_args *d, t_argmode *argv);
@@ -169,18 +165,18 @@ int			set_heredoc(t_args *d, t_argmode *argv, int i, int file);
 void		is_append_or_heredoc(t_args *d);
 void		check_if_last(t_args *d, t_argmode *argv);
 /*********************************************************/
-/*			Pipe Redirection Core						 */
+/*			Pipe Redirection Core			 */
 void		ft_backward(t_args *d, t_argmode *argv);
 void		ft_forward(t_args *d, t_argmode *argv);
 void		pipe_rebuild_first(t_args *d, t_argmode *argv);
 void		process_pipe_built_in(t_args *d, t_argmode *argv);
 void		pipe_rebuild_else(t_args *d, t_argmode *argv);
 /*********************************************************/
-/*			Utils						 				 */
+/*			Utils			 				 */
 int			ft_dup2(int a, int b);
 void		free_all(char **str);
 /*********************************************************/
-/*			Built-ins Core								 */
+/*			Built-ins Core					 */
 void		make_fork_built_in(t_args *d, t_argmode *argv);
 void		is_piped(t_args *d, t_argmode *argv);
 /*	Env Command		*/
@@ -196,7 +192,7 @@ void		ft_exit(char *argv);
 int			exit_hub(t_args *d, t_argmode *argv);
 /*==================*/
 /*	Echo Command	*/
-void 		ft_echo(char *arg);
+void		ft_echo(char *arg);
 int			echo_hub(char *arg, t_args *d, t_argmode *args);
 /*==================*/
 /*	Pwd Command		*/
