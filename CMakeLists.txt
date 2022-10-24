@@ -92,5 +92,3 @@ add_executable(Minishell
         srcs/parsing/utils_targmode_arrays.c
         srcs/signals/signal_handler.c
         srcs/utils/init.c)
-
-target_link_libraries(Minishell readline)

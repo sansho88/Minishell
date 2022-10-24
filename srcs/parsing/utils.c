@@ -6,29 +6,11 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 13:48:29 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 11:22:13 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:11:29 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-void	debug_t_argmode(t_argmode *args, int nb_arg)
-{
-	int	i;
-
-	i = 0;
-	if (args == NULL)
-	{
-		dprintf(2, "[%s]The struct is NULL.\n", __func__);
-		return ;
-	}
-	while (i < nb_arg)
-	{
-		dprintf(1, "[%s]t_argmode->arg=%s__ t_argmode->mode=%d|addr=%p\n",
-			__func__, args[i].arg, args[i].mode, args->arg);
-		i++;
-	}
-}
 
 void	free_t_argmode(t_argmode *args, size_t *nb_args)
 {

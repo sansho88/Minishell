@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 12:18:04 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 14:18:13 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:11:29 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../incs/minishell.h"
@@ -38,7 +38,7 @@ int	wordlen(const char *line)
 				return ((redir == HEREDOC || redir == CONCAT_TO_OUT) + 1);
 			break ;
 		}
-		if (line[i] == '|')
+		if (redir == PIPE)
 		{
 			if (i == 0)
 				return (PIPE);
@@ -99,7 +99,7 @@ int	nb_seps_lui(char **args)
 	nb = 0;
 	while (args[i])
 	{
-		redir = ft_check_redir(args[i], args[i]);
+		redir = ft_check_redir(args[i], *args);
 		nb += (redir != 0);
 		++i;
 	}

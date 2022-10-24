@@ -63,7 +63,7 @@ OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all: $(NAME)
 
-%.o: %.c libft.h
+%.o: %.c libft.h Makefile
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
@@ -76,7 +76,7 @@ bonus: $(NAME) $(OBJS_BONUS)
 
 clean:
 	$(RM) $(OBJS) $(OBJS_BONUS)
-	@echo "Clean!"
+	@echo "Libft folder is cleaned!"
 
 fclean: clean
 	$(RM) $(NAME)
