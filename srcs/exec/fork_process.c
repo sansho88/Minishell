@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:41:35 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/23 17:29:09 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/24 14:14:02 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	fork_process(t_args *d, t_argmode *argv)
 	if (i != d->argc - 1)
 	{
 		if (pipe(d->tube) == -1)
-			perror("pipe is riped\n");
+			perror("pipe error\n");
 	}
 	is_built_in(d, argv);
 	if (d->is_built_in == false)

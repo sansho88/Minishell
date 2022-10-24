@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 23:35:48 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/22 16:46:14 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/10/24 14:11:15 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	set_back(t_args *d, t_argmode *argv, int i, int file)
 			file = open(argv[i + 1].arg, 0666);
 			if (file == -1)
 			{
-				dprintf(2, "%s : No such file or directory\n", argv[i + 1].arg);
+				printf("%s : No such file or directory\n", argv[i + 1].arg);
 				return (1);
 			}
 			i++;
