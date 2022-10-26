@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tgriffit <tgriffit@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 18:44:57 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/25 20:57:27 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 
 # define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
 # define ERR_SYNTAX "\aConchito: syntax error"
+# define BYE_CONCHITO "CONCHITO has exit the work place\n"
 
 typedef enum mode {
 	NOT_REDIR,
@@ -87,6 +88,10 @@ typedef struct s_arguments
 	char	**sort_env;
 	bool	is_unset;
 	bool	is_piped;
+	int		i_a;
+	int		j_args;
+	int		k_args;
+	char	**parsed;
 }				t_args;
 
 /**
@@ -101,10 +106,10 @@ char		*ft_strreplace(char *str, char *to_insert, int pos, \
 			int len_to_replace);
 
 // FUNCTIONS PARSING
-t_argmode	*create_targmode_array(char *cmdline);
+t_argmode	*create_targmode_array(char *cmdline, char **env);
 char		*clean_quotes(char *arg);
 bool		are_quotes_closed(const char *cmdline);
-char		*ft_heredoc(char *stop);
+char		*ft_heredoc(char *stop, char **env);
 char		*ft_new_heredocname(int *nb_created);
 void		rl_replace_line(char *str, int idk);
 char		*ft_del_last_space(char *str);
@@ -134,7 +139,7 @@ char		**ft_split_quotes(const char *line);
 int			get_nb_seps(char **args);
 
 //UTILS_HEREDOC
-t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args);
+t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args, char **env);
 
 //FUNCTIONS SIGNALS
 void		signal_handler(int signum);
@@ -155,6 +160,9 @@ int			exec_home(t_argmode *argv, int argc, t_args *d);
 void		path_hub(t_args *d);
 int			set_old_path(t_args *d);
 char		*resolve_path(t_args *d, char **args);
+char		**argv_parsing_init(char	*arg, t_args *d);
+void		argv_parsing_unquote(char *arg, t_args *d);
+char		**argv_parsing(char *arg, t_argmode *argv, t_args *d);
 /*********************************************************/
 /*			Set Redirections Core                        */
 int			set_back(t_args *d, t_argmode *argv, int i, int file);
@@ -188,7 +196,7 @@ int			cd_hub(t_argmode *args, t_args *d);
 int			cd_args_count(char **arg);
 /*==================*/
 /*	Exit Command	*/
-void ft_exit(char *argv, t_args *data);
+void		ft_exit(char *argv, t_args *data);
 int			exit_hub(t_args *d, t_argmode *argv);
 /*==================*/
 /*	Echo Command	*/
