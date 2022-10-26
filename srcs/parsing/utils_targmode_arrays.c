@@ -53,7 +53,7 @@ int	count_words(const char *line)
 	int	nwords;
 
 	nwords = 0;
-	while (*line)
+	while (line && *line)
 	{
 		while (ft_is_space(*line))
 			++line;

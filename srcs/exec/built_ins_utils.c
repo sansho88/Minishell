@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:27 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 17:08:55 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:52:20 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	sort_export_tab(t_args *d)
 	{
 		while (j < d->env_len - 1 - i)
 		{
-			if (strcmp(d->sort_env[j], d->sort_env[j + 1]) > 0)
+			if (ft_strncmp(d->sort_env[j], d->sort_env[j + 1], \
+			ft_strlen(d->sort_env[j]) + ft_strlen(d->sort_env[j + 1])) > 0)
 				sorting_tab(d, j);
 			j++;
 		}

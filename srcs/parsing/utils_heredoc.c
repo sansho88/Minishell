@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:01:37 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/21 15:30:59 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/25 21:40:27 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_stop_word(char **stop)
 	return (result);
 }
 
-t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args)
+t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args, char	**env)
 {
 	size_t	i;
 	char	*stop;
@@ -57,7 +57,7 @@ t_argmode	*replace_heredocs(t_argmode *args, size_t nb_args)
 		{
 			stop = get_stop_word(&args[i + 1].arg);
 			free(args[i + 1].arg);
-			args[i + 1].arg = ft_heredoc(stop);
+			args[i + 1].arg = ft_heredoc(stop, env);
 			free(stop);
 		}
 		i++;

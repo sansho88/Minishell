@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:02:34 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 13:22:56 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:07:01 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,8 @@ bool	are_args_ok(t_argmode	*args, size_t *nb_args)
 	{
 		if (!args[i].arg || (!*args[i].arg && args[i].mode == PIPE) \
 		|| ft_check_redir(args[i].arg, args[i].arg) \
-			|| ((args[i].mode == HEREDOC) && !args[i + 1].arg)
-			|| ((args[i].mode != NOT_REDIR) && args[i + 1].arg \
-											&& !*args[i + 1].arg))
+			|| (((args[i].mode > NOT_REDIR) && !args[i + 1].arg)) \
+			|| (args[i].mode == HEREDOC && !args[i + 1].arg))
 		{
 			ft_putendl_fd(ERR_SYNTAX, 2);
 			free_t_argmode(args, nb_args);

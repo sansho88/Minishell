@@ -36,7 +36,7 @@ SRCS := srcs/main.c \
 		srcs/exec/set_redirection.c \
 		srcs/exec/exec_utils.c \
 		srcs/exec/process_pipe_built_in.c \
-		srcs/exec/built_ins_utils2.c\
+		srcs/exec/cd_utils.c\
 
 
 OBJS := $(SRCS:.c=.o)
@@ -44,7 +44,7 @@ OBJS := $(SRCS:.c=.o)
 all: libftmake $(NAME)
 
 %.o: %.c incs/minishell.h Makefile $(LIBFT)
-	@gcc -c $< $(FLAGS) -o $@
+	@gcc $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) Makefile
 	@gcc $(LIBFT) $(READLINE_LIB) $(FLAGS) $(READLINE_INC) $(OBJS) -L $(LIBFT_PATH) -lft -o $(NAME)

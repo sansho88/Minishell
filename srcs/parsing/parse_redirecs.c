@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 17:38:42 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 18:20:22 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/25 21:38:26 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	free_array(char **args)
  * @param cmdline
  * @return
  */
-t_argmode	*create_targmode_array(char *cmdline)
+t_argmode	*create_targmode_array(char *cmdline, char **env)
 {
 	t_argmode	*res;
 	char		**args;
@@ -130,5 +130,5 @@ t_argmode	*create_targmode_array(char *cmdline)
 		return (NULL);
 	fill_targmode_array(res, args);
 	free_array(args);
-	return (replace_heredocs(res, nb_seps + 1));
+	return (replace_heredocs(res, nb_seps + 1, env));
 }

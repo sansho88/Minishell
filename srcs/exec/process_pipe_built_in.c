@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_pipe_built_in.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:02:55 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	process_pipe_built_in(t_args *d, t_argmode *argv)
 		pipe_rebuild_first(d, argv);
 	else if (d->acutal_arg != 0)
 		pipe_rebuild_else(d, argv);
-	if (ft_strncmp(args[0], "export", 6) == 0)
+	if (ft_strncmp(args[0], "export", 6) == 0 && !args[1])
 		sort_export_tab(d);
 	else if (ft_strncmp(args[0], "env", 3) == 0)
 		print_env(d);

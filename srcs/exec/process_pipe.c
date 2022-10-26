@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 23:29:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:40:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,10 @@ void	pipe_rebuild_else(t_args *d, t_argmode *argv)
 void	process_pipe(t_args *d, t_argmode *argv)
 {
 	char	**args;
-	int		argc;
 	char	*tmp;
 
 	tmp = NULL;
-	args = ft_split_len(argv[d->acutal_arg].arg, ' ', &argc);
+	args = argv_parsing(argv[d->acutal_arg].arg, argv, d);
 	if (!args)
 		exit(EXIT_FAILURE);
 	tmp = resolve_path(d, args);

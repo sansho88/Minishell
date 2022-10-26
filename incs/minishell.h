@@ -6,7 +6,7 @@
 /*   By: tgriffit <tgriffit@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 15:10:33 by tgriffit          #+#    #+#             */
-/*   Updated: 2022/10/24 16:57:43 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:44:57 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 
 # define CONCHITO "[\001\033[1;32m\002Conchito \001\033[93m\002✗\001\033[0m\002]"
 # define ERR_SYNTAX "\aConchito: syntax error"
-# define BYE_CONCHITO "CONCHITO has exit the work place\n"
 
 typedef enum mode {
 	NOT_REDIR,
@@ -189,7 +188,7 @@ int			cd_hub(t_argmode *args, t_args *d);
 int			cd_args_count(char **arg);
 /*==================*/
 /*	Exit Command	*/
-void		ft_exit(char *argv, t_args *data);
+void ft_exit(char *argv, t_args *data);
 int			exit_hub(t_args *d, t_argmode *argv);
 /*==================*/
 /*	Echo Command	*/
