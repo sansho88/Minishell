@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:46:34 by rgeral            #+#    #+#             */
-/*   Updated: 2022/10/24 18:35:58 by tgriffit         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:36:55 by tgriffit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	manage_errno(void)
 	if (WIFEXITED(g_myerrno))
 		g_myerrno = WEXITSTATUS(g_myerrno);
 	else if (WIFSIGNALED(g_myerrno))
-		g_myerrno = 128 + WTERMSIG(g_myerrno);
+	{
+		if (g_myerrno != 1)
+			g_myerrno = 128 + WTERMSIG(g_myerrno);
+	}
 	else
 		g_myerrno = 0;
 }
